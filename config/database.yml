@@ -1,0 +1,7 @@
+development:
+  adapter: postgresql
+  pool: 5
+  timeout: 5000
+  database: icomposite_db
+  username: postgres
+  password: gpo1212
