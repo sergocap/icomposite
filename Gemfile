@@ -7,6 +7,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'cancan'
+gem "haml-rails"
 gem 'devise'
 gem 'pg', '~> 0.18.4'
 gem 'turbolinks'
