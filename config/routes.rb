@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
   root 'projects#index'
-  resources :projects
-
+  resources :projects, only: [:show]
+  namespace :manage do
+    resources :projects
+  end
 
 
 
