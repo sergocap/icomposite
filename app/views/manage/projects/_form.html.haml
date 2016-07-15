@@ -3,6 +3,10 @@
   = f.input :description
   = f.input :size_place_x
   = f.input :size_place_y
-  = f.input :image, input_html: { :class => 'image_load_button' }
-  = image_tag @project.image.url, class: 'js-image_upload'
+  .image_input_wrapper
+    = f.input :image, input_html: { :class => 'image_load_button' }
+  %button{ :type => 'button', :class => 'image_button' }= 'Выбрать изображение'
+  .image_edit_wrapper
+    = image_tag @project.image.url, class: 'js-image_upload'
+    %canvas{ :class => 'canvas' }
   = f.submit
