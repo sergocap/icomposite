@@ -8,10 +8,7 @@ class Manage::ProjectsController < Manage::ApplicationController
 
   def index
     @projects = Project.order(:id)
-
   end
-
-
 
   def create
     project = current_user.projects.new project_params
@@ -35,11 +32,13 @@ class Manage::ProjectsController < Manage::ApplicationController
     redirect_to manage_projects_path
   end
 
+  private
+
   def find_project
     @project = Project.find(params[:id])
   end
 
   def project_params
-    params.require(:project).permit(:title, :description)
+    params.require(:project).permit(:title, :description, :size_place_x, :size_place_y, :image)
   end
 end

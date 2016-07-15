@@ -1,2 +1,4 @@
 %h1= @project.title
 %p=  @project.description
+
+= render partial: 'manage/places/table', locals: { :places => @project.places }

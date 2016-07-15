@@ -7,7 +7,7 @@ class Ability
     when 'manage'
       can :manage, :all if user.admin?
     when nil
-      can :read, Project
+      can :read, :all
     end
 
     # The first argument to `can` is the action you are giving the user
