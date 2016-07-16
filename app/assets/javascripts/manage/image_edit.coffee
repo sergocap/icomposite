@@ -7,12 +7,10 @@
   context = canvas[0].getContext('2d')
   preview = $('.js-image_upload')
 
-  $('.project_size_place_x').on 'change', ->
+  $('.set_place_size_button').on 'click', ->
     draw_net(context)
-  $('.project_size_place_y').on 'change', ->
-    draw_net(context)
-  $('.image_load_button').on 'change', (e) ->
 
+  $('.image_load_button').on 'change', (e) ->
     file = $(this).prop('files')[0]
     if file.type.split('/')[0] == 'image'
       reader = new FileReader()

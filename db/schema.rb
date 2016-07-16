@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160715082515) do
+ActiveRecord::Schema.define(version: 20160716154416) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,10 @@ ActiveRecord::Schema.define(version: 20160715082515) do
     t.integer  "project_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "original_image_file_name"
+    t.string   "original_image_content_type"
+    t.integer  "original_image_file_size"
+    t.datetime "original_image_updated_at"
   end
 
   add_index "places", ["project_id"], name: "index_places_on_project_id", using: :btree
@@ -36,7 +40,6 @@ ActiveRecord::Schema.define(version: 20160715082515) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"

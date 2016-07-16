@@ -11,8 +11,9 @@ class Manage::ProjectsController < Manage::ApplicationController
   end
 
   def create
-    project = current_user.projects.new project_params
+    project = Project.new project_params
     if project.save
+      project.create_places
       redirect_to manage_projects_path
     else
       render :new
