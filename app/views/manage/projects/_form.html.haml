@@ -2,8 +2,8 @@
   = f.input :title
   = f.input :description
   - if params['action'] == 'new'
-    = f.input :size_place_x
-    = f.input :size_place_y
+    = f.input :size_place_x, input_html: { :max => 300, :min => 5, :value => 10 }
+    = f.input :size_place_y, input_html: { :max => 300, :min => 5, :value => 10 }
     .image_input_wrapper
       = f.input :image, input_html: { :class => 'image_load_button' }
     %button{ :type => 'button', :class => 'image_button' }= 'Выбрать изображение'
