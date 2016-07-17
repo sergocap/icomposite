@@ -5,9 +5,18 @@ class Project < ActiveRecord::Base
 
   def create_places
     img = Magick::Image.read(self.image.path)[0]
-    img = img.scale(134, 300)
-    img.write 'rree.png'
-
+    height = img.rows
+    width  = img.columns
+    (0...height).step(self.size_place_y).each_with_index do |y, index_y|
+      (0...width).step(self.size_place_x).each_with_index do |x, index_x|
+        img_place = img.crop(x, y, self.size_place_x, self.size_place_y)
+        file = Tempfile.new(['original_image', '.png'])
+        img_place.write(file.path)
+        self.places.create(:original_image => file, :x => index_x, :y => index_y)
+        file.close
+        file.unlink
+      end
+    end
   end
 
 
