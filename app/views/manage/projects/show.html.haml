@@ -1,4 +1,7 @@
-%h1= @project.title
-%p=  @project.description
+.project
+  .show
+    %h1= @project.title
+    %p=  @project.description
 
-= render partial: 'manage/places/table', locals: { :places => @project.places }
+    = image_tag @project.image.url
+    = render partial: '/regions/table', locals: { :regions => @project.regions }

@@ -13,7 +13,7 @@ class Manage::ProjectsController < Manage::ApplicationController
   def create
     project = Project.new project_params
     if project.save
-      project.create_places
+      project.generate_regions
       redirect_to manage_projects_path
     else
       render :new

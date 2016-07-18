@@ -1,3 +1,5 @@
-%ul
-  - @projects.each do |project|
-    %li= link_to project.title, project_path(project.id)
+.projects
+  %ul
+    - @projects.each do |project|
+      .project
+        %li= link_to project.title, project_path(project.id)

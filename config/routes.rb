@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
   root 'projects#index'
-  resources :projects, only: [:show]
+  resources :projects, only: [:show] do
+    resources :regions
+  end
   namespace :manage do
     resources :projects
   end

@@ -1,9 +1,12 @@
 class Project < ActiveRecord::Base
   has_many :places
+  has_many :regions
   has_attached_file :image, default_url: '/images/missing.png'
   validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
+  has_attached_file :preview, default_url: '/images/missing.png'
+  validates_attachment_content_type :preview, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
 
-  def create_places
+  def generate_places
     img = Magick::Image.read(self.image.path)[0]
     height = img.rows
     width  = img.columns
@@ -19,5 +22,42 @@ class Project < ActiveRecord::Base
     end
   end
 
+  def generate_regions
+    img = edit_original
+    height = img.rows
+    width =  img.columns
+    k = 10
+    (0...height).step(self.size_place_y * k).each_with_index do |y, index_y|
+      (0...width).step(self.size_place_x * k).each_with_index do |x, index_x|
+        region_height = self.size_place_y * k;
+        region_width = self.size_place_x * k;
+        img_region = img.crop(x, y, region_width, region_height)
+        file = Tempfile.new(['region_preview', '.png'])
+        img_region.write(file.path)
+        self.regions.create(:image => file, :preview => file, :x => index_x, :y => index_y)
+        file.close
+        file.unlink
+      end
+    end
+    generate_places
+  end
 
+  def edit_original
+    img = Magick::Image.read(self.image.path)[0]
+    height = (img.rows/self.size_place_y).to_i * self.size_place_y
+    width =  (img.columns/self.size_place_x).to_i * self.size_place_x
+    img = img.crop(0, 0, width, height)
+
+    drw = Magick::Draw.new
+    drw.stroke_opacity(0.2)
+    (0..height).step(self.size_place_y).each do |i|
+      drw.line(0, i, width, i)
+    end
+    (0..width).step(self.size_place_x).each do |i|
+      drw.line(i, 0, i, height)
+    end
+    drw.draw(img)
+    img = img.modulate(2)
+    img
+  end
 end
