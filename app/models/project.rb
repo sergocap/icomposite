@@ -34,12 +34,15 @@ class Project < ActiveRecord::Base
         img_region = img.crop(x, y, region_width, region_height)
         file = Tempfile.new(['region_preview', '.png'])
         img_region.write(file.path)
-        self.regions.create(:image => file, :preview => file, :x => index_x, :y => index_y)
+        self.regions.create(:image => file, :preview => file,
+                            :x => index_x, :y => index_y,
+                            :count_x => img_region.columns/self.size_place_x,
+                            :count_y => img_region.rows/self.size_place_y)
         file.close
         file.unlink
       end
     end
-    generate_places
+    #generate_places
   end
 
   def edit_original
@@ -48,16 +51,15 @@ class Project < ActiveRecord::Base
     width =  (img.columns/self.size_place_x).to_i * self.size_place_x
     img = img.crop(0, 0, width, height)
 
-    drw = Magick::Draw.new
-    drw.stroke_opacity(0.2)
-    (0..height).step(self.size_place_y).each do |i|
-      drw.line(0, i, width, i)
-    end
-    (0..width).step(self.size_place_x).each do |i|
-      drw.line(i, 0, i, height)
-    end
-    drw.draw(img)
-    img = img.modulate(2)
+    #drw = Magick::Draw.new
+    #drw.stroke_opacity(0.2)
+    #(0..height).step(self.size_place_y).each do |i|
+      #drw.line(0, i, width, i)
+    #end
+    #(0..width).step(self.size_place_x).each do |i|
+      #drw.line(i, 0, i, height)
+    #end
+    #drw.draw(img)
     img
   end
 end

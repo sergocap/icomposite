@@ -1,3 +1,3 @@
 .region
   .image
-    = image_tag @region.image
+    = render partial: 'places/table', locals: { :places => @region.places, :region => @region, :project => @region.project }

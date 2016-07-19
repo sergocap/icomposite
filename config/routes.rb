@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   devise_for :users
   root 'projects#index'
   resources :projects, only: [:show] do
-    resources :regions
+    resources :regions, only: [:show] do
+      resources :places
+    end
   end
   namespace :manage do
     resources :projects

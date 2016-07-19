@@ -1,8 +1,9 @@
 .places
-  %table
-    - (0...places.maximum(:y)).each do |y|
+  %table{ :background => region.image.url, :width => region.count_x * project.size_place_x, :height => region.count_y * project.size_place_y  }
+    - (0...region.count_y).each_with_index do |y, index_y|
       %tr
-        - (0...places.maximum(:x)).each do |x|
+        - (0...region.count_x).each_with_index do |x, index_x|
           %td
             .place
-            = image_tag places.where(:x => x, :y => y).first.original_image.url
+              = link_to content_tag(:div, '', :style => "height: #{project.size_place_y}px; width: #{project.size_place_x}px"),
+                new_project_region_place_path(project, region, :x => x, :y => y)
