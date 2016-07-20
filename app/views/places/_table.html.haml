@@ -5,5 +5,10 @@
         - (0...region.count_x).each_with_index do |x, index_x|
           %td
             .place
-              = link_to content_tag(:div, '', :style => "height: #{project.size_place_y}px; width: #{project.size_place_x}px"),
-                new_project_region_place_path(project, region, :x => x, :y => y)
+              - place = places.where(:x => index_x, :y => index_y).first
+              - if place.present?
+                = link_to content_tag(:img, '', :src => place.image.url, :style => "height: #{project.size_place_y}px; width: #{project.size_place_x}px"),
+                  edit_project_region_place_path(project, region, place)
+              - else
+                = link_to content_tag(:div, '', :style => "height: #{project.size_place_y}px; width: #{project.size_place_x}px"),
+                  new_project_region_place_path(project, region, :x => x, :y => y)

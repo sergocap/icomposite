@@ -16,6 +16,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'simple_form'
 gem 'paperclip'
 gem 'rmagick', '~> 2.15', '>= 2.15.2'
+gem 'jcrop-rails-v2', '~> 0.9.12.3'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
