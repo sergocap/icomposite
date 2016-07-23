@@ -22,10 +22,10 @@
 init_image_crop = ->
   showCoords = (c) ->
     console.log c
-    $('.place_crop_x').val(c.x)
-    $('.place_crop_y').val(c.y)
-    $('.place_crop_width').val(c.w)
-    $('.place_crop_height').val(c.h)
+    $('#place_crop_x').val(c.x)
+    $('#place_crop_y').val(c.y)
+    $('#place_crop_width').val(c.w)
+    $('#place_crop_height').val(c.h)
 
   $('.js-place_image_upload').Jcrop
     onChange: showCoords
