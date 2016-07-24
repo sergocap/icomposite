@@ -2,6 +2,10 @@
 
   init_image_crop()
 
+  $('#place_image').on 'change', ->
+    $(this).parents('form').append('<input id="crop" name="crop" type="hidden" value="true">').submit()
+    $(this).parents('form').submit()
+
   $('.place_image_button').on 'click', ->
     $('.place_image_load_button').click()
 
