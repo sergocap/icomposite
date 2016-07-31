@@ -15,8 +15,6 @@
     if file.type.split('/')[0] == 'image'
       reader = new FileReader()
       reader.onload = (e) ->
-        background = new Image()
-        background.src = e.target.result
         preview.attr('src', e.target.result)
         $('.image_edit_wrapper')[0].style.display = 'block'
         canvas.attr('width', preview.width())

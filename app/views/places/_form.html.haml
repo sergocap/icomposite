@@ -12,6 +12,6 @@
     = f.input :image, input_html: { :class => 'place_image_load_button button' }
   %button{ :type => 'button', :class => 'place_image_button button' }= 'Выбрать изображение'
   .place_image_edit_wrapper
-    = image_tag @place.image.url, class: 'js-place_image_upload'
+    = image_tag @place.image.url, class: 'js-place_image_upload', data: { ratioW: @region.project.size_place_x, ratioH: @region.project.size_place_y }
 
   = f.submit
