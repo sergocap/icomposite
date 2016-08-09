@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   root 'projects#index'
   resources :projects, only: [:show] do
     resources :regions, only: [:show] do
-      resources :places
+      resources :places do
+        get 'color_edit', :on => :member
+      end
     end
   end
   namespace :manage do

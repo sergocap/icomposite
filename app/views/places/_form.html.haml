@@ -13,5 +13,6 @@
   %button{ :type => 'button', :class => 'place_image_button button' }= 'Выбрать изображение'
   .place_image_edit_wrapper
     = image_tag @place.image.url, class: 'js-place_image_upload', data: { ratioW: @region.project.size_place_x, ratioH: @region.project.size_place_y }
+    = f.button :submit, name: 'color_edit', value: 'Редактировать цвет'
 
   = f.submit

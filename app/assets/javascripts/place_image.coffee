@@ -28,3 +28,16 @@ init_image_crop = (ratiow, ratioh)->
     aspectRatio: ratiow / ratioh
     onChange: showCoords
     onSelect: showCoords
+
+@init_place_color_edit = ->
+  img = $('.place_image')[0]
+  canvas = $('.canvas')
+  context = canvas[0].getContext('2d')
+  img.onload = ->
+    canvas.attr('width', img.width)
+    canvas.attr('height', img.height)
+    context.drawImage(img, 0, 0)
+
+
+
+

@@ -1,6 +1,6 @@
 class PlacesController < ApplicationController
   before_filter :find_region
-  before_filter :find_place, only: [:edit, :update]
+  before_filter :find_place, only: [:edit, :update, :color_edit]
 
   def new
     @place = Place.new
@@ -24,8 +24,12 @@ class PlacesController < ApplicationController
     if params[:crop]
       redirect_to edit_project_region_place_path(@region.project, @region, @place, place_params) and return
     end
-    #raise params.
+
     @place.crop_image
+    if params[:color_edit]
+      redirect_to color_edit_project_region_place_path(@region.project, @region, @place, place_params) and return
+    end
+
     redirect_to project_region_path(@region.project, @region)
   end
 
@@ -40,5 +44,9 @@ class PlacesController < ApplicationController
   def place_params
     params.require(:place).permit(:x, :y, :image,
                                   :crop_x, :crop_y, :crop_width, :crop_height)
+  end
+
+  def color_edit
+
   end
 end
