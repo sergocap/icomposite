@@ -1,8 +1,10 @@
 .place
   .color_edit
     = simple_form_for [@region.project, @region, @place] do |f|
+      = f.input :x, as: :hidden
+      = f.input :y, as: :hidden
       .image_edit_wrapper
         = image_tag @place.image.url, class: 'place_image'
         %canvas{ :class => 'canvas'}
 
-      = f.submit
+      = f.button :submit, :name => 'colored', :value => 'Применить цвет'

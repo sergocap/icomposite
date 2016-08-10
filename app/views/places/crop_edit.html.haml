@@ -1,0 +1,14 @@
+= stylesheet_link_tag "jquery.Jcrop"
+= javascript_include_tag "jquery.Jcrop"
+= simple_form_for [@region.project, @region, @place] do |f|
+  = f.input :x, as: :hidden
+  = f.input :y, as: :hidden
+  = f.input :crop_x, as: :hidden
+  = f.input :crop_y, as: :hidden
+  = f.input :crop_height, as: :hidden
+  = f.input :crop_width, as: :hidden
+
+  .place_image_edit_wrapper
+    = image_tag @place.image.url, class: 'js-image_crop', data: { ratioW: @region.project.size_place_x, ratioH: @region.project.size_place_y }
+
+  = f.button :submit, name: 'cropped', value: 'Обрезать'

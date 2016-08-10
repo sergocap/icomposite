@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :regions, only: [:show] do
       resources :places do
         get 'color_edit', :on => :member
+        get 'crop_edit',  :on => :member
       end
     end
   end
