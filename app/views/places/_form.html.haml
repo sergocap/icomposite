@@ -6,7 +6,7 @@
   .place_image_edit_wrapper
     = image_tag @place.image.url, class: 'js-place_image_upload'
     = f.button :submit, name: 'crop_edit',  value: 'Выбрать область'
-    = f.button :submit, name: 'color_edit', value: 'Редактировать цвет'
+    = f.button :submit, name: 'color_edit', value: 'Редактировать'
 
   %button{ :type => 'button', :class => 'place_image_button button' }= 'Выбрать изображение'
   = f.submit
