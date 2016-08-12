@@ -35,10 +35,20 @@
     setSelect: [0, 0, ratiow * 100, ratioh * 100]
 
 @init_place_color_edit = ->
-  img = $('.place_image')[0]
-  canvas = $('.canvas')
-  context = canvas[0].getContext('2d')
-  img.onload = ->
-    canvas.attr('width', img.width)
-    canvas.attr('height', img.height)
-    context.drawImage(img, 0, 0)
+  $('#saturate').on 'input', (e) ->
+    $('#filter_saturate').attr('values', $(this).val())
+  $('#r_component').on 'input', (e) ->
+    $('#filter_r').attr('slope', $(this).val())
+  $('#g_component').on 'input', (e) ->
+    $('#filter_g').attr('slope', $(this).val())
+  $('#b_component').on 'input', (e) ->
+    $('#filter_b').attr('slope', $(this).val())
+
+  $('#to_default_button').on 'click', ->
+    $('#filter_saturate').attr('values', 1)
+    $('#filter_r').attr('slope', 1)
+    $('#filter_g').attr('slope', 1)
+    $('#filter_b').attr('slope', 1)
+
+
+
