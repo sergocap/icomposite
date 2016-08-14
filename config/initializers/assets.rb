@@ -4,6 +4,8 @@
 Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( jquery.Jcrop.css  )
 Rails.application.config.assets.precompile += %w( jquery.Jcrop.js  )
+#Rails.application.config.assets.precompile += [/^[-_a-zA-Z0-9]*\..*/]
+#Rails.application.config.assets.precompile += [/.*\.css/]
 # Add additional assets to the asset load path
 # Rails.application.config.assets.paths << Emoji.images_path
 

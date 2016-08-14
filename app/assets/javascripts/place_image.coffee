@@ -35,13 +35,14 @@
     setSelect: [0, 0, ratiow * 100, ratioh * 100]
 
 @init_place_color_edit = ->
-  $('#saturate').on 'input', (e) ->
+  $('#saturate').on 'change', (e) ->
     $('#filter_saturate').attr('values', $(this).val())
-  $('#r_component').on 'input', (e) ->
+    console.log $(this).data('value')
+  $('#r_component').on 'change', (e) ->
     $('#filter_r').attr('slope', $(this).val())
-  $('#g_component').on 'input', (e) ->
+  $('#g_component').on 'change', (e) ->
     $('#filter_g').attr('slope', $(this).val())
-  $('#b_component').on 'input', (e) ->
+  $('#b_component').on 'change', (e) ->
     $('#filter_b').attr('slope', $(this).val())
 
   $('#to_default_button').on 'click', ->
@@ -49,6 +50,3 @@
     $('#filter_r').attr('slope', 1)
     $('#filter_g').attr('slope', 1)
     $('#filter_b').attr('slope', 1)
-
-
-
