@@ -10,6 +10,7 @@ class PlacesController < ApplicationController
     @place = @region.places.new(place_params)
 
     if @place.save
+      @place.update_size
       if editing_params?
         custom_redirect
       else
@@ -25,6 +26,7 @@ class PlacesController < ApplicationController
 
   def update
     @place.update_attributes(place_params)
+    @place.update_size
 
     if editing_params?
       custom_redirect
@@ -48,6 +50,7 @@ class PlacesController < ApplicationController
     end
 
     if params[:colored]
+      @place.svg_save
       redirect_to edit_project_region_place_path(@region.project, @region, @place, place_params) and return
     end
   end
@@ -67,6 +70,7 @@ class PlacesController < ApplicationController
 
   def place_params
     params.require(:place).permit(:x, :y, :image,
-                                  :crop_x, :crop_y, :crop_width, :crop_height)
+                                  :crop_x, :crop_y, :crop_width, :crop_height,
+                                  :saturate, :r_component, :g_component, :b_component)
   end
 end

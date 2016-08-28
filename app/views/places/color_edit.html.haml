@@ -4,27 +4,25 @@
       = f.input :x, as: :hidden
       = f.input :y, as: :hidden
       %span= 'Насыщенность'
-      %input{ class: 'color_input js-slider', id: :saturate, type: :text, data: { value: 1, min: 0, max: 5, step: 0.1 } }
+      %input{ class: 'color_input js-slider', name: 'place[saturate]', id: :saturate, type: :text, data: { value: 1, min: 0, max: 5, step: 0.1 } }
       %br
       %span= 'Красный'
-      %input{ class: 'color_input js-slider', id: :r_component, type: :text, data: { value: 1, min: 0, max: 5, step: 0.1 } }
+      %input{ class: 'color_input js-slider', name: 'place[r_component]', id: :r_component, type: :text, data: { value: 1, min: 0, max: 5, step: 0.1 } }
       %br
       %span= 'Зелёный'
-      %input{ class: 'color_input js-slider', id: :g_component, type: :text, data: { value: 1, min: 0, max: 5, step: 0.1 } }
+      %input{ class: 'color_input js-slider', name: 'place[g_component]', id: :g_component, type: :text, data: { value: 1, min: 0, max: 5, step: 0.1 } }
       %br
       %span= 'Синий'
-      %input{ class: 'color_input js-slider', id: :b_component, type: :text, data: { value: 1, min: 0, max: 5, step: 0.1 } }
+      %input{ class: 'color_input js-slider', name: 'place[b_component]', id: :b_component, type: :text, data: { value: 1, min: 0, max: 5, step: 0.1 } }
       %br
       %button{ :type => 'button', :id => 'to_default_button' }= 'Сбросить'
-      - width = Paperclip::Geometry.from_file(Paperclip.io_adapters.for(@place.image)).width
-      - height = Paperclip::Geometry.from_file(Paperclip.io_adapters.for(@place.image)).height
 
       .svg_wrapper
-        %svg{ class: 'filterPlace', :height => height, :width => width }
+        %svg{ class: 'filterPlace', :height => @place.image_height, :width => @place.image_width }
           %defs
             %filter{ id: 'fp1' }
 
-              %feColorMatrix{ id: 'filter_saturate', in: 'a1', type: 'saturate', values: '1' } #0..3
+              %feColorMatrix{ id: 'filter_saturate', type: 'saturate', values: '1' } #0..3
               %feComponentTransfer
                 %feFuncR{ id: 'filter_r', type: 'linear', slope: '1' }
                 %feFuncG{ id: 'filter_g', type: 'linear', slope: '1' }
