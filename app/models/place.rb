@@ -20,34 +20,30 @@ class Place < ActiveRecord::Base
   end
 
   def update_size
-    #raise Paperclip::Geometry.from_file(Paperclip.io_adapters.for(self.image)).height.to_i.inspect
     self.update_column(:image_width,  Paperclip::Geometry.from_file(Paperclip.io_adapters.for(self.image)).width.to_i)
     self.update_column(:image_height, Paperclip::Geometry.from_file(Paperclip.io_adapters.for(self.image)).height.to_i)
   end
 
   def svg_save
     svg_string = "
-          <svg class='filterPlace' height='#{self.image_height}' width='#{self.image_width}'>
+          <svg height='#{self.image_height}' width='#{self.image_width}'>
             <defs>
                   <filter id='fp1'>
                     <feComponentTransfer>
-                      <feFuncR id='filter_r' slope='#{r_component}' type='linear'></feFuncR>
-                      <feFuncG id='filter_g' slope='#{g_component}' type='linear'></feFuncG>
-                      <feFuncB id='filter_b' slope='#{b_component}' type='linear'></feFuncB>
+                      <feFuncR slope='#{r_component}' type='linear'></feFuncR>
+                      <feFuncG slope='#{g_component}' type='linear'></feFuncG>
+                      <feFuncB slope='#{b_component}' type='linear'></feFuncB>
                       <feFuncA type='identity'></feFuncA>
                     </feComponentTransfer>
-                    <feColorMatrix id='filter_saturate' type='saturate' values='#{saturate}'></feColorMatrix>
+                    <feColorMatrix type='saturate' values='#{saturate}'></feColorMatrix>
                   </filter>
             </defs>
-            <image class='svg_place_image' filter='url(#fp1)' height='#{self.image_height}' width='#{self.image_width}' xlink:href='#{self.image.path}'></image>
+            <image filter='url(#fp1)' height='100%' width='100%' xlink:href='#{self.image.path}'></image>
           </svg>"
-    img = Magick::Image.from_blob(svg_string){
-      self.format = 'SVG'
-    }
-    file = Tempfile.new(['image', '.png'])
-    img[0].write(file.path)
-    self.update_attribute(:image, file)
+    file = File.new('svg_temp.svg', 'w+')
+    File.write(file, svg_string)
+    system("inkscape -z -e #{self.image.path}  #{file.path}")
     file.close
-    file.unlink
+    File.delete(file)
   end
 end
