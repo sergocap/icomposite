@@ -1,9 +1,14 @@
 class PlacesController < ApplicationController
   before_filter :find_region
   before_filter :find_place, only: [:edit, :update, :color_edit, :crop_edit]
+  before_filter :find_place_original_image, only: [:edit, :color_edit, :crop_edit]
 
   def new
     @place = Place.new
+    @place_original_image = @region.place_original_images.where(["x = ? and y = ?", params[:x], params[:y]]).first
+    if @place_original_image.nil?
+      @place_original_image = PlaceOriginalImage.create(region_id: @region.id, x: params[:x], y: params[:y])
+    end
   end
 
   def create
@@ -22,11 +27,11 @@ class PlacesController < ApplicationController
   end
 
   def edit
+    @place.update_size
   end
 
   def update
     @place.update_attributes(place_params)
-    @place.update_size
 
     if editing_params?
       custom_redirect
@@ -66,6 +71,10 @@ class PlacesController < ApplicationController
 
   def find_place
     @place = Place.find(params['id'])
+  end
+
+  def find_place_original_image
+    @place_original_image = @region.place_original_images.where(["x = ? and y = ?", @place.x, @place.y]).first
   end
 
   def place_params

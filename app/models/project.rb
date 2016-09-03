@@ -30,7 +30,7 @@ class Project < ActiveRecord::Base
       (0...width).step(self.size_place_x * k).each_with_index do |x, index_x|
         region_height = self.size_place_y * k;
         region_width = self.size_place_x * k;
-        img_region = img.crop(x, y, region_width, region_height)
+        img_region = img.crop(x, y, region_width, region_height, true)
         file = Tempfile.new(['region_preview', '.png'])
         img_region.write(file.path)
         self.regions.create(:image => file, :preview => file,
@@ -47,7 +47,7 @@ class Project < ActiveRecord::Base
     img = Magick::Image.read(self.image.path)[0]
     height = (img.rows/self.size_place_y).to_i * self.size_place_y
     width =  (img.columns/self.size_place_x).to_i * self.size_place_x
-    img = img.crop(0, 0, width, height)
+    img = img.crop(0, 0, width, height, true)
 
     #drw = Magick::Draw.new
     #drw.stroke_opacity(0.2)

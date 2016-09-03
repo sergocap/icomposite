@@ -8,6 +8,7 @@
   = f.input :crop_height, as: :hidden
   = f.input :crop_width, as: :hidden
 
+  = image_tag @place_original_image.image.url, class: 'place_original_image'
   .place_image_edit_wrapper
     = image_tag @place.image.url, class: 'js-image_crop', data: { ratioW: @region.project.size_place_x, ratioH: @region.project.size_place_y }
 

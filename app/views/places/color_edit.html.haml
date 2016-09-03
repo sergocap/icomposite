@@ -20,6 +20,7 @@
       %br
       %button{ :type => 'button', :id => 'to_default_button' }= 'Сбросить'
 
+      = image_tag @place_original_image.image.url, class: 'place_original_image'
       .svg_wrapper
         %svg{ class: 'filterPlace', :height => @place.image_height, :width => @place.image_width }
           %defs
