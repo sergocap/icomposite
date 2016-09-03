@@ -71,6 +71,6 @@ class PlacesController < ApplicationController
   def place_params
     params.require(:place).permit(:x, :y, :image,
                                   :crop_x, :crop_y, :crop_width, :crop_height,
-                                  :saturate, :r_component, :g_component, :b_component)
+                                  :blur, :saturate, :r_component, :g_component, :b_component)
   end
 end

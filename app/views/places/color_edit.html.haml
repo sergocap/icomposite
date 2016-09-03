@@ -6,6 +6,9 @@
       %span= 'Насыщенность'
       %input{ class: 'color_input js-slider', name: 'place[saturate]', id: :saturate, type: :text, data: { value: 1, min: 0, max: 5, step: 0.1 } }
       %br
+      %span= 'Размытие'
+      %input{ class: 'color_input js-slider', name: 'place[blur]', id: :blur, type: :text, data: { value: 0, min: 0, max: 5, step: 0.1 } }
+      %br
       %span= 'Красный'
       %input{ class: 'color_input js-slider', name: 'place[r_component]', id: :r_component, type: :text, data: { value: 1, min: 0, max: 5, step: 0.1 } }
       %br
@@ -22,7 +25,8 @@
           %defs
             %filter{ id: 'fp1' }
 
-              %feColorMatrix{ id: 'filter_saturate', type: 'saturate', values: '1' } #0..3
+              %feColorMatrix{ id: 'filter_saturate', type: 'saturate', values: '1' }
+              %feGaussianBlur{ id: 'filter_blur', stddeviation: '0' }
               %feComponentTransfer
                 %feFuncR{ id: 'filter_r', type: 'linear', slope: '1' }
                 %feFuncG{ id: 'filter_g', type: 'linear', slope: '1' }

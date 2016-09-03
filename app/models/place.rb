@@ -1,6 +1,6 @@
 class Place < ActiveRecord::Base
   belongs_to :region
-  attr_accessor :crop_x, :crop_y, :crop_height, :crop_width, :saturate, :r_component, :g_component, :b_component
+  attr_accessor :crop_x, :crop_y, :crop_height, :crop_width, :blur, :saturate, :r_component, :g_component, :b_component
   validates :image, presence: true
   has_attached_file :image, default_url: '/images/missing.png'
   validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
@@ -26,7 +26,7 @@ class Place < ActiveRecord::Base
 
   def svg_save
     svg_string = "
-          <svg height='#{self.image_height}' width='#{self.image_width}'>
+          <svg height='#{image_height}' width='#{image_width}'>
             <defs>
                   <filter id='fp1'>
                     <feComponentTransfer>
@@ -36,6 +36,7 @@ class Place < ActiveRecord::Base
                       <feFuncA type='identity'></feFuncA>
                     </feComponentTransfer>
                     <feColorMatrix type='saturate' values='#{saturate}'></feColorMatrix>
+                    <feGaussianBlur stdDeviation='#{blur}'></feColorMatrix>
                   </filter>
             </defs>
             <image filter='url(#fp1)' height='100%' width='100%' xlink:href='#{self.image.path}'></image>
