@@ -12,9 +12,11 @@
       reader.onload = (e) ->
         $('.place_image_edit_wrapper')[0].style.display = 'block'
         preview.attr('src', e.target.result)
+        set_preview()
       reader.readAsDataURL(file)
     else
       $('.place_image_edit_wrapper')[0].style.display = 'none'
+      $('.preview_wrapper')[0].style.display = 'none'
       alert 'Выберите картинку'
 
 @init_image_crop = ->
@@ -22,6 +24,7 @@
   ratiow = preview.data().ratiow
   ratioh = preview.data().ratioh
   showCoords = (c) ->
+    set_crop_preview(c)
     $('#place_crop_x').val(c.x)
     $('#place_crop_y').val(c.y)
     $('#place_crop_width').val(c.w)
@@ -36,19 +39,51 @@
 
 @init_place_color_edit = ->
   $('#saturate').on 'change', (e) ->
-    $('#filter_saturate').attr('values', $(this).val())
+    $('.filter_saturate').attr('values', $(this).val())
   $('#blur').on 'change', (e) ->
-    $('#filter_blur')[0].setAttribute('stdDeviation', $(this).val())
+    for i in [0,1]
+      $('.filter_blur')[i].setAttribute('stdDeviation', $(this).val())
   $('#r_component').on 'change', (e) ->
-    $('#filter_r').attr('slope', $(this).val())
+    $('.filter_r').attr('slope', $(this).val())
   $('#g_component').on 'change', (e) ->
-    $('#filter_g').attr('slope', $(this).val())
+    $('.filter_g').attr('slope', $(this).val())
   $('#b_component').on 'change', (e) ->
-    $('#filter_b').attr('slope', $(this).val())
+    $('.filter_b').attr('slope', $(this).val())
 
   $('#to_default_button').on 'click', ->
-    $('#filter_saturate').attr('values', 1)
-    $('#filter_blur')[0].setAttribute('stdDeviation', 0)
-    $('#filter_r').attr('slope', 1)
-    $('#filter_g').attr('slope', 1)
-    $('#filter_b').attr('slope', 1)
+    $('.filter_saturate').attr('values', 1)
+    for i in [0,1]
+      $('.filter_blur')[i].setAttribute('stdDeviation', 0)
+    $('.filter_r').attr('slope', 1)
+    $('.filter_g').attr('slope', 1)
+    $('.filter_b').attr('slope', 1)
+
+set_crop_preview = (c) ->
+  preview_wrapper = $('.crop_preview_wrapper')
+  preview_img = $('.js-place_preview_image')
+  cropping_image = $('.js-image_crop')
+  k = preview_wrapper.data().w / c.w
+  w2 = cropping_image[0].width * k
+  h2 = cropping_image[0].height * k
+  x2 = c.x * k
+  y2 = c.y * k
+
+  preview_img.css
+    width: Math.round(w2) + 'px'
+    height: Math.round(h2) + 'px'
+    marginLeft: '-' + Math.round(x2) + 'px'
+    marginTop: '-' + Math.round(y2) + 'px'
+  true
+
+set_preview = ->
+  preview_wrapper = $('.preview_wrapper')
+  preview_wrapper[0].style.display = 'inline'
+  preview_img = $('.js-place_preview_image')
+  place_img = $('.js-place_image_upload')
+  preview_img.attr('src', place_img.attr('src'))
+  w = preview_wrapper.data().w
+  h = preview_wrapper.data().h
+  preview_img.css
+    width: Math.round(w) + 'px'
+    height: Math.round(h) + 'px'
+  true

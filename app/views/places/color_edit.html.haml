@@ -3,6 +3,37 @@
     = simple_form_for [@region.project, @region, @place] do |f|
       = f.input :x, as: :hidden
       = f.input :y, as: :hidden
+      = image_tag @place_original_image.image.url, class: 'place_original_image'
+
+      .svg_preview_wrapper{ style: "position: absolute; display: inline;" }
+        %svg{ class: 'filterPlace', :height => @region.project.size_place_x, :width => @region.project.size_place_y }
+          %defs
+            %filter{ id: 'fp1' }
+
+              %feColorMatrix{ class: 'filter_saturate', type: 'saturate', values: '1' }
+              %feGaussianBlur{ class: 'filter_blur', stddeviation: '0' }
+              %feComponentTransfer
+                %feFuncR{ class: 'filter_r', type: 'linear', slope: '1' }
+                %feFuncG{ class: 'filter_g', type: 'linear', slope: '1' }
+                %feFuncB{ class: 'filter_b', type: 'linear', slope: '1' }
+                %feFuncA{ type: 'identity' }
+
+          %image{ :height => '100%', :width => '100%', 'xlink:href' => @place.image.url, class: 'svg_place_image', filter: 'url(#fp1)' }
+
+      .svg_wrapper
+        %svg{ class: 'filterPlace', :height => @place.image_height, :width => @place.image_width }
+          %defs
+            %filter{ id: 'fp1' }
+
+              %feColorMatrix{ class: 'filter_saturate', type: 'saturate', values: '1' }
+              %feGaussianBlur{ class: 'filter_blur', stddeviation: '0' }
+              %feComponentTransfer
+                %feFuncR{ class: 'filter_r', type: 'linear', slope: '1' }
+                %feFuncG{ class: 'filter_g', type: 'linear', slope: '1' }
+                %feFuncB{ class: 'filter_b', type: 'linear', slope: '1' }
+                %feFuncA{ type: 'identity' }
+
+          %image{ :height => '100%', :width => '100%', 'xlink:href' => @place.image.url, class: 'svg_place_image', filter: 'url(#fp1)' }
       %span= 'Насыщенность'
       %input{ class: 'color_input js-slider', name: 'place[saturate]', id: :saturate, type: :text, data: { value: 1, min: 0, max: 5, step: 0.1 } }
       %br
@@ -19,21 +50,5 @@
       %input{ class: 'color_input js-slider', name: 'place[b_component]', id: :b_component, type: :text, data: { value: 1, min: 0, max: 5, step: 0.1 } }
       %br
       %button{ :type => 'button', :id => 'to_default_button' }= 'Сбросить'
-
-      = image_tag @place_original_image.image.url, class: 'place_original_image'
-      .svg_wrapper
-        %svg{ class: 'filterPlace', :height => @place.image_height, :width => @place.image_width }
-          %defs
-            %filter{ id: 'fp1' }
-
-              %feColorMatrix{ id: 'filter_saturate', type: 'saturate', values: '1' }
-              %feGaussianBlur{ id: 'filter_blur', stddeviation: '0' }
-              %feComponentTransfer
-                %feFuncR{ id: 'filter_r', type: 'linear', slope: '1' }
-                %feFuncG{ id: 'filter_g', type: 'linear', slope: '1' }
-                %feFuncB{ id: 'filter_b', type: 'linear', slope: '1' }
-                %feFuncA{ type: 'identity' }
-
-          %image{ :height => '100%', :width => '100%', 'xlink:href' => @place.image.url, class: 'svg_place_image', filter: 'url(#fp1)' }
 
       = f.button :submit, :name => 'colored', :value => 'Применить'

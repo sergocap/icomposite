@@ -1,9 +1,15 @@
 = simple_form_for [@region.project, @region, @place] do |f|
   = f.input :x, input_html: { :value => params['x'] }, as: :hidden
   = f.input :y, input_html: { :value => params['y'] }, as: :hidden
+
   .place_image_input_wrapper
     = f.input :image, input_html: { :class => 'place_image_load_button button' }
+
   = image_tag @place_original_image.image.url, class: 'place_original_image'
+
+  %div{data: {w: @region.project.size_place_x, h: @region.project.size_place_y}, class: 'preview_wrapper', style: "display: #{@place.image.path.nil? ? 'none' : 'inline' }; position: absolute;  width: #{@region.project.size_place_x}px; height: #{@region.project.size_place_y}px"}
+    = image_tag @place.image.url, class: 'js-place_preview_image', style: "width: #{@region.project.size_place_x}px; height: #{@region.project.size_place_y}px"
+
   .place_image_edit_wrapper
     = image_tag @place.image.url, class: 'js-place_image_upload'
     = f.button :submit, name: 'crop_edit',  value: 'Выбрать область'
