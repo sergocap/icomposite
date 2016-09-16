@@ -3,22 +3,23 @@
     = simple_form_for [@region.project, @region, @place] do |f|
       = f.input :x, as: :hidden
       = f.input :y, as: :hidden
-      = image_tag @place_original_image.image.url, class: 'place_original_image'
+      .previews_wrapper
+        = image_tag @place_original_image.image.url, class: 'place_original_image'
 
-      .svg_preview_wrapper{ style: "position: absolute; display: inline;" }
-        %svg{ class: 'filterPlace', :height => @region.project.size_place_x, :width => @region.project.size_place_y }
-          %defs
-            %filter{ id: 'fp1' }
+        .svg_preview_wrapper{ style: "width: #{@region.project.size_place_x}px; height: #{@region.project.size_place_y}px; position: absolute; display: inline-block;" }
+          %svg{ class: 'filterPlace', :width => @region.project.size_place_x, :height => @region.project.size_place_y }
+            %defs
+              %filter{ id: 'fp1' }
 
-              %feColorMatrix{ class: 'filter_saturate', type: 'saturate', values: '1' }
-              %feGaussianBlur{ class: 'filter_blur', stddeviation: '0' }
-              %feComponentTransfer
-                %feFuncR{ class: 'filter_r', type: 'linear', slope: '1' }
-                %feFuncG{ class: 'filter_g', type: 'linear', slope: '1' }
-                %feFuncB{ class: 'filter_b', type: 'linear', slope: '1' }
-                %feFuncA{ type: 'identity' }
+                %feColorMatrix{ class: 'filter_saturate', type: 'saturate', values: '1' }
+                %feGaussianBlur{ class: 'filter_blur', stddeviation: '0' }
+                %feComponentTransfer
+                  %feFuncR{ class: 'filter_r', type: 'linear', slope: '1' }
+                  %feFuncG{ class: 'filter_g', type: 'linear', slope: '1' }
+                  %feFuncB{ class: 'filter_b', type: 'linear', slope: '1' }
+                  %feFuncA{ type: 'identity' }
 
-          %image{ :height => '100%', :width => '100%', 'xlink:href' => @place.image.url, class: 'svg_place_image', filter: 'url(#fp1)' }
+            %image{ :height => '100%', :width => '100%', 'xlink:href' => @place.image.url, class: 'svg_place_image', filter: 'url(#fp1)' }
 
       .svg_wrapper
         %svg{ class: 'filterPlace', :height => @place.image_height, :width => @place.image_width }
