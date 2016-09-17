@@ -36,6 +36,7 @@ class PlacesController < ApplicationController
     if editing_params?
       custom_redirect
     else
+      @place.scaling_image
       redirect_to project_region_path(@region.project, @region)
     end
   end
