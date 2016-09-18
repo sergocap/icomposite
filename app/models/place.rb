@@ -6,11 +6,6 @@ class Place < ActiveRecord::Base
   validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
   has_attached_file :original_image, default_url: '/images/missing.png'
   validates_attachment_content_type :original_image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
-  before_update :region_generate_preview
-
-  def region_generate_preview
-    region.generate_preview
-  end
 
   def scaling_image
     img = Magick::Image.read(image.path)[0]
