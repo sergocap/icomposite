@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160903135659) do
+ActiveRecord::Schema.define(version: 20160924105958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,9 @@ ActiveRecord::Schema.define(version: 20160903135659) do
     t.string   "preview_content_type"
     t.integer  "preview_file_size"
     t.datetime "preview_updated_at"
+    t.integer  "region_height"
+    t.integer  "region_width"
+    t.integer  "count_places_in_line_regions"
   end
 
   create_table "regions", force: :cascade do |t|

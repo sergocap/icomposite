@@ -3,4 +3,5 @@
     %h1= @project.title
     %p= @project.description
 
-    = render partial: '/regions/table', locals: { :regions => @project.regions }
+    .project_wrapper
+      = render partial: '/regions/table', locals: { :regions => @project.regions }
