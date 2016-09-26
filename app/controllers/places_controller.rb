@@ -48,6 +48,7 @@ class PlacesController < ApplicationController
     end
 
     if params[:color_edit]
+      @place.update_size
       redirect_to color_edit_project_region_place_path(@region.project, @region, @place, place_params) and return
     end
 

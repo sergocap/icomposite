@@ -12,7 +12,6 @@
               %filter{ id: 'fp1' }
 
                 %feColorMatrix{ class: 'filter_saturate', type: 'saturate', values: '1' }
-                %feGaussianBlur{ class: 'filter_blur', stddeviation: '0' }
                 %feComponentTransfer
                   %feFuncR{ class: 'filter_r', type: 'linear', slope: '1' }
                   %feFuncG{ class: 'filter_g', type: 'linear', slope: '1' }
@@ -27,7 +26,6 @@
             %filter{ id: 'fp1' }
 
               %feColorMatrix{ class: 'filter_saturate', type: 'saturate', values: '1' }
-              %feGaussianBlur{ class: 'filter_blur', stddeviation: '0' }
               %feComponentTransfer
                 %feFuncR{ class: 'filter_r', type: 'linear', slope: '1' }
                 %feFuncG{ class: 'filter_g', type: 'linear', slope: '1' }
@@ -35,21 +33,20 @@
                 %feFuncA{ type: 'identity' }
 
           %image{ :height => '100%', :width => '100%', 'xlink:href' => @place.image.url, class: 'svg_place_image', filter: 'url(#fp1)' }
-      %span= 'Насыщенность'
-      %input{ class: 'color_input js-slider', name: 'place[saturate]', id: :saturate, type: :text, data: { value: 1, min: 0, max: 5, step: 0.1 } }
-      %br
-      %span= 'Размытие'
-      %input{ class: 'color_input js-slider', name: 'place[blur]', id: :blur, type: :text, data: { value: 0, min: 0, max: 5, step: 0.1 } }
-      %br
-      %span= 'Красный'
-      %input{ class: 'color_input js-slider', name: 'place[r_component]', id: :r_component, type: :text, data: { value: 1, min: 0, max: 5, step: 0.1 } }
-      %br
-      %span= 'Зелёный'
-      %input{ class: 'color_input js-slider', name: 'place[g_component]', id: :g_component, type: :text, data: { value: 1, min: 0, max: 5, step: 0.1 } }
-      %br
-      %span= 'Синий'
-      %input{ class: 'color_input js-slider', name: 'place[b_component]', id: :b_component, type: :text, data: { value: 1, min: 0, max: 5, step: 0.1 } }
-      %br
-      %button{ :type => 'button', :id => 'to_default_button' }= 'Сбросить'
+      .svg_controls
+        %span= 'Насыщенность'
+        %input{ class: 'color_input js-slider', name: 'place[saturate]', id: :saturate, type: :text, data: { value: 1, min: 0, max: 5, step: 0.1 } }
+        %br
+        %span= 'Красный'
+        %input{ class: 'color_input js-slider', name: 'place[r_component]', id: :r_component, type: :text, data: { value: 1, min: 0, max: 5, step: 0.1 } }
+        %br
+        %span= 'Зелёный'
+        %input{ class: 'color_input js-slider', name: 'place[g_component]', id: :g_component, type: :text, data: { value: 1, min: 0, max: 5, step: 0.1 } }
+        %br
+        %span= 'Синий'
+        %input{ class: 'color_input js-slider', name: 'place[b_component]', id: :b_component, type: :text, data: { value: 1, min: 0, max: 5, step: 0.1 } }
+        %br
 
-      = f.button :submit, :name => 'colored', :value => 'Применить'
+      .actions
+        %button{ :type => 'button', :id => 'to_default_button' }= 'Сбросить'
+        = f.button :submit, :name => 'colored', :value => 'Применить'

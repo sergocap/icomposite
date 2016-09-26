@@ -34,15 +34,11 @@
     aspectRatio: ratiow / ratioh
     onChange: showCoords
     onSelect: showCoords
-    allowSelect: false
-    setSelect: [0, 0, ratiow * 100, ratioh * 100]
+    setSelect: [0, 0, ratiow * 10, ratioh * 10]
 
 @init_place_color_edit = ->
   $('#saturate').on 'change', (e) ->
     $('.filter_saturate').attr('values', $(this).val())
-  $('#blur').on 'change', (e) ->
-    for i in [0,1]
-      $('.filter_blur')[i].setAttribute('stdDeviation', $(this).val())
   $('#r_component').on 'change', (e) ->
     $('.filter_r').attr('slope', $(this).val())
   $('#g_component').on 'change', (e) ->
@@ -52,8 +48,6 @@
 
   $('#to_default_button').on 'click', ->
     $('.filter_saturate').attr('values', 1)
-    for i in [0,1]
-      $('.filter_blur')[i].setAttribute('stdDeviation', 0)
     $('.filter_r').attr('slope', 1)
     $('.filter_g').attr('slope', 1)
     $('.filter_b').attr('slope', 1)

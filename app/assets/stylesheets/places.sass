@@ -24,10 +24,21 @@
     .place_image_edit_wrapper
       display: none
 
-  .js-place_image_upload, .svg_wrapper
+  .js-place_image_upload
     display: block
+    max-width:  1000px
+    max-height: 500px
 
 .crop_preview_wrapper
   display: inline
   overflow: hidden
   position: absolute
+
+.crop_edit, .color_edit
+  .place_image_edit_wrapper, .svg_wrapper
+    display: inline-block
+    max-width:  1000px
+    max-height: 500px
+    overflow: scroll
+
+

@@ -16,7 +16,7 @@ class Place < ActiveRecord::Base
   end
 
   def crop_image
-    unless crop_x.blank?
+    unless crop_height == '0' || crop_width == '0'
       img = Magick::Image.read(image.path)[0]
       img.crop!(crop_x.to_i, crop_y.to_i, crop_width.to_i, crop_height.to_i, true)
       file = Tempfile.new(['image', '.png'])
@@ -44,7 +44,6 @@ class Place < ActiveRecord::Base
                       <feFuncA type='identity'></feFuncA>
                     </feComponentTransfer>
                     <feColorMatrix type='saturate' values='#{saturate}'></feColorMatrix>
-                    <feGaussianBlur stdDeviation='#{blur}'></feColorMatrix>
                   </filter>
             </defs>
             <image filter='url(#fp1)' height='100%' width='100%' xlink:href='#{image.path}'></image>
