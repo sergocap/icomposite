@@ -14,6 +14,8 @@
       <%= link_to 'Войти', new_user_session_path %> или <%= link_to 'Зарегистрироваться', new_user_registration_path %>
     <% end %>
 
+    <%= breadcrumbs display_single_fragment: true, style: :bootstrap, separator: '' %>
+
     <%= yield %>
   </body>
 </html>

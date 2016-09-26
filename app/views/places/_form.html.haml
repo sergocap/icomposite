@@ -1,3 +1,4 @@
+- breadcrumb :place, @place_original_image
 = simple_form_for [@region.project, @region, @place] do |f|
   = f.input :x, input_html: { :value => params['x'] }, as: :hidden
   = f.input :y, input_html: { :value => params['y'] }, as: :hidden
