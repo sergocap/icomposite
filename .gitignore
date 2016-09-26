@@ -16,5 +16,7 @@
 !/log/.keep
 /tmp
 *.png
+*.swp
+erd.pdf
 *.jpg
 /public/assets

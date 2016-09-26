@@ -13,7 +13,7 @@ class PlaceOriginalImage < ActiveRecord::Base
     img.crop!(x1, y1, w, h, true)
     file = Tempfile.new(['image', '.png'])
     img.write(file.path)
-    self.update_attribute(:image, file)
+    update_attribute(:image, file)
     file.close
     file.unlink
   end
