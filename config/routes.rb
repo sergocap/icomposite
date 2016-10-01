@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   namespace :manage do
     resources :projects
   end
+  resources :users
 
 
 

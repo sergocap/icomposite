@@ -1,5 +1,6 @@
 class Place < ActiveRecord::Base
   belongs_to :region
+  belongs_to :user
   attr_accessor :crop_x, :crop_y, :crop_height, :crop_width, :blur, :saturate, :r_component, :g_component, :b_component
   validates :image, presence: true
   has_attached_file :image, default_url: '/images/missing.png'

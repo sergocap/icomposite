@@ -2,6 +2,7 @@
 = simple_form_for [@region.project, @region, @place] do |f|
   = f.input :x, input_html: { :value => params['x'] }, as: :hidden
   = f.input :y, input_html: { :value => params['y'] }, as: :hidden
+  = f.input :user_id, input_html: { :value => current_user.id }, as: :hidden
 
   .place_image_input_wrapper
     = f.input :image, input_html: { :class => 'place_image_load_button button' }

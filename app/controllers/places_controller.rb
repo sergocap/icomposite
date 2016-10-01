@@ -11,6 +11,10 @@ class PlacesController < ApplicationController
     end
   end
 
+  def show
+    @place = Place.find(params[:id])
+  end
+
   def create
     @place = @region.places.new(place_params)
 
@@ -81,7 +85,7 @@ class PlacesController < ApplicationController
   end
 
   def place_params
-    params.require(:place).permit(:x, :y, :image,
+    params.require(:place).permit(:x, :y, :image, :user_id,
                                   :crop_x, :crop_y, :crop_width, :crop_height,
                                   :blur, :saturate, :r_component, :g_component, :b_component)
   end
