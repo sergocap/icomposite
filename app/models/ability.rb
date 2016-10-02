@@ -19,6 +19,7 @@ class Ability
       cannot [:new, :edit, :destroy], Region
       can :read, :all
     end
+    can :manage, :all if user.admin?
 
     # The first argument to `can` is the action you are giving the user
     # permission to do.

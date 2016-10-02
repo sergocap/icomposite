@@ -29,7 +29,7 @@ class Manage::ProjectsController < Manage::ApplicationController
   end
 
   def destroy
-    @project.delete
+    @project.destroy
     redirect_to manage_projects_path
   end
 

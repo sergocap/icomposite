@@ -4,6 +4,12 @@ class Project < ActiveRecord::Base
   validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
   has_attached_file :preview, default_url: '/images/missing.png'
   validates_attachment_content_type :preview, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
+  before_destroy :destroy_attachments
+
+  def destroy_attachments
+    image.destroy
+    preview.destroy
+  end
 
   def generate_preview
     pimg = Magick::Image.read(image.path)[0]

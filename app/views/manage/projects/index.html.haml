@@ -5,5 +5,5 @@
         %div
           = link_to project.title, project_path(project.id)
           = link_to 'Редактировать', edit_manage_project_path(project.id)
-          = link_to 'Удалить', manage_project_path(project.id), method: 'DELETE', data: { :confirm => 'Вы уверены?' }
+          = link_to 'Удалить', manage_project_path(project.id), method: :delete, data: { :confirm => 'Вы уверены?' }
   = link_to 'Добавить', new_manage_project_path
