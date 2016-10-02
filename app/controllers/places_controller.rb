@@ -1,10 +1,12 @@
 class PlacesController < ApplicationController
+  load_and_authorize_resource :only => [:edit, :new, :update, :destroy]
   before_filter :find_region
-  before_filter :find_place, only: [:edit, :update, :color_edit, :crop_edit]
+  before_filter :find_place, only: [:edit, :update, :color_edit, :crop_edit, :destroy]
   before_filter :find_place_original_image, only: [:edit, :color_edit, :crop_edit]
 
+
   def new
-    @place = Place.new
+    @place = current_user.places.new
     @place_original_image = @region.place_original_images.where(["x = ? and y = ?", params[:x], params[:y]]).first
     if @place_original_image.nil?
       @place_original_image = PlaceOriginalImage.create(region_id: @region.id, x: params[:x], y: params[:y])
@@ -16,8 +18,8 @@ class PlacesController < ApplicationController
   end
 
   def create
-    @place = @region.places.new(place_params)
-
+    @place = current_user.places.new(place_params)
+    @place.region_id = @region.id
     if @place.save
       @place.update_size
       if editing_params?
@@ -41,9 +43,15 @@ class PlacesController < ApplicationController
     if editing_params?
       custom_redirect
     else
-      @place.region.generate_preview
+      @region.generate_preview
       redirect_to project_region_path(@region.project, @region)
     end
+  end
+
+  def destroy
+    @place.destroy
+    @region.generate_preview
+    redirect_to project_region_path(@region.project.id, @region.id)
   end
 
   def custom_redirect
@@ -85,7 +93,7 @@ class PlacesController < ApplicationController
   end
 
   def place_params
-    params.require(:place).permit(:x, :y, :image, :user_id,
+    params.require(:place).permit(:region_id, :x, :y, :image,
                                   :crop_x, :crop_y, :crop_width, :crop_height,
                                   :blur, :saturate, :r_component, :g_component, :b_component)
   end

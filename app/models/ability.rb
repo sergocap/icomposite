@@ -4,9 +4,19 @@ class Ability
   def initialize(user, namespace = nil)
     user ||= User.new
     case namespace
-    when 'manage'
-      can :manage, :all if user.admin?
     when nil
+
+      can :new, Place if user.persisted?
+      can [:edit, :update, :destroy], Place do |place|
+        user.persisted? && place.user == user
+      end
+
+      can [:edit, :update, :destroy], User do |profile|
+        profile == user
+      end
+
+      cannot [:new, :edit, :destroy], Project
+      cannot [:new, :edit, :destroy], Region
       can :read, :all
     end
 

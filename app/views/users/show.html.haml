@@ -3,8 +3,9 @@
     %h3= @user.name
     %div= @user.email
     .avatar_image_profile= image_tag @user.avatar.url, :height => '300px'
-  %div= link_to 'Редактировать профиль', edit_user_path(@user.id)
-  %div= link_to 'Изменить пароль', edit_user_registration_path
+  - if current_user == @user
+    %div= link_to 'Редактировать профиль', edit_user_path(@user.id)
+    %div= link_to 'Изменить пароль', edit_user_registration_path
 
   - @user.places.each do |place|
     = link_to image_tag(place.image.url), project_region_place_path(place.region.project.id, place.region.id, place.id )
