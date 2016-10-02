@@ -2,5 +2,6 @@
   .show
     %h1= @project.title
     %p=  @project.description
+    %p=  @project.category
 
     = render partial: '/regions/table', locals: { :regions => @project.regions }

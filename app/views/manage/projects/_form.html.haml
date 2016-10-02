@@ -1,13 +1,14 @@
 = simple_form_for [:manage, @project] do |f|
   = f.input :title
   = f.input :description
+  = f.input :category
 
   - if params['action'] == 'new'
 
     = f.input :count_places_in_line_regions, input_html: { value: 10 }
     .place_size_wrapper
-      = f.input :size_place_x, as: :integer, input_html: { type: 'text', data: {step: 1, min: 5, value: 30, max: 300}}
-      = f.input :size_place_y, as: :integer, input_html: { type: 'text', data: {step: 1, min: 5, value: 20, max: 300}}
+      = f.input :size_place_x, input_html: { value: 30 }
+      = f.input :size_place_y, input_html: { value: 20 }
 
       %button{ :type => 'button', :class => 'set_place_size_button button' }= 'Применить размер'
 

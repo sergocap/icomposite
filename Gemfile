@@ -13,6 +13,7 @@ gem "haml-rails"
 gem 'devise'
 gem 'pg', '~> 0.18.4'
 gem 'turbolinks'
+gem 'enumerize'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'simple_form'

@@ -1,4 +1,9 @@
 .projects
+  .categories_menu
+    = link_to 'all', root_path
+    - Project.categories.each do |category|
+      = link_to category, root_path(:category => category)
+
   %ul
     - @projects.each do |project|
       .project

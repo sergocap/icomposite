@@ -2,7 +2,8 @@
 .project
   .show
     %h1= @project.title
-    %p= @project.description
+    %p=  @project.description
+    %p=  "(Категория \"#{@project.category}\")"
 
     .project_wrapper
       = render partial: '/regions/table', locals: { :regions => @project.regions }

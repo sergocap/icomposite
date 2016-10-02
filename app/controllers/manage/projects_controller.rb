@@ -40,6 +40,6 @@ class Manage::ProjectsController < Manage::ApplicationController
   end
 
   def project_params
-    params.require(:project).permit(:count_places_in_line_regions, :title, :description, :size_place_x, :size_place_y, :image)
+    params.require(:project).permit(:count_places_in_line_regions, :title, :description, :size_place_x, :size_place_y, :image, :category)
   end
 end

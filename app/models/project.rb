@@ -5,10 +5,18 @@ class Project < ActiveRecord::Base
   has_attached_file :preview, default_url: '/images/missing.png'
   validates_attachment_content_type :preview, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
   before_destroy :destroy_attachments
+  extend Enumerize
+  enumerize :category, in: [:nature, :humans, :states, :animals, :other], :default => :other
+
+  scope :by_category, -> (c) { where(:category => c) }
 
   def destroy_attachments
     image.destroy
     preview.destroy
+  end
+
+  def Project.categories
+    pluck(:category).uniq
   end
 
   def generate_preview
