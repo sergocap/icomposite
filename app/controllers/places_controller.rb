@@ -25,7 +25,8 @@ class PlacesController < ApplicationController
       if editing_params?
         custom_redirect
       else
-        @place.region.generate_preview
+        @place.update_attribute(:state, :published)
+        @region.generate_preview
         redirect_to project_region_path(@region.project, @region)
       end
     else
@@ -43,6 +44,7 @@ class PlacesController < ApplicationController
     if editing_params?
       custom_redirect
     else
+      @place.update_attribute(:state, :published)
       @region.generate_preview
       redirect_to project_region_path(@region.project, @region)
     end

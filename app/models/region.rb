@@ -15,7 +15,7 @@ class Region < ActiveRecord::Base
 
   def generate_preview
     pimg = Magick::Image.read(image.path)[0]
-    places.each do |place|
+    places.where(:state => :published).each do |place|
       if place.image_width != project.size_place_x || place.image_height != project.size_place_y
         place.scaling_image
         place.update_size

@@ -6,9 +6,16 @@ class Place < ActiveRecord::Base
   validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
   validates_attachment_presence :image
   before_destroy :destroy_attachments
+  extend Enumerize
+  enumerize :state, in: [:draft, :published], :default => :draft
 
   def destroy_attachments
     image.destroy
+  end
+
+  def Place.is_empty?(region, x, y)
+    c = region.places.where(:x => x, :y => y, :state => :published).count
+    return c == 0 ? true : false
   end
 
   def scaling_image

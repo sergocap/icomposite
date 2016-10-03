@@ -6,7 +6,7 @@
           %td
             .place
               - place = places.where(:x => index_x, :y => index_y).first
-              - if place.present?
+              - if place.present? && place.state == :published
                 = link_to content_tag(:img, '', :src => place.image.url, :style => "height: #{project.size_place_y}px; width: #{project.size_place_x}px"),
                   project_region_place_path(project, region, place, :x => x, :y => y)
               - else
