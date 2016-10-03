@@ -51,3 +51,5 @@
       .actions
         %button{ :type => 'button', :id => 'to_default_button' }= 'Сбросить'
         = f.button :submit, :name => 'colored', :value => 'Применить'
+        = link_to 'Отмена', edit_project_region_place_path(@region.project.id, @region.id, @place.id, :x => @place.x, :y => @place.y)
+    = render :partial => 'navigate', :locals =>  { :place => @place_original_image }

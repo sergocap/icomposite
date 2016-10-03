@@ -1,3 +1,6 @@
 .place
   .new
     = render partial: 'places/form'
+    = render :partial => 'navigate', :locals =>  { :place => @place_original_image }
+
+

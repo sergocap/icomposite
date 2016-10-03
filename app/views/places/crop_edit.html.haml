@@ -21,3 +21,5 @@
 
     .actions
       = f.button :submit, name: 'cropped', value: 'Обрезать'
+      = link_to 'Отмена', edit_project_region_place_path(@region.project.id, @region.id, @place.id, :x => @place.x, :y => @place.y)
+    = render :partial => 'navigate', :locals =>  { :place => @place_original_image }

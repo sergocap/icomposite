@@ -1,15 +1,12 @@
 .place
   .show
     - breadcrumb :place, @place
-    %div= image_tag @place.image.url
     %div= "Место #{@place.x} - #{@place.y}"
+    %div= image_tag @place.image.url
     - if @place.user == current_user
       %div= link_to 'Редактировать', edit_project_region_place_path(@place.region.project.id, @place.region.id, @place.id, :x => @place.x, :y => @place.y )
       %div= link_to 'Удалить', project_region_place_path(@place.region.project.id, @place.region.id, @place.id, :x => @place.x, :y => @place.y ), data: { :confirm => 'Вы уверены?' }, method: :delete
     %br
-    %div= link_to image_tag(@place.region.preview.url, height: '100px'), project_region_path(@place.region.project.id, @place.region.id)
-    %div= link_to "Регион #{@place.region.x} - #{@place.region.y}", project_region_path(@place.region.project.id, @place.region.id)
-    %div= link_to image_tag(@place.region.project.preview.url, height: '200px'), project_path(@place.region.project.id)
-    %div= link_to "ЯК \"#{@place.region.project.title}\"", project_path(@place.region.project.id)
+    = render :partial => 'navigate', :locals =>  { :place => @place }
     %div= link_to image_tag(@place.user.avatar.url, height: '50px'), user_path(@place.user.id) if @place.user.present?
     %div= link_to @place.user.name, user_path(@place.user.id) if @place.user.present?

@@ -29,7 +29,7 @@ class PlacesController < ApplicationController
         redirect_to project_region_path(@region.project, @region)
       end
     else
-      render :new
+      redirect_to new_project_region_place_path(@region.project, @region, :x => @place.x, :y => @place.y)
     end
   end
 
