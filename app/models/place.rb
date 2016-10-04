@@ -50,13 +50,13 @@ class Place < ActiveRecord::Base
           <svg height='#{image_height}' width='#{image_width}'>
             <defs>
                   <filter id='fp1'>
+                    <feColorMatrix type='saturate' values='#{saturate}'></feColorMatrix>
                     <feComponentTransfer>
                       <feFuncR slope='#{r_component}' type='linear'></feFuncR>
                       <feFuncG slope='#{g_component}' type='linear'></feFuncG>
                       <feFuncB slope='#{b_component}' type='linear'></feFuncB>
                       <feFuncA type='identity'></feFuncA>
                     </feComponentTransfer>
-                    <feColorMatrix type='saturate' values='#{saturate}'></feColorMatrix>
                   </filter>
             </defs>
             <image filter='url(#fp1)' height='100%' width='100%' xlink:href='#{image.path}'></image>

@@ -36,7 +36,7 @@
           %image{ :height => '100%', :width => '100%', 'xlink:href' => @place.image.url, class: 'svg_place_image', filter: 'url(#fp1)' }
       .svg_controls
         %span= 'Насыщенность'
-        %input{ class: 'color_input js-slider', name: 'place[saturate]', id: :saturate, type: :text, data: { value: 1, min: 0, max: 5, step: 0.1 } }
+        %input{ class: 'color_input js-slider', name: 'place[saturate]', id: :saturate, type: :text, data: { value: 1, min: 0, max: 1, step: 0.1 } }
         %br
         %span= 'Красный'
         %input{ class: 'color_input js-slider', name: 'place[r_component]', id: :r_component, type: :text, data: { value: 1, min: 0, max: 5, step: 0.1 } }
