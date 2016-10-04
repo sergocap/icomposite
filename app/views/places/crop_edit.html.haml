@@ -11,6 +11,7 @@
     = f.input :crop_width, as: :hidden
 
     .previews
+
       = image_tag @place_original_image.image.url, class: 'place_original_image'
 
       %div{data: {w: @region.project.size_place_x, h: @region.project.size_place_y}, class: 'crop_preview_wrapper', style: "width: #{@region.project.size_place_x}px; height: #{@region.project.size_place_y}px"}

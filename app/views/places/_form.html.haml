@@ -10,12 +10,11 @@
 
   %div{data: {w: @region.project.size_place_x, h: @region.project.size_place_y}, class: 'preview_wrapper', style: "display: #{@place.image.path.nil? ? 'none' : 'inline' }; position: absolute;  width: #{@region.project.size_place_x}px; height: #{@region.project.size_place_y}px"}
     = image_tag @place.image.url, class: 'js-place_preview_image', style: "width: #{@region.project.size_place_x}px; height: #{@region.project.size_place_y}px"
-  %p= "#{@place.persisted? ? 'Сохранено' : 'Не сохранено'} #{@place.persisted? && @place.state == :draft ? ' в черновиках' : ''}"
-
-  %button{ :type => 'button', :class => 'place_image_button button' }= 'Выбрать изображение'
   .place_image_edit_wrapper
     = image_tag @place.image.url, class: 'js-place_image_upload'
     = f.button :submit, name: 'crop_edit',  value: 'Выбрать область'
     = f.button :submit, name: 'color_edit', value: 'Редактировать'
     = f.submit 'Опубликовать'
 
+  %span= "#{@place.persisted? ? 'Сохранено' : 'Не сохранено'} #{@place.persisted? && @place.state == :draft ? ' в черновиках' : ''}"
+  %button{ :type => 'button', :class => 'place_image_button button' }= 'Выбрать изображение'
