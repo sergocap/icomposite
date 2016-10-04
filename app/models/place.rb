@@ -63,7 +63,15 @@ class Place < ActiveRecord::Base
           </svg>"
     file = File.new('svg_temp.svg', 'w+')
     File.write(file, svg_string)
+
     system("inkscape -z -e #{image.path}  #{file.path}")
+
+    path = image.path
+    new_file_name = '1' + File.basename(path)
+    FileUtils.move(path, File.join(File.dirname(path), new_file_name))
+    self.image_file_name = new_file_name
+    self.save
+
     file.close
     File.delete(file)
   end
