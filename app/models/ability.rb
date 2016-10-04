@@ -11,6 +11,10 @@ class Ability
         user.persisted? && place.user == user
       end
 
+      cannot [:edit, :update], Place do |place|
+        !user.persisted? || place.user != user || (!Place.is_empty?(place.region, place.x, place.y) && place.state == 'draft')
+      end
+
       can [:edit, :update, :destroy], User do |profile|
         profile == user
       end

@@ -4,13 +4,18 @@
     %p= "Место #{@place.x} - #{@place.y}"
     %p= "(#{@place.state == :published ? 'Опубликовано' : 'В черновиках'})"
     %div= image_tag @place.image.url
-    - if @place.user == current_user && @place.state == 'draft' && Place.is_empty?(@region, @place.x, @place.y)
-      = simple_form_for [@region.project, @region, @place] do |f|
-        = f.input :x, as: :hidden
-        = f.submit 'Опубликовать'
-      %p= "(#{Place.is_empty?(@region, @place.x, @place.y) ? 'Место пока не занято' : 'Место уже занято кем-то. Можете удалять картинку.'})" if @place.state == :draft
+
+    - if @place.user == current_user && @place.state == 'draft'
+      - if Place.is_empty?(@region, @place.x, @place.y)
+        = simple_form_for [@region.project, @region, @place] do |f|
+          = f.input :x, as: :hidden
+          = f.submit 'Опубликовать'
+          %p= "(Место пока не занято)"
+      - else
+        %p= "(Место уже занято. Можете удалять картинку)"
+
     - if @place.user == current_user
-      %div= link_to 'Редактировать', edit_project_region_place_path(@place.region.project.id, @place.region.id, @place.id, :x => @place.x, :y => @place.y )
+      %div= link_to 'Редактировать', edit_project_region_place_path(@place.region.project.id, @place.region.id, @place.id, :x => @place.x, :y => @place.y) if can? :edit, @place
       %div= link_to 'Удалить', project_region_place_path(@place.region.project.id, @place.region.id, @place.id, :x => @place.x, :y => @place.y ), data: { :confirm => 'Вы уверены?' }, method: :delete
     %br
     = render :partial => 'navigate', :locals =>  { :place => @place }
