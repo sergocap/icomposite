@@ -3,8 +3,6 @@
   = stylesheet_link_tag "jquery.Jcrop"
   = javascript_include_tag "jquery.Jcrop"
   = simple_form_for [@region.project, @region, @place] do |f|
-    = f.input :x, as: :hidden
-    = f.input :y, as: :hidden
     = f.input :crop_x, as: :hidden
     = f.input :crop_y, as: :hidden
     = f.input :crop_height, as: :hidden
@@ -22,5 +20,5 @@
 
     .actions
       = f.button :submit, name: 'cropped', value: 'Обрезать'
-      = link_to 'Отмена', edit_project_region_place_path(@region.project.id, @region.id, @place.id, :x => @place.x, :y => @place.y)
+      = link_to 'Отмена', edit_project_region_place_path(@region.project.id, @region.id, @place.id)
     = render :partial => 'navigate', :locals =>  { :place => @place_original_image }

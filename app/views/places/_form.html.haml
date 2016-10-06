@@ -1,7 +1,7 @@
 - breadcrumb :place, @place_original_image
 = simple_form_for [@region.project, @region, @place] do |f|
-  = f.input :x, input_html: { :value => params['x'] }, as: :hidden
-  = f.input :y, input_html: { :value => params['y'] }, as: :hidden
+  = f.input :x, as: :hidden
+  = f.input :y, as: :hidden
 
   .place_image_input_wrapper
     = f.input :image, input_html: { :class => 'place_image_load_button button' }
@@ -12,7 +12,7 @@
     = image_tag @place.image.url, class: 'js-place_preview_image', style: "width: #{@region.project.size_place_x}px; height: #{@region.project.size_place_y}px"
   .place_image_edit_wrapper
     = image_tag @place.image.url, class: 'js-place_image_upload'
-    = f.button :submit, name: 'crop_edit',  value: 'Выбрать область'
+    = f.button :submit, name: 'crop_edit',  value: 'Выбрать область', class: 'go_crop'
     = f.button :submit, name: 'color_edit', value: 'Редактировать'
     = f.submit 'Опубликовать'
 

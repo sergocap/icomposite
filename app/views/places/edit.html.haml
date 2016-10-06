@@ -1,5 +1,5 @@
 .place
   .edit
     = render partial: 'places/form'
-    %div= link_to 'Удалить', project_region_place_path(@place.region.project.id, @place.region.id, @place.id, :x => @place.x, :y => @place.y ), data: { :confirm => 'Вы уверены?' }, method: :delete
+    %div= link_to 'Удалить', project_region_place_path(@place.region.project.id, @place.region.id, @place.id ), data: { :confirm => 'Вы уверены?' }, method: :delete
     = render :partial => 'navigate', :locals =>  { :place => @place_original_image }

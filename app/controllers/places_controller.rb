@@ -7,6 +7,8 @@ class PlacesController < ApplicationController
 
   def new
     @place = current_user.places.new
+    @place.x = params[:x]
+    @place.y = params[:y]
     @place_original_image = @region.place_original_images.where(["x = ? and y = ?", params[:x], params[:y]]).first
     if @place_original_image.nil?
       @place_original_image = PlaceOriginalImage.create(region_id: @region.id, x: params[:x], y: params[:y])
@@ -65,22 +67,32 @@ class PlacesController < ApplicationController
 
   def custom_redirect
     if params[:crop_edit]
-      redirect_to crop_edit_project_region_place_path(@region.project, @region, @place, place_params) and return
+      if @place.state == :new
+        @place.update_attribute(:state, :crop_edit)
+      end
+      redirect_to crop_edit_project_region_place_path(@region.project, @region, @place) and return
     end
 
     if params[:color_edit]
       @place.update_size
-      redirect_to color_edit_project_region_place_path(@region.project, @region, @place, place_params) and return
+      redirect_to color_edit_project_region_place_path(@region.project, @region, @place) and return
     end
 
     if params[:cropped]
       @place.crop_image
-      redirect_to edit_project_region_place_path(@region.project, @region, @place, place_params) and return
+      if @place.state == :crop_edit
+        @place.update_attribute(:state, :color_edit)
+        @place.update_size
+        redirect_to color_edit_project_region_place_path(@region.project, @region, @place) and return
+      else
+
+      redirect_to edit_project_region_place_path(@region.project, @region, @place) and return
+      end
     end
 
     if params[:colored]
       @place.svg_save
-      redirect_to edit_project_region_place_path(@region.project, @region, @place, place_params) and return
+      redirect_to edit_project_region_place_path(@region.project, @region, @place) and return
     end
   end
 

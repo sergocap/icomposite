@@ -2,8 +2,6 @@
 .place
   .color_edit
     = simple_form_for [@region.project, @region, @place] do |f|
-      = f.input :x, as: :hidden
-      = f.input :y, as: :hidden
       .previews_wrapper
         = image_tag @place_original_image.image.url, class: 'place_original_image'
 
@@ -51,5 +49,5 @@
       .actions
         %button{ :type => 'button', :id => 'to_default_button' }= 'Сбросить'
         = f.button :submit, :name => 'colored', :value => 'Применить'
-        = link_to 'Отмена', edit_project_region_place_path(@region.project.id, @region.id, @place.id, :x => @place.x, :y => @place.y)
+        = link_to 'Отмена', edit_project_region_place_path(@region.project.id, @region.id, @place.id)
     = render :partial => 'navigate', :locals =>  { :place => @place_original_image }

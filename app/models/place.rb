@@ -7,7 +7,7 @@ class Place < ActiveRecord::Base
   validates_attachment_presence :image
   before_destroy :destroy_attachments
   extend Enumerize
-  enumerize :state, in: [:draft, :published], :default => :draft
+  enumerize :state, in: [:new, :crop_edit, :color_edit, :draft, :published], :default => :new
 
   def destroy_attachments
     image.destroy
