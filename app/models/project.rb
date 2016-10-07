@@ -2,7 +2,13 @@ class Project < ActiveRecord::Base
   has_many :regions, dependent: :destroy
   has_attached_file :image, default_url: '/images/missing.png'
   validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
-  has_attached_file :preview, default_url: '/images/missing.png'
+  has_attached_file :preview, default_url: '/images/missing.png', :styles => {
+                                                                  :on_manage      => "64x64^",
+                                                                  :on_navigation  => "150x150^",
+                                                                  :on_main        => "300x300^" },
+                                                                  :convert_options => {
+                                                                    :on_manage     => "-gravity center -extent 64x64"
+                                                                  }
   validates_attachment_content_type :preview, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
   before_destroy :destroy_attachments
   extend Enumerize

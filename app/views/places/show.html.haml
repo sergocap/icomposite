@@ -19,5 +19,5 @@
       %div= link_to 'Удалить', project_region_place_path(@place.region.project.id, @place.region.id, @place.id), data: { :confirm => 'Вы уверены?' }, method: :delete
     %br
     = render :partial => 'navigate', :locals =>  { :place => @place }
-    %div= link_to image_tag(@place.user.avatar.url, height: '50px'), user_path(@place.user.id) if @place.user.present?
+    %div= link_to image_tag(@place.user.avatar.url(:small)), user_path(@place.user.id) if @place.user.present?
     %div= link_to @place.user.name, user_path(@place.user.id) if @place.user.present?

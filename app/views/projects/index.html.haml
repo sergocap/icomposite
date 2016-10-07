@@ -8,4 +8,4 @@
     - @projects.each do |project|
       .project
         %li= link_to project.title, project_path(project.id)
-        = link_to image_tag(project.preview.url, class: 'project_preview_on_index'), project_path(project.id)
+        = link_to image_tag(project.preview.url(:on_main), class: 'project_preview_on_index'), project_path(project.id)
