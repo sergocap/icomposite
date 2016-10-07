@@ -6,7 +6,8 @@ class Project < ActiveRecord::Base
   validates_attachment_content_type :preview, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
   before_destroy :destroy_attachments
   extend Enumerize
-  enumerize :category, in: [:nature, :humans, :states, :animals, :other], :default => :other
+  enumerize :category, in: ['Музыка', 'Фильмы', 'Интерьер', 'Природа', 'Животные', 'Абстракции', 'Люди', 'Города', 'Минимализм', 'Игры', 'Спорт', 'Наука', 'Техника', 'Другое']
+  validates :category, presence: true
 
   scope :by_category, -> (c) { where(:category => c) }
 
