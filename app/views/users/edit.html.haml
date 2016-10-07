@@ -9,5 +9,9 @@
       .image_upload
         = image_tag @user.avatar.url, class: 'js-avatar_upload'
       %button{ :type => 'button', :class => 'avatar_select_button button' }= 'Выбрать изображение'
+      - if @user.errors.any?
+        - @user.errors.each do |attribute, message|
+          = message if attribute == :avatar_file_size || attribute == :avatar_content_type
+
       <br>
       = f.submit
