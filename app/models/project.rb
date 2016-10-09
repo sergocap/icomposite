@@ -54,9 +54,9 @@ class Project < ActiveRecord::Base
         update_attribute(:region_height, region_height)
         update_attribute(:region_width, region_width)
         regions.create(:image => file, :preview => file,
-                            :x => index_x, :y => index_y,
-                            :count_x => img_region.columns/size_place_x,
-                            :count_y => img_region.rows/size_place_y)
+                       :x => index_x, :y => index_y, :project_id => id,
+                       :count_x => img_region.columns/size_place_x,
+                       :count_y => img_region.rows/size_place_y)
         file.close
         file.unlink
       end

@@ -1,10 +1,10 @@
 .regions
-  %table
+  %table{ class: 'regions_table' }
     - (0..regions.maximum(:y)).each do |y|
-      %tr
+      %tr{class: 'tr1'}
         - (0..regions.maximum(:x)).each do |x|
-          %td
+          %td{class: 'td1'}
             .region
               - region = regions.where(:x => x, :y => y).first
-              = link_to image_tag(region.preview.url), project_region_path(region.project.id, region.id)
+              = link_to image_tag(region.preview.url(:medium)), project_region_path(region.project.id, region.id)
 
