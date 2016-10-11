@@ -32,7 +32,7 @@ class Project < ActiveRecord::Base
       region_img = Magick::Image.read(region.preview.path)[0]
       pimg.composite!(region_img, region_width * region.x, region_height * region.y, Magick::OverCompositeOp)
     end
-    file = Tempfile.new(['temp', '.png'])
+    file = Tempfile.new(['preview', '.png'])
     pimg.write(file.path)
     update_attribute(:preview, file)
     file.close
@@ -43,11 +43,7 @@ class Project < ActiveRecord::Base
     pimg = Magick::Image.read(preview.path)[0]
     region_img = Magick::Image.read(region.preview.path)[0]
     pimg.composite!(region_img, region_width * region.x, region_height * region.y, Magick::OverCompositeOp)
-    file = Tempfile.new(['_', '.png'])
-    pimg.write(file.path)
-    update_attribute(:preview, file)
-    file.close
-    file.unlink
+    pimg.write(preview.path)
   end
 
   def generate_regions

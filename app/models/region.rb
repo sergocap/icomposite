@@ -47,11 +47,7 @@ class Region < ActiveRecord::Base
     end
     place_img = Magick::Image.read(place.image.path)[0]
     pimg.composite!(place_img, project.size_place_x * place.x, project.size_place_y * place.y, Magick::OverCompositeOp)
-    file = Tempfile.new(['_', '.png'])
-    pimg.write(file.path)
-    update_attribute(:preview, file)
-    file.close
-    file.unlink
+    pimg.write(preview.path)
     project.add_to_preview(self)
   end
 
@@ -60,11 +56,7 @@ class Region < ActiveRecord::Base
     place_original = place_original_images.where(:x => place.x, :y => place.y).first
     place_img = Magick::Image.read(place_original.image.path)[0]
     pimg.composite!(place_img, project.size_place_x * place.x, project.size_place_y * place.y, Magick::OverCompositeOp)
-    file = Tempfile.new(['_', '.png'])
-    pimg.write(file.path)
-    update_attribute(:preview, file)
-    file.close
-    file.unlink
+    pimg.write(preview.path)
     project.add_to_preview(self)
   end
 

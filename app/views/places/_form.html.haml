@@ -13,6 +13,7 @@
   .place_image_edit_wrapper
     = image_tag @place.image.url, class: 'js-place_image_upload'
     = f.button :submit, name: 'crop_edit',  value: 'Выбрать область', class: 'go_crop'
+    = f.button :submit, name: 'crop_color_edit',  value: 'Выбрать область и цвет', class: 'go_crop_with_color', style: 'display: none'
     = f.button :submit, name: 'color_edit', value: 'Редактировать'
     = f.submit 'Опубликовать'
 

@@ -67,11 +67,14 @@ class PlacesController < ApplicationController
 
   def custom_redirect
     if params[:crop_edit]
-      if @place.state == :new
-        @place.update_attribute(:state, :crop_edit)
-      end
       redirect_to crop_edit_project_region_place_path(@region.project, @region, @place) and return
     end
+
+    if params[:crop_color_edit]
+      @place.update_attribute(:state, :crop_edit)
+      redirect_to crop_edit_project_region_place_path(@region.project, @region, @place) and return
+    end
+
 
     if params[:color_edit]
       @place.update_size
@@ -97,7 +100,7 @@ class PlacesController < ApplicationController
   end
 
   def editing_params?
-    return false if %w(crop_edit color_edit cropped colored) & params.to_a.flatten == []
+    return false if %w(crop_edit crop_color_edit color_edit cropped colored) & params.to_a.flatten == []
     true
   end
 

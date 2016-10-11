@@ -21,22 +21,14 @@ class Place < ActiveRecord::Base
   def scaling_image
     img = Magick::Image.read(image.path)[0]
     img.resize!(region.project.size_place_x, region.project.size_place_y, Magick::LanczosFilter, 1.0)
-    file = Tempfile.new(['image', '.png'])
-    img.write(file.path)
-    update_attribute(:image, file)
-    file.close
-    file.unlink
+    img.write(image.path)
   end
 
   def crop_image
     unless crop_height == '0' || crop_width == '0'
       img = Magick::Image.read(image.path)[0]
       img.crop!(crop_x.to_i, crop_y.to_i, crop_width.to_i, crop_height.to_i, true)
-      file = Tempfile.new(['image', '.png'])
-      img.write(file.path)
-      update_attribute(:image, file)
-      file.close
-      file.unlink
+      img.write(image.path)
     end
   end
 
@@ -50,7 +42,6 @@ class Place < ActiveRecord::Base
           <svg height='#{image_height}' width='#{image_width}'>
             <defs>
                   <filter id='fp1'>
-                    <feColorMatrix type='saturate' values='#{saturate}'></feColorMatrix>
                     <feComponentTransfer>
                       <feFuncR slope='#{r_component}' type='linear'></feFuncR>
                       <feFuncG slope='#{g_component}' type='linear'></feFuncG>

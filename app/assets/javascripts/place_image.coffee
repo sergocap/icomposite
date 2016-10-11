@@ -10,7 +10,7 @@
     if file.type.split('/')[0] == 'image'
       reader = new FileReader()
       reader.onload = (e) ->
-        $('.go_crop').click()
+        $('.go_crop_with_color').click()
         #$('.place_image_edit_wrapper')[0].style.display = 'block'
         #preview.attr('src', e.target.result)
         #set_preview()
