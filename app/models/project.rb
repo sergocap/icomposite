@@ -39,6 +39,17 @@ class Project < ActiveRecord::Base
     file.unlink
   end
 
+  def add_to_preview(region)
+    pimg = Magick::Image.read(preview.path)[0]
+    region_img = Magick::Image.read(region.preview.path)[0]
+    pimg.composite!(region_img, region_width * region.x, region_height * region.y, Magick::OverCompositeOp)
+    file = Tempfile.new(['_', '.png'])
+    pimg.write(file.path)
+    update_attribute(:preview, file)
+    file.close
+    file.unlink
+  end
+
   def generate_regions
     img = edit_original
     height = img.rows

@@ -27,7 +27,7 @@ class PlacesController < ApplicationController
       if editing_params?
         custom_redirect
       else
-        generate_preview_if_empty
+        add_to_preview_if_empty
         redirect_to project_region_path(@region.project, @region)
       end
     else
@@ -35,17 +35,17 @@ class PlacesController < ApplicationController
     end
   end
 
-  def generate_preview_if_empty
+  def add_to_preview_if_empty
     if Place.is_empty?(@region, @place.x, @place.y)
       @place.update_attribute(:state, :published)
-      @region.generate_preview
+      @region.add_to_preview(@place)
     end
   end
 
   def edit
     @place.update_size
     @place.update_attribute(:state, :draft)
-    @region.generate_preview
+    @region.delete_from_preview(@place)
   end
 
   def update
@@ -54,14 +54,14 @@ class PlacesController < ApplicationController
     if editing_params?
       custom_redirect
     else
-      generate_preview_if_empty
+      add_to_preview_if_empty
       redirect_to project_region_path(@region.project, @region)
     end
   end
 
   def destroy
     @place.destroy
-    @region.generate_preview
+    @region.delete_from_preview(@place)
     redirect_to project_region_path(@region.project.id, @region.id)
   end
 

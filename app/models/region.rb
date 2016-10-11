@@ -39,6 +39,36 @@ class Region < ActiveRecord::Base
     project.generate_preview
   end
 
+  def add_to_preview(place)
+    pimg = Magick::Image.read(preview.path)[0]
+    if place.image_width != project.size_place_x || place.image_height != project.size_place_y
+      place.scaling_image
+      place.update_size
+    end
+    place_img = Magick::Image.read(place.image.path)[0]
+    pimg.composite!(place_img, project.size_place_x * place.x, project.size_place_y * place.y, Magick::OverCompositeOp)
+    file = Tempfile.new(['_', '.png'])
+    pimg.write(file.path)
+    update_attribute(:preview, file)
+    file.close
+    file.unlink
+    project.add_to_preview(self)
+  end
+
+  def delete_from_preview(place)
+    pimg = Magick::Image.read(preview.path)[0]
+    place_original = place_original_images.where(:x => place.x, :y => place.y).first
+    place_img = Magick::Image.read(place_original.image.path)[0]
+    pimg.composite!(place_img, project.size_place_x * place.x, project.size_place_y * place.y, Magick::OverCompositeOp)
+    file = Tempfile.new(['_', '.png'])
+    pimg.write(file.path)
+    update_attribute(:preview, file)
+    file.close
+    file.unlink
+    project.add_to_preview(self)
+  end
+
+
   def height
     if self.persisted?
       return count_y * project.size_place_y
