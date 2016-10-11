@@ -5,7 +5,7 @@ class Region < ActiveRecord::Base
   has_many :place_original_images, dependent: :destroy
   has_attached_file :image, default_url: '/images/missing.png'
   validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
-  has_attached_file :preview, default_url: '/images/missing.png', :styles => lambda { |a| { :medium => "#{a.instance.width/2}x#{a.instance.height/2}" } }
+  has_attached_file :preview, default_url: '/images/missing.png', :styles => lambda { |a| { :medium => "#{a.instance.width/2.to_i}x#{a.instance.height/2.to_i}" } }
   validates_attachment_content_type :preview, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
   before_destroy :destroy_attachments
 
@@ -19,23 +19,6 @@ class Region < ActiveRecord::Base
   def destroy_attachments
     image.destroy
     preview.destroy
-  end
-
-  def height
-    if self.persisted?
-      return count_y * project.size_place_y
-    else
-      return @count_y_v * Project.find(@project_id_v).size_place_y
-    end
-
-  end
-
-  def width
-    if self.persisted?
-      return count_x * project.size_place_x
-    else
-      return @count_x_v * Project.find(@project_id_v).size_place_x
-    end
   end
 
   def generate_preview
@@ -55,4 +38,22 @@ class Region < ActiveRecord::Base
     file.unlink
     project.generate_preview
   end
+
+  def height
+    if self.persisted?
+      return count_y * project.size_place_y
+    else
+      return @count_y_v * Project.find(@project_id_v).size_place_y
+    end
+
+  end
+
+  def width
+    if self.persisted?
+      return count_x * project.size_place_x
+    else
+      return @count_x_v * Project.find(@project_id_v).size_place_x
+    end
+  end
+
 end
