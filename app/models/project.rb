@@ -37,6 +37,7 @@ class Project < ActiveRecord::Base
     update_attribute(:preview, file)
     file.close
     file.unlink
+    preview.reprocess!
   end
 
   def add_to_preview(region)
@@ -44,6 +45,7 @@ class Project < ActiveRecord::Base
     region_img = Magick::Image.read(region.preview.path)[0]
     pimg.composite!(region_img, region_width * region.x, region_height * region.y, Magick::OverCompositeOp)
     pimg.write(preview.path)
+    preview.reprocess!
   end
 
   def generate_regions

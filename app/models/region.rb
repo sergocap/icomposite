@@ -36,6 +36,7 @@ class Region < ActiveRecord::Base
     update_attribute(:preview, file)
     file.close
     file.unlink
+    preview.reprocess!
     project.generate_preview
   end
 
@@ -48,6 +49,7 @@ class Region < ActiveRecord::Base
     place_img = Magick::Image.read(place.image.path)[0]
     pimg.composite!(place_img, project.size_place_x * place.x, project.size_place_y * place.y, Magick::OverCompositeOp)
     pimg.write(preview.path)
+    preview.reprocess!
     project.add_to_preview(self)
   end
 
@@ -57,9 +59,9 @@ class Region < ActiveRecord::Base
     place_img = Magick::Image.read(place_original.image.path)[0]
     pimg.composite!(place_img, project.size_place_x * place.x, project.size_place_y * place.y, Magick::OverCompositeOp)
     pimg.write(preview.path)
+    preview.reprocess!
     project.add_to_preview(self)
   end
-
 
   def height
     if self.persisted?
