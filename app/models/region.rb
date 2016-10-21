@@ -1,11 +1,11 @@
 class Region < ActiveRecord::Base
   attr_accessor :project_id_v, :count_x_v, :count_y_v
   belongs_to :project
-  has_many :places, dependent: :destroy
+  has_many :places
   has_many :place_original_images, dependent: :destroy
   has_attached_file :image, default_url: '/images/missing.png'
   validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
-  has_attached_file :preview, default_url: '/images/missing.png', :styles => lambda { |a| { :medium => "#{a.instance.width/2.to_i}x#{a.instance.height/2.to_i}" } }
+  has_attached_file :preview, default_url: '/images/missing.png', :styles => lambda { |a| { :medium => "#{a.instance.medium_width/2.to_i}x#{a.instance.medium_height/2.to_i}" } }
   validates_attachment_content_type :preview, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
   before_destroy :destroy_attachments
 
@@ -63,7 +63,7 @@ class Region < ActiveRecord::Base
     project.add_to_preview(self)
   end
 
-  def height
+  def medium_height
     if self.persisted?
       return count_y * project.size_place_y
     else
@@ -72,7 +72,7 @@ class Region < ActiveRecord::Base
 
   end
 
-  def width
+  def medium_width
     if self.persisted?
       return count_x * project.size_place_x
     else

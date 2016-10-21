@@ -22,6 +22,7 @@ class PlacesController < ApplicationController
   def create
     @place = current_user.places.new(place_params)
     @place.region_id = @region.id
+    @place.project_id = @region.project.id
     if @place.save
       @place.update_size
       if editing_params?

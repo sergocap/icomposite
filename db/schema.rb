@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161003095306) do
+ActiveRecord::Schema.define(version: 20161021143527) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20161003095306) do
     t.integer  "image_width"
     t.integer  "user_id"
     t.string   "state"
+    t.integer  "project_id"
   end
 
   add_index "places", ["user_id"], name: "index_places_on_user_id", using: :btree
@@ -61,10 +62,11 @@ ActiveRecord::Schema.define(version: 20161003095306) do
     t.string   "preview_content_type"
     t.integer  "preview_file_size"
     t.datetime "preview_updated_at"
-    t.integer  "region_height"
-    t.integer  "region_width"
-    t.integer  "count_places_in_line_regions"
+    t.integer  "standart_K"
     t.string   "category"
+    t.string   "state",                default: "development"
+    t.integer  "height"
+    t.integer  "width"
   end
 
   create_table "regions", force: :cascade do |t|
@@ -83,6 +85,8 @@ ActiveRecord::Schema.define(version: 20161003095306) do
     t.datetime "preview_updated_at"
     t.integer  "count_x"
     t.integer  "count_y"
+    t.integer  "height"
+    t.integer  "width"
   end
 
   create_table "users", force: :cascade do |t|

@@ -2,6 +2,6 @@
 -#%div= link_to image_tag(place.region.preview.url), project_region_path(place.region.project.id, place.region.id)
 = render partial: 'places/table', locals: { :places => place.region.places, :region => place.region, :project => place.region.project }
 %div= link_to "Регион #{place.region.x} - #{place.region.y}", project_region_path(place.region.project.id, place.region.id)
-%div= link_to image_tag(place.region.project.preview.url(:on_navigation), height: '100px'), project_path(place.region.project.id)
+%div= link_to image_tag(place.region.project.preview.url(:on_navigation)), project_path(place.region.project.id)
 %div= link_to "ЯК \"#{place.region.project.title}\"", project_path(place.region.project.id)
 
