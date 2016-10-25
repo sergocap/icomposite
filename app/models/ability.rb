@@ -1,14 +1,16 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user, namespace = nil)
+  def initialize(user, namespace = nil, project_id = nil)
     user ||= User.new
     case namespace
     when nil
 
-      can :new, Place if user.persisted?
+      can :new, Place do |place|
+        user.persisted? && !project_id.nil? && Project.find(project_id).development?
+      end
       can [:edit, :update, :destroy], Place do |place|
-        user.persisted? && place.user == user
+        user.persisted? && place.user == user && place.project.development?
       end
 
       cannot [:edit, :update], Place do |place|

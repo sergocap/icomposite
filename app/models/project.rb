@@ -65,6 +65,23 @@ class Project < ActiveRecord::Base
     pimg.composite!(region_img, region_width * region.x, region_height * region.y, Magick::OverCompositeOp)
     pimg.write(preview.path)
     preview.reprocess!
+    to_complete if places.count == total_places_count
+  end
+
+  def to_complete!
+    update_attribute(:state, 'complete')
+  end
+
+  def to_development!
+    update_attribute(:state, 'development')
+  end
+
+  def complete?
+    return state == 'complete' ? true : false
+  end
+
+  def development?
+    return state == 'development' ? true : false
   end
 
   def generate_regions

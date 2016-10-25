@@ -6,4 +6,5 @@
     %p=  "(Категория \"#{@project.category}\")"
 
     .project_wrapper
-      = render partial: '/regions/table', locals: { :regions => @project.regions }
+      = render partial: '/regions/table', locals: { :regions  => @project.regions } if @project.development?
+      = render partial: 'complete_table', locals: { :project => @project } if @project.complete?

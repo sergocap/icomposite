@@ -1,0 +1,12 @@
+%table{ :width => region.width, :height => region.height  }
+  - (0...region.count_y).each_with_index do |y, index_y|
+    %tr
+      - (0...region.count_x).each_with_index do |x, index_x|
+        %td
+          - place = places.where(:x => index_x, :y => index_y, :state => :published).first
+          - if place.present?
+            = link_to content_tag(:div, '', :style => "height: #{project.size_place_y}px; width: #{project.size_place_x}px"),
+              project_region_place_path(project, region, place), target: '_blank'
+          - else
+            = content_tag(:div, '', :style => "height: #{project.size_place_y}px; width: #{project.size_place_x}px")
+

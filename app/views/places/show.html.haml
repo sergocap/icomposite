@@ -16,7 +16,7 @@
 
     - if @place.user == current_user
       %div= link_to 'Редактировать', edit_project_region_place_path(@place.region.project.id, @place.region.id, @place.id) if can? :edit, @place
-      %div= link_to 'Удалить', project_region_place_path(@place.region.project.id, @place.region.id, @place.id), data: { :confirm => 'Вы уверены?' }, method: :delete
+      %div= link_to 'Удалить', project_region_place_path(@place.region.project.id, @place.region.id, @place.id), data: { :confirm => 'Вы уверены?' }, method: :delete if can? :destroy, @place
     %br
     = render :partial => 'navigate', :locals =>  { :place => @place }
     %div= link_to image_tag(@place.user.avatar.url(:small)), user_path(@place.user.id) if @place.user.present?
