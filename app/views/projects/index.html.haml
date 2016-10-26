@@ -1,9 +1,4 @@
 .projects
-  .categories_menu
-    = link_to 'Все', root_path
-    - Project.categories.each do |category|
-      = link_to category, root_path(:category => category)
-
   - @projects.each do |project|
     .project
       .info
@@ -17,6 +12,6 @@
       .info
         .bottom
           .my_places
-            = "мой вклад: #{current_user.places.where(:project_id => project.id).count}"
+            = "мой вклад: #{current_user.nil? ? 0 : current_user.places.where(:project_id => project.id).count}"
           .statistics
             = "#{project.places.count}/#{project.total_places_count}"

@@ -1,5 +1,4 @@
 @init_place_image_load = ->
-
   $('.place_image_button').on 'click', ->
     $('.place_image_load_button').click()
 

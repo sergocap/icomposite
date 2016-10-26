@@ -1,13 +1,16 @@
 <%= link_to 'Главная страница', root_path %>
-<% if user_signed_in? %>
-  <%= current_user.name %>
-  <%= link_to 'Личный кабинет', user_path(current_user.id) %>
-  <%= link_to 'Админка!', manage_projects_path if current_user.try(:admin?) %>
-  <%= link_to 'Выйти', destroy_user_session_path, :method => :delete %>
-<% else %>
-  <%= link_to 'Войти', new_user_session_path %> или <%= link_to 'Зарегистрироваться', new_user_registration_path %>
-<% end %>
-
+<div class='header_wrapper'>
+  <div class='actions'>
+    <% if user_signed_in? %>
+      <span><%= current_user.name %></span>
+      <%= link_to 'Личный кабинет', user_path(current_user.id) %>
+      <%= link_to 'Админка!', manage_projects_path if current_user.try(:admin?) %>
+      <%= link_to 'Выйти', destroy_user_session_path, :method => :delete %>
+    <% else %>
+      <%= link_to 'Войти', new_user_session_path %> или <%= link_to 'Зарегистрироваться', new_user_registration_path %>
+    <% end %>
+  </div>
+</div>
+<%= render partial: 'layouts/header_categories_menu' %>
 <%= breadcrumbs display_single_fragment: true, style: :bootstrap, separator: '' %>
-
 
