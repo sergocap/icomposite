@@ -1,4 +1,3 @@
-<%= link_to 'Главная страница', root_path %>
 <div class='header_wrapper'>
   <div class='actions'>
     <% if user_signed_in? %>
@@ -10,7 +9,7 @@
       <%= link_to 'Войти', new_user_session_path %> или <%= link_to 'Зарегистрироваться', new_user_registration_path %>
     <% end %>
   </div>
+  <%= render partial: 'layouts/header_categories_menu' %>
 </div>
-<%= render partial: 'layouts/header_categories_menu' %>
 <%= breadcrumbs display_single_fragment: true, style: :bootstrap, separator: '' %>
 

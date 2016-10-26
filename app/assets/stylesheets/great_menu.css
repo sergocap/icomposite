@@ -15,10 +15,11 @@
 
 
 #menu {
-	margin: -4px auto;
+	margin: -1px auto;
 	list-style: none;
 	position: relative;
-	width: 960px;
+  padding: 0;
+  width: 100%
 }
 #menu li {
 	display: inline-block;
@@ -27,7 +28,7 @@
 	position: relative;
 	z-index: 200;
 	color: #bbb;
-	font-size: 14px;
+	font-size: 13px;
 	display: block;
 	float: left;
 	padding: 6px 10px 4px 10px;
@@ -42,7 +43,6 @@
 	top: 0;
 	left: 0;
 	width: 100px;
-  background: #03a30b;
 	z-index: 100;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;

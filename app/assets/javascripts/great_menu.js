@@ -7,7 +7,7 @@ $(function() {
     $mainNav.append("<li id='magic-line'></li>");
 
     var $magicLine = $("#magic-line");
-
+    $magicLine.css({backgroundColor: $(".current_page_item a").attr("rel")});
     $magicLine
         .width($(".current_page_item").width())
         .height($mainNav.height())
@@ -24,13 +24,13 @@ $(function() {
             left: leftPos,
             width: newWidth,
             backgroundColor: $el.attr("rel")
-        })
+        }, 150)
     }, function() {
         $magicLine.stop().animate({
             left: $magicLine.data("origLeft"),
             width: $magicLine.data("origWidth"),
             backgroundColor: $magicLine.data("origColor")
-        });
+        },150);
     });
 
     /* Kick IE into gear */

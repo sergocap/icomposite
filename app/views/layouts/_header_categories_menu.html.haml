@@ -2,8 +2,8 @@
   %ul{ id: 'menu' }
     %li{ class: "#{ category_by_path(request.env['PATH_INFO'], params) == '/' ? 'current_page_item' : ''}" }
       = link_to 'Все', root_path, rel: '#03a30b'
-      - Project.categories.each do |category|
-        %li{ class: "#{ category_by_path(request.env['PATH_INFO'], params) == category  ? 'current_page_item' : ''}" }
-          = link_to category, root_path(:category => category), rel: '#03a30b'
+    - Project.categories.each do |category|
+      %li{ class: "#{ category_by_path(request.env['PATH_INFO'], params) == category  ? 'current_page_item' : ''}" }
+        = link_to category, root_path(:category => category), rel: color_by_category(category)
 
 

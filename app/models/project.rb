@@ -20,6 +20,10 @@ class Project < ActiveRecord::Base
 
   scope :by_category, -> (c) { where(:category => c) }
 
+  def Project.categories_list
+    ['Музыка', 'Фильмы', 'Интерьер', 'Природа', 'Животные', 'Абстракции', 'Люди', 'Города', 'Минимализм', 'Игры', 'Спорт', 'Наука', 'Техника'].sort << 'Другое'
+  end
+
   def destroy_attachments
     image.destroy
     preview.destroy
@@ -30,7 +34,7 @@ class Project < ActiveRecord::Base
   end
 
   def Project.categories
-    pluck(:category).uniq
+    pluck(:category).uniq.sort
   end
 
   def set_some_params
