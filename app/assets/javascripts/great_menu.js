@@ -1,13 +1,16 @@
-// DOM Ready
-$(function() {
+function init_categories_menu() {
 
     var $el, leftPos, newWidth;
         $mainNav = $("#menu");
 
-    $mainNav.append("<li id='magic-line'></li>");
-
     var $magicLine = $("#magic-line");
-    $magicLine.css({backgroundColor: $(".current_page_item a").attr("rel")});
+    $magicLine.css({
+      'background-color': $(".current_page_item a").attr("rel"),
+      'width' : $(".current_page_item").width(),
+      'height' : $mainNav.height(),
+      'left' : $(".current_page_item a").position().left
+    });
+
     $magicLine
         .width($(".current_page_item").width())
         .height($mainNav.height())
@@ -33,9 +36,5 @@ $(function() {
         },150);
     });
 
-    /* Kick IE into gear */
     $(".current_page_item a").mouseenter();
-    //$.noConflict();
-
-
-});
+}

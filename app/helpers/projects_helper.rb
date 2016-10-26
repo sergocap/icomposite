@@ -1,7 +1,7 @@
 module ProjectsHelper
   def category_by_path(path, prms)
     if prms['category'].nil? && path == '/'
-      return '/'
+      return 'Все'
     elsif !prms['category'].nil?
       return prms['category']
     elsif path.split('/').index('projects')
@@ -12,7 +12,7 @@ module ProjectsHelper
         return Project.find(ind_project).category
       end
     end
-    return '/'
+    return 'Все'
   end
 
   def color_by_category(category)
@@ -21,16 +21,16 @@ module ProjectsHelper
 
   def hash_of_colors
     {
-      'Все' => '#3DDA34',
+      'Все' => '#22b401',
       'Абстракции' => '#993366',
-      'Города' => '#3300CC',
-      'Животные' => '#CC00FF',
+      'Города' => '#424385',
+      'Животные' => '#bd38d6',
       'Игры' => '#FF3300',
       'Интерьер' => '#990033',
       'Люди' => '#F29236',
       'Минимализм' => '#FF0000',
       'Музыка' => '#003300',
-      'Наука' => '#18E247',
+      'Наука' => '#0066d8',
       'Природа' => '#4AB224',
       'Спорт' => '#FF9900',
       'Техника' => '#342F56',
