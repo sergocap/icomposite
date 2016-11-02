@@ -3,6 +3,7 @@ function init_categories_menu() {
     var $el, leftPos, newWidth;
         $mainNav = $("#menu");
 
+    $mainNav.append("<li id='magic-line'></li>");
     var $magicLine = $("#magic-line");
     $magicLine.css({
       'background-color': $(".current_page_item a").attr("rel"),

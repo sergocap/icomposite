@@ -5,4 +5,3 @@
     - Project.categories.each do |category|
       %li{ class: "#{ category_by_path(request.env['PATH_INFO'], params) == category  ? 'current_page_item' : ''}" }
         = link_to category, root_path(:category => category), rel: color_by_category(category)
-    %li{ id: 'magic-line', style: "background-color: #{ color_by_category(category_by_path(request.env['PATH_INFO'], params))}" }
