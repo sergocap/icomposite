@@ -1,0 +1,27 @@
+ru:
+  activerecord:
+    attributes:
+      user:
+        name: Имя
+        password: Пароль
+        current_password: Текущий пароль
+        new_password: Новый пароль
+        password_confirmation: Подтвердите пароль
+        remember_me: Запомнить меня
+
+      project:
+        title: Название
+        description: Описание
+        category: Категория
+        standart_K: Ячеек в линии
+        size_place_x: Ширина ячейки
+        size_place_y: Высота ячейки
+
+  helpers:
+    submit:
+      update: Сохранить
+      create: Создать
+      sign_in: Войти
+      sign_up: Зарегистрироваться
+
+
