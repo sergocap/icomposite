@@ -16,16 +16,38 @@
 
 .main_wrapper
   padding: 6px
+  width: 1000px
+  margin: 0px auto
   min-height: 800px
 
 .header_wrapper
-  background-color: cornsilk
-  .main_logo
-    height: 50px
+  background-color: #102c10
+  .main_banner
+    background: url('logo.png') no-repeat
+    background-size: contain
 
-  .actions
-    text-align: right
-    margin-right: 25px
+    .logo
+      height: 100px
+
+    .actions
+      text-align: right
+      padding-right: 18px
+      margin-left: 1000px
+      background: white
+
+      span
+        float: left
+        margin-left: 10px
+
+      .user_logo
+        display: inline-block
+        position: absolute
+        top: 17px
+        right: 17px
 
   .categories_menu
     text-align: center
+
+.breadcrumb
+  padding: 3px 15px
+  background-color: #fafafa
