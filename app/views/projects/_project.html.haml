@@ -1,0 +1,24 @@
+.project
+  .info
+    .top
+      .title
+        - if project.complete?
+          %span.glyphicon.glyphicon-ok{ 'original-title': 'Завершён' }
+        = link_to project.title, project_path(project.id)
+
+  .image
+    = link_to image_tag(project.preview.url(:on_main), class: 'project_preview_on_index'), project_path(project.id)
+
+  .info
+    .bottom
+      = project.category
+
+      .download.tipsy_show{ 'original-title': 'Скачать' }
+        = link_to project.preview.url(:original), :'download' => "#{project.title}_icomposite_#{project.width}x#{project.height}" do
+          %span.glyphicon.glyphicon-download-alt
+
+      .my_places.tipsy_show{ original: { title: 'Мой вклад' } }
+        = "#{current_user.nil? ? 0 : current_user.places.where(:project_id => project.id).count}"
+
+      .statistics.tipsy_show{ original: { title: 'Готовых/Всего' } }
+        = "#{project.places.count}/#{project.total_places_count}"
