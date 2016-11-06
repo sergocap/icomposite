@@ -1,17 +1,18 @@
 .user
   .edit
+    %h2.for_form= 'Редактирование профиля'
     = simple_form_for @user do |f|
       = f.input :name
       = f.input :email
       .user_avatar_input{ :style => 'display:none;' }
         = f.input :avatar, input_html: { :class => 'avatar_image_input button' }
 
+      %button{ :type => 'button', :class => 'avatar_select_button button btn btn-default btn-sm' }= 'Выбрать изображение'
       .image_upload
         = image_tag @user.avatar.url, class: 'js-avatar_upload'
-      %button{ :type => 'button', :class => 'avatar_select_button button btn btn-default' }= 'Выбрать изображение'
       - if @user.errors.any?
         - @user.errors.each do |attribute, message|
           = message if attribute == :avatar_file_size || attribute == :avatar_content_type
 
-      <br>
-      = f.button :submit, class: 'btn-default'
+      .actions
+        = f.button :submit, class: 'btn-default'

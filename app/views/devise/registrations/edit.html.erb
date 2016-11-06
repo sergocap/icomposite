@@ -1,19 +1,19 @@
-<h2>Изменить пароль</h2>
+<h2 class='for_form'>Изменить пароль</h2>
 
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= devise_error_messages! %>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %>
   <% end %>
 
   <div class="field">
-    <%= f.label :current_password %><br />
+    <%= f.label :current_password %>
     <%= f.password_field :current_password, autocomplete: "off" %>
   </div>
 
   <div class="field">
-    <%= f.label :new_password %><br />
+    <%= f.label :new_password %>
     <%= f.password_field :password, autocomplete: "off" %>
     <% if @minimum_password_length %>
       <em>(<%= I18n.t('devise.minimum_chars', count: @minimum_password_length) %>)</em>
@@ -21,13 +21,13 @@
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation %><br />
+    <%= f.label :password_confirmation %>
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
 
   <div class="actions">
     <%= f.submit I18n.t('helpers.submit.update'), class: 'btn btn-default' %>
+    <%= link_to "Вернуться", :back %>
   </div>
 <% end %>
 
-<%= link_to "Вернуться", :back %>

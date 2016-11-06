@@ -1,35 +1,35 @@
-<h2>Регистрация</h2>
+<h2 class='for_form'>Регистрация</h2>
 
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name %>
     <%= f.text_field :name, autofocus: true %>
   </div>
 
 
   <div class="field">
-    <%= f.label :email %><br />
+    <%= f.label :email %>
     <%= f.email_field :email %>
   </div>
 
   <div class="field">
     <%= f.label :password %>
+    <%= f.password_field :password, autocomplete: "off" %>
     <% if @minimum_password_length %>
       <em>(<%= I18n.t('devise.minimum_chars', count: @minimum_password_length) %>)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+    <% end %>
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation %><br />
+    <%= f.label :password_confirmation %>
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
 
   <div class="actions">
     <%= f.submit I18n.t('helpers.submit.sign_up'), class: 'btn btn-default' %>
+    <%= render "devise/shared/links" %>
   </div>
 <% end %>
 
-<%= render "devise/shared/links" %>

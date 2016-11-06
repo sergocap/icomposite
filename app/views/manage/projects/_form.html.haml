@@ -1,7 +1,7 @@
 = simple_form_for [:manage, @project] do |f|
   = f.input :title
   = f.input :description
-  = f.input :category
+  = f.input :category, input_html: { class: 'selectpicker' }
 
   - if params['action'] == 'new'
 
@@ -10,15 +10,18 @@
       = f.input :size_place_x, input_html: { value: 30 }
       = f.input :size_place_y, input_html: { value: 20 }
 
-      %button{ :type => 'button', :class => 'set_place_size_button button' }= 'Применить размер'
+      .actions
+        %button{ :type => 'button', :class => 'set_place_size_button btn btn-default btn-sm' }= 'Применить размер'
 
     .image_input_wrapper
       = f.input :image, input_html: { :class => 'image_load_button button' }
-    %button{ :type => 'button', :class => 'image_button button' }= 'Выбрать изображение'
+    .actions
+      %button{ :type => 'button', :class => 'image_button btn btn-default btn-sm' }= 'Выбрать изображение'
 
     .image_edit_wrapper
       = image_tag @project.image.url, class: 'js-image_upload'
       %canvas{ :class => 'canvas'}
 
-  = f.submit
-  = link_to 'Отмена', manage_projects_path
+  .actions
+    = f.button :submit, class: 'btn btn-default'
+    = link_to 'Отмена', manage_projects_path

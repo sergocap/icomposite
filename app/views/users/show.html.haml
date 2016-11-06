@@ -2,7 +2,7 @@
   %div
     %h3= @user.name
     %div= @user.email
-    .avatar_image_profile= image_tag @user.avatar.url, max: { :height => '300px' }
+    .avatar_image_profile= image_tag @user.avatar.url
   - if current_user == @user
     %div= link_to 'Редактировать профиль', edit_user_path(@user.id)
     %div= link_to 'Изменить пароль', edit_user_registration_path
