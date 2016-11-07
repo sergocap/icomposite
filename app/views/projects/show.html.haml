@@ -1,10 +1,41 @@
 - breadcrumb :project, @project
 .project
   .show
-    %h1= @project.title
-    %p=  @project.description
-    %p=  "(Категория \"#{@project.category}\")"
+    %h2= 'Выберите регион'
 
     .project_wrapper
+      %table.info{ align: 'center' }
+        %td.title
+          - if can? :edit, @project
+            = link_to edit_manage_project_path(@project) do
+              %span.glyphicon.glyphicon-pencil
+          %h3= @project.title
+        %td.description
+          %span=  @project.description
       = render partial: '/regions/table', locals: { :regions  => @project.regions } if @project.development?
       = render partial: 'complete_table', locals: { :project => @project } if @project.complete?
+
+      .my_places
+        %h3= 'Мои картинки на проекте'
+        - if current_user
+
+          .published
+            - my_published_places = current_user.places.where(:project_id => @project.id).published
+            %p= "Опубликованные (#{my_published_places.count})"
+            - if my_published_places.count > 0
+              - my_published_places.each do |place|
+                = render partial: 'users/place', locals: { :place => place }
+            - else
+              %p= '-'
+
+          .not_published
+            - my_not_published_places = current_user.places.where(:project_id => @project.id).not_published
+            %p= "Неопубликованные (#{my_not_published_places.count})"
+            - if my_not_published_places.count > 0
+              - my_not_published_places.each do |place|
+                = render partial: 'users/place', locals: { :place => place }
+            - else
+              %p= '-'
+        - else
+          %p= 'Только авторизованным пользователи'
+

@@ -10,6 +10,9 @@ class Place < ActiveRecord::Base
   extend Enumerize
   enumerize :state, in: [:new, :crop_edit, :color_edit, :draft, :published], :default => :new
 
+  scope :published, -> { where(:state => 'published') }
+  scope :not_published, -> { where.not(:state => 'published') }
+
   def destroy_attachments
     image.destroy
   end

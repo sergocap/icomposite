@@ -5,7 +5,7 @@
     %p= "(#{@place.state == :published ? 'Опубликовано' : 'В черновиках'})"
     %div= image_tag @place.image.url
 
-    - if @place.user == current_user && @place.state == 'draft'
+    - if @place.user == current_user && @place.state != 'published'
       - if Place.is_empty?(@region, @place.x, @place.y)
         = simple_form_for [@region.project, @region, @place] do |f|
           = f.input :x, as: :hidden
