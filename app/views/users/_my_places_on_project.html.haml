@@ -1,0 +1,24 @@
+.my_places_project
+  %h4= 'Мои картинки на проекте'
+  - if current_user
+
+    .published
+      - my_published_places = current_user.places.where(:project_id => project.id).published
+      %p= "Опубликованные (#{my_published_places.count})"
+      - if my_published_places.count > 0
+        - my_published_places.each do |place|
+          = render partial: '/users/place', locals: { :place => place }
+      - else
+        %p= '-'
+
+    .not_published
+      - my_not_published_places = current_user.places.where(:project_id => project.id).not_published
+      %p= "Неопубликованные (#{my_not_published_places.count})"
+      - if my_not_published_places.count > 0
+        - my_not_published_places.each do |place|
+          = render partial: '/users/place', locals: { :place => place }
+      - else
+        %p= '-'
+  - else
+    %p= 'Только авторизованным пользователи'
+

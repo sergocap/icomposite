@@ -1,5 +1,7 @@
-= render partial: 'search'
+.left_wrapper
+.right_wrapper
 .projects
   - @projects.each do |project|
     = render partial: 'project', locals: { :project => project }
+
 
