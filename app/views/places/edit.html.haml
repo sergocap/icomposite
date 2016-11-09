@@ -1,5 +1,12 @@
 .place
+  %h4.info= 'Редактируйте и опубликуйте изображение'
+  .left_wrapper
+    = render partial: '/projects/info_project', locals: { :project  => @region.project }
+  .right_wrapper
+    = render partial: '/users/my_places_on_region', locals: { :region  => @region }
+
   .edit
     = render partial: 'places/form'
-    %div= link_to 'Удалить', project_region_place_path(@place.region.project.id, @place.region.id, @place.id ), data: { :confirm => 'Вы уверены?' }, method: :delete
-    = render :partial => 'navigate', :locals =>  { :place => @place_original_image }
+    = render :partial => 'navigate', :locals =>  { :region => @place.region }
+
+

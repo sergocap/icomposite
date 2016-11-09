@@ -1,8 +1,13 @@
 - breadcrumb :region, @region
-.region
+.region_show
+  %h4='Выберите ячейку'
+  .left_wrapper
+    = render partial: '/projects/info_project', locals: { :project  => @region.project }
+  .right_wrapper
+    = render partial: '/users/my_places_on_region', locals: { :region  => @region }
   .image
-    %div= "Регион #{@region.x} - #{@region.y}"
     = render partial: 'places/table', locals: { :places => @region.places, :region => @region, :project => @region.project }
+    %div= "Регион #{@region.x}-#{@region.y}"
   %br
   .project_preview
     = link_to image_tag(@region.project.preview.url(:on_navigation)), project_path(@region.project)

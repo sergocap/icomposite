@@ -5,21 +5,9 @@
 
     .project_wrapper
       .left_wrapper
-        .info_project
-          .title
-            %h3= @project.title
-            - if can? :edit, @project
-              = link_to edit_manage_project_path(@project) do
-                %span.glyphicon.glyphicon-pencil
-          .description
-            %span=  @project.description
-          %h4.statistics.tipsy_show{ original: { title: 'Готовых/Всего' } }= "#{@project.places.count}/#{@project.total_places_count}"
-
-
+        = render partial: 'info_project', locals: { :project  => @project }
       .right_wrapper
         = render partial: '/users/my_places_on_project', locals: { :project  => @project }
-
-
 
       = render partial: '/regions/table', locals: { :regions  => @project.regions } if @project.development?
       = render partial: 'complete_table', locals: { :project => @project } if @project.complete?

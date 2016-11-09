@@ -1,24 +1,30 @@
 - breadcrumb :place, @place
-.crop_edit
-  = stylesheet_link_tag "jquery.Jcrop"
-  = javascript_include_tag "jquery.Jcrop"
-  = simple_form_for [@region.project, @region, @place] do |f|
-    = f.input :crop_x, as: :hidden
-    = f.input :crop_y, as: :hidden
-    = f.input :crop_height, as: :hidden
-    = f.input :crop_width, as: :hidden
+.place
+  %h4.info= 'Обрежте изображение'
+  .left_wrapper
+    = render partial: '/projects/info_project', locals: { :project  => @region.project }
+  .right_wrapper
+    = render partial: '/users/my_places_on_region', locals: { :region  => @region }
 
-    .previews
+  .crop_edit
+    = stylesheet_link_tag "jquery.Jcrop"
+    = javascript_include_tag "jquery.Jcrop"
+    = simple_form_for [@region.project, @region, @place] do |f|
+      = f.input :crop_x, as: :hidden
+      = f.input :crop_y, as: :hidden
+      = f.input :crop_height, as: :hidden
+      = f.input :crop_width, as: :hidden
 
-      = image_tag @place_original_image.image.url, class: 'place_original_image'
+      .place_image_edit_wrapper
+        .previews_mini_images
+          = image_tag @place_original_image.image.url, class: 'place_original_image'
 
-      %div{data: {w: @region.project.size_place_x, h: @region.project.size_place_y}, class: 'crop_preview_wrapper', style: "width: #{@region.project.size_place_x}px; height: #{@region.project.size_place_y}px"}
-        = image_tag @place.image.url, class: 'js-place_preview_image'
+          %div{data: {w: @region.project.size_place_x, h: @region.project.size_place_y}, class: 'crop_preview_wrapper', style: "width: #{@region.project.size_place_x}px; height: #{@region.project.size_place_y}px"}
+            = image_tag @place.image.url, class: 'js-place_preview_image'
 
-    .place_image_edit_wrapper
-      = image_tag @place.image.url, class: 'js-image_crop', data: { ratioW: @region.project.size_place_x, ratioH: @region.project.size_place_y }
+        = image_tag @place.image.url, class: 'js-image_crop', data: { ratioW: @region.project.size_place_x, ratioH: @region.project.size_place_y }
 
-    .actions
-      = f.button :submit, name: 'cropped', value: 'Обрезать'
-      = link_to 'Отмена', edit_project_region_place_path(@region.project.id, @region.id, @place.id)
-    = render :partial => 'navigate', :locals =>  { :place => @place_original_image }
+      .actions
+        = link_to 'Отмена', edit_project_region_place_path(@region.project.id, @region.id, @place.id), class: 'btn btn-default'
+        = f.button :submit, name: 'cropped', value: 'Обрезать', class: 'btn-success'
+    = render :partial => 'navigate', :locals =>  { :region => @place.region }

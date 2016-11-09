@@ -1,0 +1,14 @@
+.info_project
+  .title
+    %h3= project.title
+    - if can? :edit, project
+      = link_to edit_manage_project_path(project) do
+        %span.glyphicon.glyphicon-pencil
+  .description
+    %span=  project.description
+
+  %h4.statistics{ original: { title: 'Готовых/Всего' } }= "#{project.places.count}/#{project.total_places_count}"
+  %p= "#{project.width}x#{project.height}px"
+
+
+

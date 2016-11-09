@@ -13,23 +13,45 @@
       img
         vertical-align: top
 .place
+  .previews_mini_images
+    text-align: left
+
+  .simple_form
+    width: 892px
+    margin-bottom: 30px
+    margin-top: 20px
+    padding: 0 10px 0 10px
+    text-align: center
+
+    .actions
+      margin: 0px
+
+  h4.info
+    text-align: center
   .new, .edit
     img
       vertical-align: top
     .place_image_input_wrapper
       display: none
 
-    .place_image_button
-      display: block
-
   .new
     .place_image_edit_wrapper
       display: none
+  .edit
+    .place_image_edit_wrapper
+      display: inline-block
+      margin-bottom: 25px
+
 
   .js-place_image_upload
     display: block
     max-width:  1000px
     max-height: 500px
+
+.places
+  .place:hover
+    background: white
+    opacity: 0.5
 
 .crop_preview_wrapper
   display: inline
@@ -41,8 +63,9 @@
     vertical-align: top
   .place_image_edit_wrapper, .svg_wrapper
     display: inline-block
-    max-width:  1000px
-    max-height: 500px
-    overflow: scroll
+    max-width:  500px
+    max-height: 200px
+    overflow: hidden
+    margin-bottom: 15px
 
 
