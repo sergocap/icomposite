@@ -5,7 +5,7 @@ class Region < ActiveRecord::Base
   has_many :place_original_images, dependent: :destroy
   has_attached_file :image, default_url: '/images/missing.png'
   validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
-  has_attached_file :preview, default_url: '/images/missing.png', :styles => lambda { |a| { :medium => "#{a.instance.medium_width/2.to_i}x#{a.instance.medium_height/2.to_i}" } }
+  has_attached_file :preview, default_url: '/images/missing.png', :styles => lambda { |a| { :medium => "#{a.instance.medium_width.ceil}x#{a.instance.medium_height.ceil}" } }
   validates_attachment_content_type :preview, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
   before_destroy :destroy_attachments
 
@@ -64,20 +64,14 @@ class Region < ActiveRecord::Base
   end
 
   def medium_height
-    if self.persisted?
-      return count_y * project.size_place_y
-    else
-      return @count_y_v * Project.find(@project_id_v).size_place_y
-    end
-
+    prjct = self.persisted? ? project : Project.find(project_id_v)
+    cnt_y = self.persisted? ? count_y : count_y_v
+    cnt_y * prjct.size_place_y / prjct.resize_factor
   end
 
   def medium_width
-    if self.persisted?
-      return count_x * project.size_place_x
-    else
-      return @count_x_v * Project.find(@project_id_v).size_place_x
-    end
+    prjct = self.persisted? ? project : Project.find(project_id_v)
+    cnt_x = self.persisted? ? count_x : count_x_v
+    cnt_x * prjct.size_place_x / prjct.resize_factor
   end
-
 end

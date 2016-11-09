@@ -46,6 +46,7 @@ class Place < ActiveRecord::Base
           <svg height='#{image_height}' width='#{image_width}'>
             <defs>
                   <filter id='fp1'>
+                    <feColorMatrix id='filter_saturate' type='saturate' values='#{saturate}'></feColorMatrix>
                     <feComponentTransfer>
                       <feFuncR slope='#{r_component}' type='linear'></feFuncR>
                       <feFuncG slope='#{g_component}' type='linear'></feFuncG>

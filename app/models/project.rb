@@ -76,6 +76,10 @@ class Project < ActiveRecord::Base
     update_attribute(:state, 'complete')
   end
 
+  def resize_factor
+    width.to_f / 872.0
+  end
+
   def to_development!
     update_attribute(:state, 'development')
   end
