@@ -1,1 +1,1 @@
-= link_to image_tag(place.image.url, height: place.project.size_place_y), project_region_place_path(place.project_id, place.region_id, place.id ), class: 'my_place'
+= link_to image_tag(place.image.url, height: place.project.size_place_y), project_region_place_path(place.project_id, place.region_id, place.id ), class: 'my_place ajax-place_show', remote: true

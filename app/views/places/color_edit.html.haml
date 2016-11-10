@@ -2,20 +2,20 @@
 .place
   %h4.info= 'Выберите подходящий цвет'
   .left_wrapper
-    = render partial: '/projects/info_project', locals: { :project  => @region.project }
+    = render partial: '/projects/info_project', locals: { :project  => @project }
   .right_wrapper
     = render partial: '/users/my_places_on_region', locals: { :region  => @region }
 
 
   .color_edit
-    = simple_form_for [@region.project, @region, @place] do |f|
+    = simple_form_for [@project, @region, @place] do |f|
       .svg_wrapper
 
         .previews_mini_images
           = image_tag @place_original_image.image.url, class: 'place_original_image'
 
-          .svg_preview_wrapper{ style: "width: #{@region.project.size_place_x}px; height: #{@region.project.size_place_y}px; position: absolute; display: inline-block;" }
-            %svg{ class: 'filterPlace', :width => @region.project.size_place_x, :height => @region.project.size_place_y }
+          .svg_preview_wrapper{ style: "width: #{@project.size_place_x}px; height: #{@project.size_place_y}px; position: absolute; display: inline-block;" }
+            %svg{ class: 'filterPlace', :width => @project.size_place_x, :height => @project.size_place_y }
               %defs
                 %filter{ id: 'fp1' }
 
@@ -55,9 +55,9 @@
         %br
 
       .actions
-        = link_to 'Отмена', edit_project_region_place_path(@region.project.id, @region.id, @place.id), class: 'btn btn-default'
+        = link_to 'Отмена', edit_project_region_place_path(@project.id, @region.id, @place.id), class: 'btn btn-default'
         %button{ :type => 'button', :id => 'to_default_button', class: 'btn btn-default' }= 'Сбросить'
         = f.button :submit, :name => 'colored', :value => 'Применить', class: 'btn-success'
         %div
           = render partial: 'actions', locals: { :f => f }
-    = render :partial => 'navigate', :locals =>  { :region => @region }
+    = render :partial => 'navigate', :locals =>  { :region => @region, :project => @project }

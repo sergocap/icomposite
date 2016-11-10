@@ -6,4 +6,5 @@ $ ->
   init_image_crop() if $('.js-image_crop').length
   init_place_color_edit() if $('.place .color_edit').length
   init_slider() if $('.js-slider').length
+  init_ajax_place_show() if $('.ajax-place_show').length
   true

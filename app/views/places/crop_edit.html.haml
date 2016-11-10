@@ -2,14 +2,14 @@
 .place
   %h4.info= 'Обрежте изображение'
   .left_wrapper
-    = render partial: '/projects/info_project', locals: { :project  => @region.project }
+    = render partial: '/projects/info_project', locals: { :project  => @project }
   .right_wrapper
     = render partial: '/users/my_places_on_region', locals: { :region  => @region }
 
   .crop_edit
     = stylesheet_link_tag "jquery.Jcrop"
     = javascript_include_tag "jquery.Jcrop"
-    = simple_form_for [@region.project, @region, @place] do |f|
+    = simple_form_for [@project, @region, @place] do |f|
       = f.input :crop_x, as: :hidden
       = f.input :crop_y, as: :hidden
       = f.input :crop_height, as: :hidden
@@ -19,14 +19,14 @@
         .previews_mini_images
           = image_tag @place_original_image.image.url, class: 'place_original_image'
 
-          %div{data: {w: @region.project.size_place_x, h: @region.project.size_place_y}, class: 'crop_preview_wrapper', style: "width: #{@region.project.size_place_x}px; height: #{@region.project.size_place_y}px"}
+          %div{data: {w: @project.size_place_x, h: @project.size_place_y}, class: 'crop_preview_wrapper', style: "width: #{@project.size_place_x}px; height: #{@project.size_place_y}px"}
             = image_tag @place.image.url, class: 'js-place_preview_image'
 
-        = image_tag @place.image.url, class: 'js-image_crop', data: { ratioW: @region.project.size_place_x, ratioH: @region.project.size_place_y }
+        = image_tag @place.image.url, class: 'js-image_crop', data: { ratioW: @project.size_place_x, ratioH: @project.size_place_y }
 
       .actions
-        = link_to 'Отмена', edit_project_region_place_path(@region.project.id, @region.id, @place.id), class: 'btn btn-default'
+        = link_to 'Отмена', edit_project_region_place_path(@project.id, @region.id, @place.id), class: 'btn btn-default'
         = f.button :submit, name: 'cropped', value: 'Обрезать', class: 'btn-success'
         %div
           = render partial: 'actions', locals: { :f => f }
-    = render :partial => 'navigate', :locals =>  { :region => @place.region }
+    = render :partial => 'navigate', :locals =>  { :region => @region, :project => @project }

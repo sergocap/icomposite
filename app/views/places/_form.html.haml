@@ -1,5 +1,5 @@
 - breadcrumb :place, @place_original_image
-= simple_form_for [@region.project, @region, @place] do |f|
+= simple_form_for [@project, @region, @place] do |f|
   = f.input :x, as: :hidden
   = f.input :y, as: :hidden
 
@@ -7,9 +7,8 @@
     .previews_mini_images
       = image_tag @place_original_image.image.url, class: 'place_original_image'
 
-      %div{data: {w: @region.project.size_place_x, h: @region.project.size_place_y}, class: 'preview_wrapper', style: "display: #{@place.image.path.nil? ? 'none' : 'inline' }; position: absolute;  width: #{@region.project.size_place_x}px; height: #{@region.project.size_place_y}px"}
-        = image_tag @place.image.url, class: 'js-place_preview_image', style: "width: #{@region.project.size_place_x}px; height: #{@region.project.size_place_y}px"
-
+      %div{data: {w: @project.size_place_x, h: @project.size_place_y}, class: 'preview_wrapper', style: "display: #{@place.image.path.nil? ? 'none' : 'inline' }; position: absolute;  width: #{@project.size_place_x}px; height: #{@project.size_place_y}px"}
+        = image_tag @place.image.url, class: 'js-place_preview_image', style: "width: #{@project.size_place_x}px; height: #{@project.size_place_y}px"
 
     = image_tag @place.image.url, class: 'js-place_image_upload'
 

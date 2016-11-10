@@ -8,7 +8,7 @@
               - place = places.where(:x => index_x, :y => index_y, :state => :published).first
               - if place.present?
                 = link_to content_tag(:img, '', :src => place.image.url, :style => "height: #{project.size_place_y}px; width: #{project.size_place_x}px"),
-                  project_region_place_path(project, region, place)
+                  project_region_place_path(project, region, place), remote: true, class: 'ajax-place_show'
               - else
                 = link_to content_tag(:div, '', :style => "height: #{project.size_place_y}px; width: #{project.size_place_x}px"),
                   new_project_region_place_path(project, region, :x => x, :y => y)

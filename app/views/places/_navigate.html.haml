@@ -1,8 +1,8 @@
 .region_show
   .image
-    = render partial: 'places/table', locals: { :places => region.places, :region => region, :project => region.project }
-    %p= link_to "Регион #{region.x}-#{region.y}", project_region_path(region.project, region)
+    = render partial: 'places/table', locals: { :places => region.places, :region => region, :project => project }
+    %p= link_to "Регион #{region.x}-#{region.y}", project_region_path(project, region)
   %br
   .project_preview
-    = link_to image_tag(region.project.preview.url(:on_navigation)), project_path(region.project)
-    %p= link_to "ЯК \"#{region.project.title}\"", project_path(region.project)
+    = link_to image_tag(project.preview.url(:on_navigation)), project_path(project)
+    %p= link_to "ЯК \"#{project.title}\"", project_path(project)

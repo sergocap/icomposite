@@ -9,6 +9,9 @@ ru:
         password_confirmation: Подтвердите пароль
         remember_me: Запомнить меня
 
+      place:
+        comment: Комментарий
+
       project:
         title: Название
         description: Описание

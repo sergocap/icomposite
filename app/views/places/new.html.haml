@@ -1,12 +1,12 @@
 .place
   %h4.info= 'Выберите изображение'
   .left_wrapper
-    = render partial: '/projects/info_project', locals: { :project  => @region.project }
+    = render partial: '/projects/info_project', locals: { :project  => @project }
   .right_wrapper
     = render partial: '/users/my_places_on_region', locals: { :region  => @region }
 
   .new
     = render partial: 'places/form'
-    = render :partial => 'navigate', :locals =>  { :region => @region }
+    = render :partial => 'navigate', :locals =>  { :region => @region, :project => @project }
 
 

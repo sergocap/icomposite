@@ -1,9 +1,9 @@
 class PlacesController < ApplicationController
   load_and_authorize_resource :only => [:edit, :new, :update, :destroy]
-  before_filter :find_region
+  before_filter :find_region_and_project
   before_filter :find_place, only: [:edit, :update, :color_edit, :crop_edit, :destroy]
   before_filter :find_place_original_image, only: [:edit, :color_edit, :crop_edit]
-
+  layout false, only: :show
 
   def new
     @place = current_user.places.new
@@ -30,15 +30,16 @@ class PlacesController < ApplicationController
         custom_redirect
       else
         add_to_preview_if_empty
-        redirect_to project_region_path(@region.project, @region)
+        redirect_to project_region_path(@project, @region)
       end
     else
-      redirect_to new_project_region_place_path(@region.project, @region, :x => @place.x, :y => @place.y)
+      redirect_to new_project_region_place_path(@project, @region, :x => @place.x, :y => @place.y)
     end
   end
 
   def add_to_preview_if_empty
     if Place.is_empty?(@region, @place.x, @place.y)
+      @place.scaling_image
       @place.update_attribute(:state, :published)
       @region.add_to_preview(@place)
     end
@@ -58,30 +59,30 @@ class PlacesController < ApplicationController
       custom_redirect
     else
       add_to_preview_if_empty
-      redirect_to project_region_path(@region.project, @region)
+      redirect_to project_region_path(@project, @region)
     end
   end
 
   def destroy
     @place.destroy
     @region.delete_from_preview(@place)
-    redirect_to project_region_path(@region.project.id, @region.id)
+    redirect_to project_region_path(@project.id, @region.id)
   end
 
   def custom_redirect
     if params[:crop_edit]
-      redirect_to crop_edit_project_region_place_path(@region.project, @region, @place) and return
+      redirect_to crop_edit_project_region_place_path(@project, @region, @place) and return
     end
 
     if params[:crop_color_edit]
       @place.update_attribute(:state, :crop_edit)
-      redirect_to crop_edit_project_region_place_path(@region.project, @region, @place) and return
+      redirect_to crop_edit_project_region_place_path(@project, @region, @place) and return
     end
 
 
     if params[:color_edit]
       @place.update_size
-      redirect_to color_edit_project_region_place_path(@region.project, @region, @place) and return
+      redirect_to color_edit_project_region_place_path(@project, @region, @place) and return
     end
 
     if params[:cropped]
@@ -89,16 +90,16 @@ class PlacesController < ApplicationController
       if @place.state == :crop_edit
         @place.update_attribute(:state, :color_edit)
         @place.update_size
-        redirect_to color_edit_project_region_place_path(@region.project, @region, @place) and return
+        redirect_to color_edit_project_region_place_path(@project, @region, @place) and return
       else
 
-      redirect_to edit_project_region_place_path(@region.project, @region, @place) and return
+      redirect_to edit_project_region_place_path(@project, @region, @place) and return
       end
     end
 
     if params[:colored]
       @place.svg_save
-      redirect_to edit_project_region_place_path(@region.project, @region, @place) and return
+      redirect_to edit_project_region_place_path(@project, @region, @place) and return
     end
   end
 
@@ -107,8 +108,9 @@ class PlacesController < ApplicationController
     true
   end
 
-  def find_region
+  def find_region_and_project
     @region = Region.find(params['region_id'])
+    @project = @region.project
   end
 
   def find_place
@@ -120,7 +122,7 @@ class PlacesController < ApplicationController
   end
 
   def place_params
-    params.require(:place).permit(:region_id, :x, :y, :image,
+    params.require(:place).permit(:region_id, :x, :y, :image, :comment,
                                   :crop_x, :crop_y, :crop_width, :crop_height,
                                   :blur, :saturate, :r_component, :g_component, :b_component)
   end

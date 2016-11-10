@@ -6,6 +6,7 @@ class Place < ActiveRecord::Base
   has_attached_file :image, default_url: '/images/missing.png'
   validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
   validates_attachment_presence :image
+  validates_length_of :comment, :maximum => 60
   before_destroy :destroy_attachments
   extend Enumerize
   enumerize :state, in: [:new, :crop_edit, :color_edit, :draft, :published], :default => :new
@@ -23,9 +24,11 @@ class Place < ActiveRecord::Base
   end
 
   def scaling_image
-    img = Magick::Image.read(image.path)[0]
-    img.resize!(region.project.size_place_x, region.project.size_place_y, Magick::LanczosFilter, 1.0)
-    img.write(image.path)
+    if FastImage.size(image.path)[0] != project.size_place_x || FastImage.size(image.path)[1] != project.size_place_y
+      img = Magick::Image.read(image.path)[0]
+      img.resize!(region.project.size_place_x, region.project.size_place_y, Magick::LanczosFilter, 1.0)
+      img.write(image.path)
+    end
   end
 
   def scaling_image_from_width(width_size)

@@ -1,23 +1,30 @@
 .place
   .show
-    - breadcrumb :place, @place
-    %p= "Место #{@place.x} - #{@place.y}"
-    %p= "(#{@place.state == :published ? 'Опубликовано' : 'В черновиках'})"
-    %div= image_tag @place.image.url
+    .info
+      .image= image_tag @place.image.url
 
-    - if @place.user == current_user && @place.state != 'published'
-      - if Place.is_empty?(@region, @place.x, @place.y)
-        = simple_form_for [@region.project, @region, @place] do |f|
-          = f.input :x, as: :hidden
-          = f.submit 'Опубликовать'
-          %p= "(Место пока не занято)"
+      .user
+        =link_to image_tag(@place.user.avatar.url(:small)), user_path(@place.user.id), class: 'tipsy_show_s', 'original-title': @place.user.name if @place.user.present?
+
+      - if @place.state == :published
+        .glyphicon.glyphicon-ok.tipsy_show_s{ 'original-title': 'Опубликованно' }
       - else
-        %p= "(Место уже занято. Можете удалять картинку)"
+        .glyphicon.glyphicon-cog.tipsy_show_s{ 'original-title': 'В черновиках' }
 
-    - if @place.user == current_user
-      %div= link_to 'Редактировать', edit_project_region_place_path(@place.region.project.id, @place.region.id, @place.id) if can? :edit, @place
-      %div= link_to 'Удалить', project_region_place_path(@place.region.project.id, @place.region.id, @place.id), data: { :confirm => 'Вы уверены?' }, method: :delete if can? :destroy, @place
-    %br
-    = render :partial => 'navigate', :locals =>  { :place => @place }
-    %div= link_to image_tag(@place.user.avatar.url(:small)), user_path(@place.user.id) if @place.user.present?
-    %div= link_to @place.user.name, user_path(@place.user.id) if @place.user.present?
+      - if @place.comment.present?
+        .comment
+          = @place.comment
+    - if current_user && @place.user == current_user
+      = simple_form_for [@project, @region, @place] do |f|
+        = f.input :x, as: :hidden
+
+        .actions
+          = link_to 'Удалить', project_region_place_path(@project.id, @region.id, @place.id), class: 'btn btn-default', data: { :confirm => 'Вы уверены?' }, method: :delete if can? :destroy, @place
+          = link_to 'Редактировать', edit_project_region_place_path(@project.id, @region.id, @place.id), class: 'btn btn-default' if can? :edit, @place
+
+          - if @place.state != :published && can?(:edit, @place)
+            = f.submit 'Опубликовать', class: 'btn btn-success'
+          - elsif @place.state != :published && !Place.is_empty?(@region, @place.x, @place.y)
+            %p= "Место уже занято. Можете удалять картинку"
+
+
