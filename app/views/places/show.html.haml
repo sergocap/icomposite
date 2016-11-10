@@ -1,7 +1,10 @@
 .place
   .show
     .info
-      .image= image_tag @place.image.url
+      - if @place.big_image.present? && @place.state == :published
+        .image= image_tag @place.big_image.url
+      - else
+        .image= image_tag @place.image.url
 
       .user
         =link_to image_tag(@place.user.avatar.url(:small)), user_path(@place.user.id), class: 'tipsy_show_s', 'original-title': @place.user.name if @place.user.present?

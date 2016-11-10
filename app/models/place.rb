@@ -4,8 +4,10 @@ class Place < ActiveRecord::Base
   belongs_to :project
   attr_accessor :crop_x, :crop_y, :crop_height, :crop_width, :blur, :saturate, :r_component, :g_component, :b_component
   has_attached_file :image, default_url: '/images/missing.png'
+  has_attached_file :big_image, default_url: '/images/missing.png'
   validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
   validates_attachment_presence :image
+  validates_attachment_content_type :big_image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
   validates_length_of :comment, :maximum => 60
   before_destroy :destroy_attachments
   extend Enumerize
@@ -21,6 +23,28 @@ class Place < ActiveRecord::Base
   def Place.is_empty?(region, x, y)
     c = region.places.where(:x => x, :y => y, :state => :published).count
     return c == 0 ? true : false
+  end
+
+  def save_big_image
+    if FastImage.size(image.path)[0] > 100
+      img = Magick::Image.read(image.path)[0]
+      img.resize!(100, (FastImage.size(image.path)[1] / (FastImage.size(image.path)[0] * 1.0 / 100)).to_i, Magick::LanczosFilter, 1.0)
+      file = Tempfile.new(['bg_img', '.png'])
+      img.write(file.path)
+      update_attribute(:big_image, file)
+      file.close
+      file.unlink
+    else
+      self.big_image = self.image
+      self.save
+    end
+  end
+
+  def image_from_big_image
+    if big_image.present? && state == :published
+      self.image = self.big_image
+      self.save
+    end
   end
 
   def scaling_image
@@ -71,16 +95,15 @@ class Place < ActiveRecord::Base
           </svg>"
     file = File.new('svg_temp.svg', 'w+')
     File.write(file, svg_string)
+    file_temp = Tempfile.new(['temp', '.png'])
 
-    system("inkscape -z -e #{image.path}  #{file.path}")
-
-    path = image.path
-    new_file_name = '1' + File.basename(path)
-    FileUtils.move(path, File.join(File.dirname(path), new_file_name))
-    self.image_file_name = new_file_name
-    self.save
+    system("inkscape -z -e #{file_temp.path}  #{file.path}")
 
     file.close
     File.delete(file)
+
+    update_attribute(:image, file_temp)
+    file_temp.close
+    file_temp.unlink
   end
 end

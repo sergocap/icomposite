@@ -39,6 +39,7 @@ class PlacesController < ApplicationController
 
   def add_to_preview_if_empty
     if Place.is_empty?(@region, @place.x, @place.y)
+      @place.save_big_image
       @place.scaling_image
       @place.update_attribute(:state, :published)
       @region.add_to_preview(@place)
@@ -47,6 +48,7 @@ class PlacesController < ApplicationController
 
   def edit
     @place.update_size
+    @place.image_from_big_image
     @place.update_attribute(:state, :draft)
     @region.delete_from_preview(@place)
   end
