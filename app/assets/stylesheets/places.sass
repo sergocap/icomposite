@@ -31,17 +31,17 @@
   .new, .edit
     img
       vertical-align: top
-    .place_image_input_wrapper
-      display: none
 
-  .new
-    .place_image_edit_wrapper
-      display: none
-  .edit
+  .place_image_input_hidden
+    display: none
+
+  .edit, .new
     .place_image_edit_wrapper
       display: inline-block
       margin-bottom: 25px
 
+  .new .js-place_image_upload
+    display: none
 
   .js-place_image_upload
     display: block
@@ -64,7 +64,6 @@
   .place_image_edit_wrapper, .svg_wrapper
     display: inline-block
     max-width:  500px
-    max-height: 200px
     overflow: hidden
     margin-bottom: 15px
 

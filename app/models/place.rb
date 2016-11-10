@@ -28,6 +28,15 @@ class Place < ActiveRecord::Base
     img.write(image.path)
   end
 
+  def scaling_image_from_width(width_size)
+    if FastImage.size(image.path)[0] > width_size
+      img = Magick::Image.read(image.path)[0]
+      resize_f = FastImage.size(image.path)[0] * 1.0 / width_size
+      img.resize!(width_size, (FastImage.size(image.path)[1] / resize_f).to_i, Magick::LanczosFilter, 1.0)
+      img.write(image.path)
+    end
+  end
+
   def crop_image
     unless crop_height == '0' || crop_width == '0'
       img = Magick::Image.read(image.path)[0]

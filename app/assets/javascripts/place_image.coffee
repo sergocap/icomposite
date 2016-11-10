@@ -10,13 +10,9 @@
       reader = new FileReader()
       reader.onload = (e) ->
         $('.go_crop_with_color').click()
-        #$('.place_image_edit_wrapper')[0].style.display = 'block'
-        #preview.attr('src', e.target.result)
-        #set_preview()
       reader.readAsDataURL(file)
     else
-      $('.place_image_edit_wrapper')[0].style.display = 'none'
-      $('.preview_wrapper')[0].style.display = 'none'
+      $('.js-place_image_upload')[0].style.display = 'none'
       alert 'Выберите картинку'
 
 @init_image_crop = ->

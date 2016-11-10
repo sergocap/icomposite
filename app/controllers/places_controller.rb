@@ -25,6 +25,7 @@ class PlacesController < ApplicationController
     @place.project_id = @region.project.id
     if @place.save
       @place.update_size
+      @place.scaling_image_from_width(500)
       if editing_params?
         custom_redirect
       else
@@ -51,6 +52,7 @@ class PlacesController < ApplicationController
 
   def update
     @place.update_attributes(place_params)
+    @place.scaling_image_from_width(500)
 
     if editing_params?
       custom_redirect

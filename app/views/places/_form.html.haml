@@ -3,9 +3,6 @@
   = f.input :x, as: :hidden
   = f.input :y, as: :hidden
 
-  .place_image_input_wrapper
-    = f.input :image, input_html: { :class => 'place_image_load_button button' }
-
   .place_image_edit_wrapper
     .previews_mini_images
       = image_tag @place_original_image.image.url, class: 'place_original_image'
@@ -17,10 +14,5 @@
     = image_tag @place.image.url, class: 'js-place_image_upload'
 
   .actions
-    %button{ :type => 'button', :class => 'place_image_button btn btn-default' }= 'Выбрать изображение'
-    %div{ class: "#{ f.object.persisted? ? '' : 'disabled_div'}", style: 'display: inline-block'}
-      = f.button :submit, name: 'crop_edit',  value: 'Выбрать область', class: 'go_crop btn btn-default'
-      = f.button :submit, name: 'crop_color_edit',  value: 'Выбрать область и цвет', class: 'go_crop_with_color ', style: 'display: none'
-      = f.button :submit, name: 'color_edit', value: 'Редактировать', class: 'btn btn-default'
-      = f.submit 'Опубликовать', class: 'btn btn-success'
+    = render partial: 'actions', locals: { :f => f }
 

@@ -27,4 +27,6 @@
       .actions
         = link_to 'Отмена', edit_project_region_place_path(@region.project.id, @region.id, @place.id), class: 'btn btn-default'
         = f.button :submit, name: 'cropped', value: 'Обрезать', class: 'btn-success'
+        %div
+          = render partial: 'actions', locals: { :f => f }
     = render :partial => 'navigate', :locals =>  { :region => @place.region }

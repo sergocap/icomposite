@@ -58,4 +58,6 @@
         = link_to 'Отмена', edit_project_region_place_path(@region.project.id, @region.id, @place.id), class: 'btn btn-default'
         %button{ :type => 'button', :id => 'to_default_button', class: 'btn btn-default' }= 'Сбросить'
         = f.button :submit, :name => 'colored', :value => 'Применить', class: 'btn-success'
+        %div
+          = render partial: 'actions', locals: { :f => f }
     = render :partial => 'navigate', :locals =>  { :region => @region }
