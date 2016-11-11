@@ -1,15 +1,26 @@
 .user
-  %div
-    %h3= @user.name
-    %div= @user.email
+  %h1= @user.name
+  .left_wrapper
+    %h3= 'Последние публикации'
+    %h4= "Всего #{@user.places.published.count} картинок"
+    - @user.places.published.order('updated_at desc').each do |place|
+      %div
+        = place.comment
+        = render partial: 'place', locals: { place: place }
+
+  .center_block
     .avatar_image_profile= image_tag @user.avatar.url
-  - if current_user == @user
-    %div= link_to 'Редактировать профиль', edit_user_path(@user.id)
-    %div= link_to 'Изменить пароль', edit_user_registration_path
+    .info
+      %p= @user.about_my
+      - if current_user == @user
+        = link_to 'Редактировать профиль', edit_user_path(@user.id), class: 'btn btn-default'
+        = link_to 'Изменить пароль', edit_user_registration_path, class: 'btn btn-default'
 
-  - @user.places.each do |place|
-    = render partial: 'place', locals: { :place => place }
-
-  .projects
-    - @user.places.map(&:region).map(&:project).uniq.each do |project|
-      = link_to "ЯК #{project.title}", project_path(project.id)
+    .projects
+      %h3= 'Участие в проектах'
+      - @user.places.map(&:region).map(&:project).uniq.each do |project|
+        .user_project
+          = image_tag project.preview.url(:on_manage), class: 'project_image'
+          = link_to "ЯК #{project.title}", project_path(project.id), class: 'project_title'
+          %p.statistics.tipsy_show_w{ original: { title: 'Готовых/Всего' } }= "#{project.places.count}/#{project.total_places_count}"
+          = render partial: 'my_places_on_project', locals: { :project => project, :user => @user }

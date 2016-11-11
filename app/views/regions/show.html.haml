@@ -4,7 +4,7 @@
   .left_wrapper
     = render partial: '/projects/info_project', locals: { :project  => @region.project }
   .right_wrapper
-    = render partial: '/users/my_places_on_region', locals: { :region  => @region }
+    = render partial: '/users/my_places_on_region', locals: { :region  => @region, :user => current_user }
   .image
     = render partial: 'places/table', locals: { :places => @region.places, :region => @region, :project => @region.project }
     %div= "Регион #{@region.x}-#{@region.y}"

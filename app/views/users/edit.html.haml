@@ -4,6 +4,7 @@
     = simple_form_for @user do |f|
       = f.input :name
       = f.input :email
+      = f.input :about_my
       .user_avatar_input{ :style => 'display:none;' }
         = f.input :avatar, input_html: { :class => 'avatar_image_input button' }
 

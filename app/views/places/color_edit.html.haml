@@ -4,7 +4,7 @@
   .left_wrapper
     = render partial: '/projects/info_project', locals: { :project  => @project }
   .right_wrapper
-    = render partial: '/users/my_places_on_region', locals: { :region  => @region }
+    = render partial: '/users/my_places_on_region', locals: { :region  => @region, user: current_user }
 
 
   .color_edit
