@@ -26,5 +26,5 @@
   </div>
   <%= render partial: 'layouts/header_categories_menu' %>
 </div>
-<%= breadcrumbs display_single_fragment: true, style: :bootstrap, separator: '' %>
+<%= breadcrumbs display_single_fragment: true, style: :bootstrap, separator: '' unless show_complete_project? %>
 

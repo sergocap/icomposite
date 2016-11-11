@@ -17,7 +17,7 @@
       - if @place.comment.present?
         .comment
           = @place.comment
-    - if current_user && @place.user == current_user
+    - if current_user && @place.user == current_user && !@project.complete?
       = simple_form_for [@project, @region, @place] do |f|
         = f.input :x, as: :hidden
 

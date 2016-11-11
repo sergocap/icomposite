@@ -12,11 +12,61 @@
 @import 'bootstrap/glyphicons'
 @import 'jBox'
 
-.body
-  background-color: white
-  div
-    margin: 0px
+body.full_width
+
+  .project
+    display: inline-block
+
+  .main_wrapper
     padding: 0px
+
+  .mini_header_wrapper
+
+    *
+      margin-left: 8px
+      float: left
+
+    h1
+      font-size: 33px
+      display: none
+      font-family: Verdana
+      margin-top: 3px
+      margin-left: 5px
+
+    padding: 4px 10px 4px 10px
+    position: fixed
+    opacity: 0.7
+    top: 40%
+    left: -14px
+
+    &:hover
+      opacity: 1
+      background-color: rgba(255, 255, 255, 0.8)
+
+      .mini_user_logo, span.glyphicon, h1
+        display: inline-block
+
+    .mini_user_logo
+      display: none
+      margin: 8px 0px 3px -25px
+
+      img
+        border-radius: 30px
+        height: 30px
+
+    span.glyphicon
+      display: none
+      font-size: 28px
+      color: #105f0d
+      margin: 10px 0 0 0
+
+    .logo
+      width: 90px
+      float: left
+      height: 46px
+      background: url('logo0.png') no-repeat
+      background-size: contain
+      border-radius: 30px
 
 .field_with_errors
   display: inline-block
@@ -25,10 +75,12 @@
   pointer-events: none
   opacity: 0.4
 
-
 .main_wrapper
   padding: 6px
   min-height: 800px
+
+.body.full_width
+  display: inline-block
 
 .left_wrapper, .right_wrapper
   width: 200px

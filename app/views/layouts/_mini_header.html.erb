@@ -1,0 +1,14 @@
+<div class='mini_header_wrapper'>
+    <%= link_to root_path do %>
+      <div class='logo tipsy_show_sw' original-title='На главную'></div>
+    <% end %>
+    <% if user_signed_in? %>
+      <div class='mini_user_logo tipsy_show_sw' original-title='Личный кабинет <%= "#{current_user.name}" %>'>
+        <%= link_to image_tag(current_user.avatar.url(:small)), user_path(current_user.id) %>
+      </div>
+    <% end %>
+    <%= link_to @project.preview.url(:original), :'download' => "#{@project.title}_icomposite_#{@project.width}x#{@project.height}" do %>
+      <span class='glyphicon glyphicon-download tipsy_show_sw' original-title='Сохранить'></span>
+    <% end %>
+    <h1><%= @project.title %></h1>
+</div>

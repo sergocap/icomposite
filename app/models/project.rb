@@ -69,6 +69,7 @@ class Project < ActiveRecord::Base
     pimg.composite!(region_img, region_width * region.x, region_height * region.y, Magick::OverCompositeOp)
     pimg.write(preview.path)
     preview.reprocess!
+
     to_complete if places.count == total_places_count
   end
 
