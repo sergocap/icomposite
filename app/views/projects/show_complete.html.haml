@@ -1,12 +1,12 @@
 - breadcrumb :project, @project
 .project
   .show
-    %h4= 'Выберите регион'
-
     .project_wrapper
       .left_wrapper
         = render partial: 'info_project', locals: { :project  => @project }
       .right_wrapper
         = render partial: '/users/my_places_on_project', locals: { :project  => @project, :user => current_user }
 
-      = render partial: '/regions/table', locals: { :regions  => @project.regions } if @project.development?
+      = render partial: 'complete_table_medium', locals: { :project => @project }
+
+

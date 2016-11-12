@@ -6,7 +6,10 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks"  }
 
   root 'projects#index'
+  get 'modal_resolve_size' => 'projects#get_modal_resolve_size'
   resources :projects, only: [:show] do
+    get 'complete' => 'projects#show_complete', on: :member, as: 'show_complete'
+    get 'complete_full_size' => 'projects#show_complete_full_size', on: :member, as: 'show_complete_full_size'
     resources :regions, only: [:show] do
       resources :places do
         get 'color_edit', :on => :member

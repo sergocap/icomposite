@@ -22,6 +22,7 @@ class Ability
       end
 
       cannot [:new, :edit, :destroy], Project
+      can [:get_modal_resolve_size, :show_complete, :show_complete_full_size], Project
       cannot [:new, :edit, :destroy], Region
       can :read, :all
     end
