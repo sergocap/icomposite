@@ -6,3 +6,5 @@
     myModal = new jBox('Modal', content: data )
     myModal.open()
     $('.tipsy_show_s').tipsy({gravity: 's'})
+
+

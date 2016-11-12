@@ -19,7 +19,6 @@
               %defs
                 %filter{ id: 'fp1' }
 
-                  %feColorMatrix{ class: 'filter_saturate', type: 'saturate', values: '1' }
                   %feComponentTransfer
                     %feFuncR{ class: 'filter_r', type: 'linear', slope: '1' }
                     %feFuncG{ class: 'filter_g', type: 'linear', slope: '1' }
@@ -32,7 +31,6 @@
           %defs
             %filter{ id: 'fp1' }
 
-              %feColorMatrix{ class: 'filter_saturate', type: 'saturate', values: '1' }
               %feComponentTransfer
                 %feFuncR{ class: 'filter_r', type: 'linear', slope: '1' }
                 %feFuncG{ class: 'filter_g', type: 'linear', slope: '1' }
@@ -41,18 +39,11 @@
 
           %image{ :height => '100%', :width => '100%', 'xlink:href' => @place.image.url, class: 'svg_place_image', filter: 'url(#fp1)' }
       .svg_controls
-        %span= 'Насыщенность'
-        %input{ class: 'color_input js-slider', name: 'place[saturate]', id: :saturate, type: :text, data: { value: 1, min: 0, max: 1, step: 0.1 } }
-        %br
-        %span= 'Красный'
-        %input{ class: 'color_input js-slider', name: 'place[r_component]', id: :r_component, type: :text, data: { value: 1, min: 0, max: 5, step: 0.1 } }
-        %br
-        %span= 'Зелёный'
-        %input{ class: 'color_input js-slider', name: 'place[g_component]', id: :g_component, type: :text, data: { value: 1, min: 0, max: 5, step: 0.1 } }
-        %br
-        %span= 'Синий'
-        %input{ class: 'color_input js-slider', name: 'place[b_component]', id: :b_component, type: :text, data: { value: 1, min: 0, max: 5, step: 0.1 } }
-        %br
+        .mini_colors_input
+        .inputs_rgb
+          %input{ class: 'color_input', name: 'place[r_component]', id: :r_component, type: :text, data: { value: 1, min: 0, max: 5, step: 0.1 } }
+          %input{ class: 'color_input', name: 'place[g_component]', id: :g_component, type: :text, data: { value: 1, min: 0, max: 5, step: 0.1 } }
+          %input{ class: 'color_input', name: 'place[b_component]', id: :b_component, type: :text, data: { value: 1, min: 0, max: 5, step: 0.1 } }
 
       .actions
         = link_to 'Отмена', edit_project_region_place_path(@project.id, @region.id, @place.id), class: 'btn btn-default'

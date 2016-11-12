@@ -3,4 +3,5 @@
 //= require jquery_ujs
 //= require bootstrap-slider
 //= require tipsy
+//= require jquery.minicolors.min
 //= require_tree .

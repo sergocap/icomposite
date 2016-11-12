@@ -33,20 +33,13 @@
     setSelect: [0, 0, ratiow * 10, ratioh * 10]
 
 @init_place_color_edit = ->
-  $('#saturate').on 'change', (e) ->
-    $('.filter_saturate').attr('values', $(this).val())
-  $('#r_component').on 'change', (e) ->
-    $('.filter_r').attr('slope', $(this).val())
-  $('#g_component').on 'change', (e) ->
-    $('.filter_g').attr('slope', $(this).val())
-  $('#b_component').on 'change', (e) ->
-    $('.filter_b').attr('slope', $(this).val())
-
   $('#to_default_button').on 'click', ->
-    $('.filter_saturate').attr('values', 1)
     $('.filter_r').attr('slope', 1)
     $('.filter_g').attr('slope', 1)
     $('.filter_b').attr('slope', 1)
+    $('#r_component').attr('value', 1)
+    $('#g_component').attr('value', 1)
+    $('#b_component').attr('value', 1)
 
 set_crop_preview = (c) ->
   preview_wrapper = $('.crop_preview_wrapper')
@@ -77,3 +70,24 @@ set_preview = ->
     width: Math.round(w) + 'px'
     height: Math.round(h) + 'px'
   true
+
+@init_mini_color = ->
+  $('.mini_colors_input').minicolors
+    inline: true
+    change: (hex) ->
+      set_rgb hexToRgb(hex)
+
+set_rgb = (rgb) ->
+  console.log rgb
+  $('.filter_r').attr('slope', rgb.r*5/255)
+  $('.filter_g').attr('slope', rgb.g*5/255)
+  $('.filter_b').attr('slope', rgb.b*5/255)
+  $('#r_component').attr('value', rgb.r*5/255)
+  $('#g_component').attr('value', rgb.g*5/255)
+  $('#b_component').attr('value', rgb.b*5/255)
+
+hexToRgb = (hex) ->
+  result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+  r: parseInt(result[1], 16)
+  g: parseInt(result[2], 16)
+  b: parseInt(result[3], 16)

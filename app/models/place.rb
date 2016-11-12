@@ -2,7 +2,7 @@ class Place < ActiveRecord::Base
   belongs_to :region
   belongs_to :user
   belongs_to :project
-  attr_accessor :crop_x, :crop_y, :crop_height, :crop_width, :blur, :saturate, :r_component, :g_component, :b_component
+  attr_accessor :crop_x, :crop_y, :crop_height, :crop_width, :blur, :r_component, :g_component, :b_component
   has_attached_file :image, default_url: '/images/missing.png'
   has_attached_file :big_image, default_url: '/images/missing.png'
   validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
@@ -82,7 +82,6 @@ class Place < ActiveRecord::Base
           <svg height='#{image_height}' width='#{image_width}'>
             <defs>
                   <filter id='fp1'>
-                    <feColorMatrix id='filter_saturate' type='saturate' values='#{saturate}'></feColorMatrix>
                     <feComponentTransfer>
                       <feFuncR slope='#{r_component}' type='linear'></feFuncR>
                       <feFuncG slope='#{g_component}' type='linear'></feFuncG>
