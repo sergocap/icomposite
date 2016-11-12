@@ -6,10 +6,10 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
   </head>
-  <body class='<%= "#{ 'full_width' if show_complete_project? }" %>'>
+  <body class='<%= "#{ 'full_width' if show_full_complete_project? }" %>'>
 
-    <%= render partial: 'layouts/header'      unless show_complete_project? %>
-    <%= render partial: 'layouts/mini_header' if show_complete_project? %>
+    <%= render partial: 'layouts/header'      unless show_full_complete_project? %>
+    <%= render partial: 'layouts/mini_header' if show_full_complete_project? %>
     <div class='main_wrapper'>
       <%= yield %>
     </div>

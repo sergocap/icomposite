@@ -1,0 +1,11 @@
+%table{ :width => region.medium_width.ceil, :height => region.medium_height.ceil, :background => region.preview.url(:medium)  }
+  - (0...region.count_y).each_with_index do |y, index_y|
+    %tr
+      - (0...region.count_x).each_with_index do |x, index_x|
+        %td
+          - if place = places.where(:x => index_x, :y => index_y, :state => :published).first
+            = link_to content_tag(:div, '', :style => "height: #{size_place_y_medium}px; width: #{size_place_x_medium}px"),
+              project_region_place_path(project, region, place), remote: true, class: 'ajax-place_show'
+          - else
+            = content_tag(:div, '', :style => "height: #{size_place_y_medium}px; width: #{size_place_x_medium}px" )
+
