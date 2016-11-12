@@ -12,7 +12,6 @@ class Project < ActiveRecord::Base
   validates_attachment_content_type :preview, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
   validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
   before_destroy :destroy_attachments
-  after_create :set_some_params
 
   extend Enumerize
   enumerize :category, in: ['Музыка', 'Фильмы', 'Интерьер', 'Природа', 'Животные', 'Абстракции', 'Люди', 'Города', 'Минимализм', 'Игры', 'Спорт', 'Наука', 'Техника', 'Другое']
@@ -37,8 +36,18 @@ class Project < ActiveRecord::Base
     pluck(:category).uniq.sort
   end
 
-  def set_some_params
-    update_attributes(:width => Paperclip::Geometry.from_file(Paperclip.io_adapters.for(image)).width.to_i, :height => Paperclip::Geometry.from_file(Paperclip.io_adapters.for(image)).height.to_i)
+  def crop_civil_image
+    img = Magick::Image.read(image.path)[0]
+    h = (img.rows/size_place_y).to_i * size_place_y
+    w =  (img.columns/size_place_x).to_i * size_place_x
+    img = img.crop(0, 0, w, h, true)
+    file = Tempfile.new([File.basename(image.path), '.png'])
+    img.write(file.path)
+    update_attribute(:image, file)
+    file.close
+    file.unlink
+    image.reprocess!
+    update_attributes(:width => w, :height => h)
   end
 
   def generate_preview
@@ -94,7 +103,8 @@ class Project < ActiveRecord::Base
   end
 
   def generate_regions
-    img = edit_original
+    crop_civil_image
+    img = Magick::Image.read(image.path)[0]
     (0...height).step(region_height).each_with_index do |y, index_y|
       (0...width).step(region_width).each_with_index do |x, index_x|
         img_region = img.crop(x, y, region_width, region_height, true)
@@ -111,13 +121,5 @@ class Project < ActiveRecord::Base
       end
     end
     generate_preview
-  end
-
-  def edit_original
-    img = Magick::Image.read(image.path)[0]
-    height = (img.rows/size_place_y).to_i * size_place_y
-    width =  (img.columns/size_place_x).to_i * size_place_x
-    img = img.crop(0, 0, width, height, true)
-    img
   end
 end

@@ -1,8 +1,8 @@
 .complete_project
-  %table{ :background => project.preview.url, :height => project.height, :width => project.width }
+  %table{ background: project.preview.url(:original) }
     - (0..project.regions.maximum(:y)).each_with_index do |y, index_y|
       %tr
         - (0..project.regions.maximum(:x)).each_with_index do |x, index_x|
-          %td
-            - region = project.regions.where(:x => index_x, :y => index_y).first
-            = render partial: 'places/complete_table', locals: { :places => region.places, :region => region, :project => project }
+          - region = project.regions.where(:x => index_x, :y => index_y).first
+          %td{ width: region.width, height: region.height  }
+            = render partial: 'places/complete_table', locals: { :places => region.places, :region => region, :project => project, :size_place_x => project.size_place_x, :size_place_y => project.size_place_y }
