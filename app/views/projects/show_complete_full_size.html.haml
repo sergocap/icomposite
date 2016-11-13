@@ -1,3 +1,6 @@
 .project
   .show
-    = render partial: 'complete_table', locals: { :project => @project }
+    - if cps = @project.complete_project_storage.first
+      = cps.data_full_size.html_safe
+    - else
+      = render partial: 'complete_table', locals: { :project => @project }

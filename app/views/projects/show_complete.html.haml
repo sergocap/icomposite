@@ -7,6 +7,9 @@
       .right_wrapper
         = render partial: '/users/my_places_on_project', locals: { :project  => @project, :user => current_user }
 
-      = render partial: 'complete_table_medium', locals: { :project => @project }
+      - if cps = @project.complete_project_storage.first
+        = cps.data_medium.html_safe
+      - else
+        = render partial: 'complete_table_medium', locals: { :project => @project }
 
 

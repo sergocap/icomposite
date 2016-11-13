@@ -1,6 +1,7 @@
 class Project < ActiveRecord::Base
   has_many :regions, dependent: :destroy
   has_many :places, dependent: :destroy
+  has_many :complete_project_storage
   has_attached_file :image, default_url: '/images/missing.png'
   has_attached_file :preview, default_url: '/images/missing.png', :styles => {
                                                                   :on_manage      => "64x64^",
@@ -79,10 +80,23 @@ class Project < ActiveRecord::Base
     pimg.write(preview.path)
     preview.reprocess!
 
-    to_complete if places.count == total_places_count
+    to_complete! if places.count == total_places_count
   end
 
   def to_complete!
+    view = ActionView::Base.new(ActionController::Base.view_paths, {})
+    data_medium = view.render(
+      partial: 'projects/complete_table_medium',
+      layout: false,
+      locals: { :project => self }
+    )
+    data_full_size = view.render(
+      partial: 'projects/complete_table',
+      layout: false,
+      locals: { :project => self }
+    )
+    self.complete_project_storage.delete_all
+    self.complete_project_storage.create(:data_medium => data_medium, :data_full_size => data_full_size)
     update_attribute(:state, 'complete')
   end
 

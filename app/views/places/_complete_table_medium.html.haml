@@ -5,7 +5,7 @@
         %td
           - if place = places.where(:x => index_x, :y => index_y, :state => :published).first
             = link_to content_tag(:div, '', :style => "height: #{size_place_y_medium}px; width: #{size_place_x_medium}px"),
-              project_region_place_path(project, region, place), remote: true, class: 'ajax-place_show'
+              "/projects/#{project.id}/regions/#{region.id}/places/#{place.id}", remote: true, class: 'ajax-place_show'
           - else
             = content_tag(:div, '', :style => "height: #{size_place_y_medium}px; width: #{size_place_x_medium}px" )
 
