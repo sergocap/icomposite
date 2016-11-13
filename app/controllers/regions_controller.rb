@@ -1,5 +1,3 @@
 class RegionsController < ApplicationController
-  def show
-    @region = Region.find(params['id'])
-  end
+  load_and_authorize_resource
 end

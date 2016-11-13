@@ -7,7 +7,7 @@
   .description
     %span=  project.description
 
-  %h4.statistics{ original: { title: 'Готовых/Всего' } }= "#{project.places.count}/#{project.total_places_count}"
+  %h4.statistics{ original: { title: 'Готовых/Всего' } }= "#{project.places.published.count}/#{project.total_places_count}"
   %p= "#{project.width}x#{project.height}px"
 
 

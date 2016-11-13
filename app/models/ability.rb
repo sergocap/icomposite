@@ -3,29 +3,29 @@ class Ability
 
   def initialize(user, namespace = nil, project_id = nil)
     user ||= User.new
-    case namespace
-    when nil
 
-      can :new, Place do |place|
-        user.persisted? && !project_id.nil? && Project.find(project_id).development?
-      end
-      can [:edit, :update, :destroy], Place do |place|
-        user.persisted? && place.user == user && place.project.development?
-      end
-
-      cannot [:edit, :update], Place do |place|
-        !user.persisted? || place.user != user || (!Place.is_empty?(place.region, place.x, place.y) && place.state == 'draft')
-      end
-
-      can [:edit, :update, :destroy], User do |profile|
-        profile == user
-      end
-
-      cannot [:new, :edit, :destroy], Project
-      can [:get_modal_resolve_size, :show_complete, :show_complete_full_size], Project
-      cannot [:new, :edit, :destroy], Region
-      can :read, :all
+    can [:new, :create], Place do |place|
+      user.persisted? && Project.find(project_id).development?
     end
+
+    can [:edit, :update, :destroy, :crop_edit, :color_edit], Place do |place|
+      place.user == user && place.project.development?
+    end
+
+    cannot [:edit, :update], Place do |place|
+      !Place.is_empty?(place.region, place.x, place.y) &&
+      place.state != 'published'
+    end
+
+    can :manage, User do |profile|
+      profile == user
+    end
+
+    cannot :manage, Project
+    can [:get_modal_resolve_size, :show_complete, :show_complete_full_size], Project
+
+    can :read, :all
+
     can :manage, :all if user.admin?
 
     # The first argument to `can` is the action you are giving the user

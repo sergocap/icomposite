@@ -22,5 +22,5 @@
         .user_project
           = image_tag project.preview.url(:on_manage), class: 'project_image'
           = link_to "ЯК #{project.title}", project_path(project.id), class: 'project_title'
-          %p.statistics.tipsy_show_w{ original: { title: 'Готовых/Всего' } }= "#{project.places.count}/#{project.total_places_count}"
+          %p.statistics.tipsy_show_w{ original: { title: 'Готовых/Всего' } }= "#{project.places.published.count}/#{project.total_places_count}"
           = render partial: 'my_places_on_project', locals: { :project => project, :user => @user }

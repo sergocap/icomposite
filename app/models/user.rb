@@ -11,6 +11,18 @@ class User < ActiveRecord::Base
     avatar.destroy
   end
 
+  def check_medium_avatar
+    if avatar.path && FastImage.size(avatar.path)[1] > 200
+      height_size = 200
+      resize_f = FastImage.size(avatar.path)[1] * 1.0 / height_size
+      width_size = (FastImage.size(avatar.path)[0] / resize_f).to_i
+      img = Magick::Image.read(avatar.path)[0]
+      img.resize!(width_size, height_size, Magick::LanczosFilter, 1.0)
+      img.write(avatar.path)
+      avatar.reprocess!
+    end
+  end
+
   def self.find_for_vkontakte_oauth access_token
     if user = User.where(:url => access_token.info.urls.Vkontakte).first
       user

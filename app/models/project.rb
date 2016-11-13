@@ -42,13 +42,13 @@ class Project < ActiveRecord::Base
     h = (img.rows/size_place_y).to_i * size_place_y
     w =  (img.columns/size_place_x).to_i * size_place_x
     img = img.crop(0, 0, w, h, true)
-    file = Tempfile.new([File.basename(image.path), '.png'])
+    file = Tempfile.new([File.basename(image.path), '.jpg'])
     img.write(file.path)
     update_attribute(:image, file)
+    update_attributes(:width => w, :height => h)
+    image.reprocess!
     file.close
     file.unlink
-    image.reprocess!
-    update_attributes(:width => w, :height => h)
   end
 
   def generate_preview
@@ -57,12 +57,12 @@ class Project < ActiveRecord::Base
       region_img = Magick::Image.read(region.preview.path)[0]
       pimg.composite!(region_img, region_width * region.x, region_height * region.y, Magick::OverCompositeOp)
     end
-    file = Tempfile.new(['preview', '.png'])
+    file = Tempfile.new(['preview', '.jpg'])
     pimg.write(file.path)
     update_attribute(:preview, file)
+    preview.reprocess!
     file.close
     file.unlink
-    preview.reprocess!
   end
 
   def region_height

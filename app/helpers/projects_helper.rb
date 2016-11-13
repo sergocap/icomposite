@@ -37,7 +37,5 @@ module ProjectsHelper
       'Фильмы' => '#666600',
       'Другое' => '#B734DA'
     }
-
   end
-
 end

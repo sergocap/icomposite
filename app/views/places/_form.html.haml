@@ -1,7 +1,8 @@
 - breadcrumb :place, @place_original_image
 = simple_form_for [@project, @region, @place] do |f|
-  = f.input :x, as: :hidden
-  = f.input :y, as: :hidden
+  - if action_name = 'new'
+    = f.input :x, as: :hidden
+    = f.input :y, as: :hidden
 
   .place_image_edit_wrapper
     .previews_mini_images

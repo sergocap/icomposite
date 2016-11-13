@@ -78,7 +78,6 @@ set_preview = ->
       set_rgb hexToRgb(hex)
 
 set_rgb = (rgb) ->
-  console.log rgb
   $('.filter_r').attr('slope', rgb.r*5/255)
   $('.filter_g').attr('slope', rgb.g*5/255)
   $('.filter_b').attr('slope', rgb.b*5/255)

@@ -1,19 +1,9 @@
 class Manage::ProjectsController < Manage::ApplicationController
-  load_and_authorize_resource except: [:create]
-  before_filter :find_project, only: [:destroy, :show, :edit, :update]
-
-  def new
-    @project = Project.new
-  end
-
-  def index
-    @projects = Project.order(:id)
-  end
+  load_and_authorize_resource
 
   def create
-    project = Project.new project_params
-    if project.save
-      project.generate_regions
+    if @project.save
+      @project.generate_regions
       redirect_to manage_projects_path
     else
       render :new
@@ -34,10 +24,6 @@ class Manage::ProjectsController < Manage::ApplicationController
   end
 
   private
-
-  def find_project
-    @project = Project.find(params[:id])
-  end
 
   def project_params
     params.require(:project).permit(:standart_K, :title, :description, :size_place_x, :size_place_y, :image, :category)

@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  load_and_authorize_resource :on => [:new, :edit, :destroy]
+  load_and_authorize_resource
   layout false, only: :get_modal_resolve_size
   layout 'full_size', only: :show_complete_full_size
 
