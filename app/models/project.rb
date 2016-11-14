@@ -20,6 +20,12 @@ class Project < ActiveRecord::Base
 
   scope :by_category, -> (c) { where(:category => c) }
 
+  searchable do
+    text :description, :title
+    string :category
+    string :state
+  end
+
   def Project.categories_list
     ['Музыка', 'Фильмы', 'Интерьер', 'Природа', 'Животные', 'Абстракции', 'Люди', 'Города', 'Минимализм', 'Игры', 'Спорт', 'Наука', 'Техника'].sort << 'Другое'
   end

@@ -1,15 +1,16 @@
 class ProjectsController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource except: :index
   layout false, only: :get_modal_resolve_size
   layout 'full_size', only: :show_complete_full_size
 
   def index
-    if params[:category].present?
-      @projects = Project.by_category(params[:category])
-    else
-      @projects = Project.all
+    @query = Project.search do
+      fulltext params[:search]
+      with :category, params[:category] if params[:category]
+      with :state,    params[:state]    if params[:state] && params[:state] != 'all'
     end
-    @projects = @projects.order(:id)
+
+    @projects = @query.results
   end
 
   def show

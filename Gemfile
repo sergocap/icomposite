@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'progress_bar'
 gem 'gretel'
 gem 'fastimage'
 gem 'bootstrap-glyphicons'
@@ -25,6 +26,8 @@ gem 'simple_form'
 gem 'paperclip'
 gem 'rmagick', '~> 2.15', '>= 2.15.2'
 gem 'jcrop-rails-v2', '~> 0.9.12.3'
+gem 'sunspot_rails'
+gem 'sunspot_solr'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

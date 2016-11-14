@@ -1,5 +1,21 @@
 .left_wrapper
 .right_wrapper
+
+.search_wrapper
+  = form_for root_path, method: 'get' do
+    = text_field_tag 'search', params[:search], placeholder: 'Поиск', class: 'form-control'
+    %div{ class: 'state_toggle', 'data-toggle': 'buttons' }
+      %label.btn.btn-default.btn-circle{ class: "#{'active' if params[:state] == 'all'}" }
+        = radio_button_tag :state, 'all', params[:state] == 'all' ? true : false
+        %i.glyphicon.glyphicon-home
+      %label.btn.btn-default.btn-circle{ class: "#{'active' if params[:state] == 'complete'}" }
+        = radio_button_tag :state, 'complete', params[:state] == 'complete' ? true : false
+        %i.glyphicon.glyphicon-ok
+      %label.btn.btn-default.btn-circle{ class: "#{'active' if params[:state] == 'development'}" }
+        = radio_button_tag :state, 'development', params[:state] == 'development' ? true : false
+        %i.glyphicon.glyphicon-cog
+    = hidden_field_tag 'category', params[:category] if params[:category]
+    = submit_tag  'Найти', class: 'btn btn-default'
 .projects
   - @projects.each do |project|
     = render partial: 'project', locals: { :project => project }
