@@ -16,11 +16,13 @@
 !/log/.keep
 /tmp
 *.png
-!app/assets/images/*.png
 *.swp
 erd.pdf
+solr/pids/development/*
 *.jpg
 /public/assets
+!app/assets/images/*.png
+!app/assets/images/*.jpg
 
 config/settings.local.yml
 config/settings/*.local.yml

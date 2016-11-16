@@ -17,7 +17,8 @@
 	list-style: none;
 	position: relative;
   padding: 0;
-  width: 100%
+  width: 100%;
+  border-top: 1px solid
 }
 #menu li {
 	display: inline-block;
@@ -26,12 +27,11 @@
 	position: relative;
 	z-index: 200;
 	color: #bbb;
-	font-size: 13px;
+	font-size: 15px;
 	display: block;
 	float: left;
 	padding: 6px 10px 4px 10px;
 	text-decoration: none;
-	text-transform: uppercase;
 }
 #menu li a:hover {
 	color: white;
@@ -42,9 +42,6 @@
 	left: 0;
 	width: 100px;
 	z-index: 100;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	border-radius: 5px;
 }
 .current_page_item a {
 	color: white !important;

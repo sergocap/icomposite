@@ -96,33 +96,55 @@ body.full_size
   float: right
 
 .header_wrapper
-  background: linear-gradient(to top, #000000, #9b3d3d)
   .main_banner
-    background: url('logo.png') no-repeat
-    background-size: contain
+    height: 85px
+    overflow: hidden
+    background: url('background.jpg') no-repeat
+    background-size: cover
+    background-color: black
 
     .logo
-      height: 100px
-
-      .user_logo
-        display: inline-block
-        float: right
-        height: 100%
-        img
-          margin: 18px 18px 0 0
-          border-radius: 39px
-          height: 64px
-          width: 64px
-
-    .actions
-      text-align: right
-      padding-right: 18px
-      margin-left: 1000px
-      background: white
+      height: 55px
+      width: 149px
+      background: url('logotype.png') no-repeat
+      background-size: contain
+      display: inline-block
+      margin: 23px 0 0 20px
 
       span
-        float: left
-        margin-left: 10px
+        float: right
+        margin-top: 29px
+        font-size: 25px
+        color: lightyellow
+        font-weight: bold
+
+    .user_logo
+      float: right
+      padding: 15px
+      margin-right: 10px
+      img
+        border-radius: 50px
+        height: 50px
+
+    .user_actions
+      display: inline-block
+      float: right
+      height: 100%
+      text-align: right
+      padding-top: 13px
+      padding-right: 10px
+
+      a, h4
+        color: white
+        margin: 0
+        display: block
+
+  a.adminka_link
+    color: white
+    float: right
+    position: absolute
+    top: 56px
+    left: 17px
 
   .categories_menu
     text-align: center
