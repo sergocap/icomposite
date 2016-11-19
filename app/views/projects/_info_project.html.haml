@@ -1,14 +1,19 @@
 .info_project
   .title
-    %h3= project.title
+    - if project.complete?
+      %span.glyphicon.glyphicon-ok{ 'original-title': 'Завершён' }
+    %h3{ style: "background: #{color_by_category(project.category)}"}= project.title
     - if can? :edit, project
       = link_to edit_manage_project_path(project) do
         %span.glyphicon.glyphicon-pencil
+
   .description
     %span=  project.description
 
   %h4.statistics{ original: { title: 'Готовых/Всего' } }= "#{project.places.published.count}/#{project.total_places_count}"
   %p= "#{project.width}x#{project.height}px"
-
-
-
+  - if project.complete?
+    %div
+      = link_to 'Открыть в полном размере', show_complete_full_size_project_path(project.id)
+  = link_to project.preview.url(:original), :'download' => "#{project.title}_icomposite_#{project.width}x#{project.height}" do
+    <span class='glyphicon glyphicon-download tipsy_show_sw' original-title='Сохранить'></span>

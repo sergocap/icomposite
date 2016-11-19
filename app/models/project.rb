@@ -2,6 +2,7 @@ class Project < ActiveRecord::Base
   has_many :regions, dependent: :destroy
   has_many :places, dependent: :destroy
   has_many :complete_project_storage
+  has_many :users, through: :places
   has_attached_file :image, default_url: '/images/missing.png'
   has_attached_file :preview, default_url: '/images/missing.png', :styles => {
                                                                   :on_manage      => "64x64^",
@@ -13,6 +14,8 @@ class Project < ActiveRecord::Base
   validates_attachment_content_type :preview, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
   validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
   before_destroy :destroy_attachments
+  scope :completed, -> { where(:state => 'complete') }
+  scope :development, -> { where.not(:state => 'development') }
 
   extend Enumerize
   enumerize :category, in: ['Музыка', 'Фильмы', 'Интерьер', 'Природа', 'Животные', 'Абстракции', 'Люди', 'Города', 'Минимализм', 'Игры', 'Спорт', 'Наука', 'Техника', 'Другое']

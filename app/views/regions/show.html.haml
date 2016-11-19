@@ -3,12 +3,15 @@
   %h4='Выберите ячейку'
   .left_wrapper
     = render partial: '/projects/info_project', locals: { :project  => @region.project }
+    = render partial: '/projects/users_on_project', locals: { :project => @region.project }
   .right_wrapper
     = render partial: '/users/my_places_on_region', locals: { :region  => @region, :user => current_user }
+    = render partial: '/users/my_places_on_project', locals: { :project  => @region.project, :user => current_user }
+    = render partial: '/projects/last_places', locals: { :project => @region.project }
   .image
     = render partial: 'places/table', locals: { :places => @region.places, :region => @region, :project => @region.project }
     %div= "Регион #{@region.x}-#{@region.y}"
-  %br
-  .project_preview
-    = link_to image_tag(@region.project.preview.url(:on_navigation)), project_path(@region.project)
-    %p= link_to "ЯК \"#{@region.project.title}\"", project_path(@region.project)
+    %br
+    .project_preview
+      = link_to image_tag(@region.project.preview.url(:on_navigation)), project_path(@region.project)
+      %p= link_to "ЯК \"#{@region.project.title}\"", project_path(@region.project)

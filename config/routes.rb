@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   root 'projects#index'
   get 'modal_resolve_size' => 'projects#get_modal_resolve_size'
+  get 'close_message' => 'application#close_message'
+  get 'show_message' => 'application#show_message'
   resources :projects, only: [:show] do
     get 'complete' => 'projects#show_complete', on: :member, as: 'show_complete'
     get 'complete_full_size' => 'projects#show_complete_full_size', on: :member, as: 'show_complete_full_size'

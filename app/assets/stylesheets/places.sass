@@ -20,40 +20,56 @@
     text-align: left
 
   .show
+
+    .link
+      font-size: 20px
+      width: 30px
+      text-align: center
+
+    .glyphicon-ok-circle, .glyphicon-cog
+      float: right
+      margin-right: 1px
+      font-size: 15px
+
     .simple_form
       width: auto
       margin: 0
       padding: 0
-      text-align: left
+
+    td.link
+      color: #202020
+
+      &:hover
+        background: #434343
+        color: azure
+
+    td.link.active
+      background: #202020
+      color: azure
+
+    td.center
+      text-align: center
+
+    table.sub_table
+      td.small
+        min-width: 70px
+        vertical-align: bottom
+        padding: 5px
+
+    .image
+      box-shadow: 0 0 3px
       display: inline-block
 
-      .actions
-        margin: 10px 0 0 0
+    .user
+      img
+        width: 25px
+        height: 25px
+        border-radius: 30px
+        box-shadow: 0 0 3px
 
-    p, a, .image, .actions
-      display: inline-block
-      margin: 0px
-
-    .info
-      .comment
-        margin-top: 10px
-
-      .glyphicon
-        float: right
-        margin-left: 20px
-
-      .user
-        float: right
-        margin-left: 8px
-        margin-right: 3px
-
-        img
-          width: 25px
-          height: 25px
-          border-radius: 20px
-
-    .btn
-      margin-top: 0
+    .comment
+      text-align: center
+      margin-top: 5px
 
 
   .simple_form
@@ -63,14 +79,18 @@
     padding: 0 10px 0 10px
     text-align: center
 
-    #place_comment
+    #place_comment, #place_link
       display: inline-block
       margin-top: 15px
-      width: 596px
-      text-align: center
-      height: 44px
-      font-size: 16px
+      width: 295px
+      font-size: 14px
       font-family: Verdana
+
+    .place_comment.input, .place_link.input
+      display: inline-block
+
+    #place_link
+      margin-top: 3px
 
     .actions
       margin: 0px
@@ -96,6 +116,10 @@
     display: block
     max-width:  1000px
     max-height: 500px
+
+  .new
+    width: 892px
+    margin: 0 auto
 
 .places
   .place:hover

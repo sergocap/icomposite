@@ -4,8 +4,10 @@
     .project_wrapper
       .left_wrapper
         = render partial: 'info_project', locals: { :project  => @project }
+        = render partial: 'users_on_project', locals: { :project => @project }
       .right_wrapper
         = render partial: '/users/my_places_on_project', locals: { :project  => @project, :user => current_user }
+        = render partial: 'last_places', locals: { :project => @project }
 
       - if cps = @project.complete_project_storage.first
         = cps.data_medium.html_safe

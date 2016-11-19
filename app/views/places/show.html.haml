@@ -1,30 +1,54 @@
 .place
   .show
-    .info
-      .image= image_tag @place.image.url
+    %table.main_table
+      %tr
+        %td.link.left
+          .glyphicon.glyphicon-chevron-left
 
-      .user
-        =link_to image_tag(@place.user.avatar.url(:small)), user_path(@place.user.id), class: 'tipsy_show_s', 'original-title': @place.user.name if @place.user.present?
+        %td
+          %table.sub_table
+            %tr
+              %td.small
+                - if @place.state == :published
+                  .glyphicon.glyphicon-ok-circle.tipsy_show_s{ 'original-title': 'Опубликованно' }
+                - else
+                  .glyphicon.glyphicon-cog.tipsy_show_s{ 'original-title': 'В черновиках' }
 
-      - if @place.state == :published
-        .glyphicon.glyphicon-ok.tipsy_show_s{ 'original-title': 'Опубликованно' }
-      - else
-        .glyphicon.glyphicon-cog.tipsy_show_s{ 'original-title': 'В черновиках' }
+              %td.center
+                .image
+                  = image_tag @place.image.url
 
-      - if @place.comment.present?
-        .comment
-          = @place.comment
-    - if @place.user == current_user && !@project.complete?
-      = simple_form_for [@project, @region, @place] do |f|
-        = f.input :x, as: :hidden
+              %td.small
+                .user
+                  =link_to image_tag(@place.user.avatar.url(:small)), user_path(@place.user.id), class: 'tipsy_show_s', 'original-title': @place.user.name if @place.user.present?
 
-        .actions
-          = link_to 'Удалить', project_region_place_path(@project.id, @region.id, @place.id), class: 'btn btn-default', data: { :confirm => 'Вы уверены?' }, method: :delete if can? :destroy, @place
-          = link_to 'Редактировать', edit_project_region_place_path(@project.id, @region.id, @place.id), class: 'btn btn-default' if can? :edit, @place
+            %tr
+              %td{ colspan: 3 }
+                - if @place.comment.present? && @place.link.present?
+                  .comment
+                    = link_to @place.comment, @place.link, target: '_blank'
+                - elsif @place.comment.present?
+                  .comment
+                    &laquo;
+                    = @place.comment
+                    &raquo;
+                - elsif @place.link.present?
+                  .comment
+                    = link_to @place.link, @place.link, target: '_blank'
+            %tr
+              %td{ colspan: 3 }
+                - if @place.user == current_user && !@project.complete?
+                  = simple_form_for [@project, @region, @place] do |f|
+                    = f.input :x, as: :hidden
 
-          - if @place.state != :published && can?(:edit, @place)
-            = f.submit 'Опубликовать', class: 'btn btn-success'
-          - elsif @place.state != :published && !Place.is_empty?(@region, @place.x, @place.y)
-            %p= "Место уже занято. Можете удалять картинку"
+                    .actions
+                      = link_to 'Удалить', project_region_place_path(@project.id, @region.id, @place.id), class: 'btn btn-default', data: { :confirm => 'Вы уверены?' }, method: :delete if can? :destroy, @place
+                      = link_to 'Редактировать', edit_project_region_place_path(@project.id, @region.id, @place.id), class: 'btn btn-default' if can? :edit, @place
 
+                      - if @place.state != :published && can?(:edit, @place)
+                        = f.submit 'Опубликовать', class: 'btn btn-success'
+                      - elsif @place.state != :published && !Place.is_empty?(@region, @place.x, @place.y)
+                        %p= "Место уже занято. Можете удалять картинку"
+        %td.link.right
+          .glyphicon.glyphicon-chevron-right
 

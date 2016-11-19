@@ -19,6 +19,7 @@
 *.swp
 erd.pdf
 solr/pids/development/*
+solr/development/*
 *.jpg
 /public/assets
 !app/assets/images/*.png

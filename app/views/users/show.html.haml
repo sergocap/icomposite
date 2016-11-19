@@ -5,7 +5,12 @@
     %h4= "Всего #{@user.places.published.count} картинок"
     - @user.places.published.order('updated_at desc').each do |place|
       %div
-        = place.comment
+        - if place.comment.present? && place.link.present?
+          = link_to place.comment, place.link, target: '_blank'
+        - elsif place.comment.present?
+          = place.comment
+        - elsif place.link.present?
+          = link_to place.link, place.link, 'target': '_blank'
         = render partial: 'place', locals: { place: place }
 
   .center_block

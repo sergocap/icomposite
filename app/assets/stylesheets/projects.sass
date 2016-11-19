@@ -1,9 +1,20 @@
 .project_preview_on_index
   width:  200px
 
+.place, .project .show, .region_show, .user
+  .left_wrapper, .right_wrapper
+    padding: 10px
+
+  .left_wrapper
+    border-right: 1px solid #ccc
+
+  .right_wrapper
+    border-left: 1px solid #ccc
+
 .project .show
   text-align: center
   margin: 0 auto
+
 
   .regions
     display: inline-block
@@ -12,15 +23,41 @@
     margin: 0 auto
     display: inline-block
 
+.users_on_project
+  padding-top: 10px
+  h4
+    text-align: right
+  .user
+    text-align: right
+    margin-top: 10px
+
+    img
+      height: 40px
+      border-radius: 30px
+
+.last_places_on_project
+  text-align: left
+
 .info_project
+  border-bottom: 1px solid #ccc
   text-align: right
   padding-left: 15px
 
+  .glyphicon-download
+    font-size: 20px
+
+  .glyphicon-ok
+    font-size: 20px
+    color: darkgreen
+
   .title
     h3
-      display: inline-block
+      display: block
       font-size: 30px
       margin: 0 0 10px 0
+      //background: #202020
+      color: antiquewhite
+      text-align: center
     a
       margin-left: 5px
       font-size: 24px
@@ -31,17 +68,38 @@
 
 .my_places_project
   text-align: left
-  padding-right: 15px
+  border-bottom: 1px solid #ccc
+  margin-bottom: 15px
 
   div
     margin-bottom: 10px
   p
     margin-bottom: 0px
 
-.projects
+.info_icomposite_mini
+  text-align: center
+  h2, a
+    display: inline-block
+  h2
+    margin-top: 10px
+    margin-bottom: 0px
+  .glyphicon
+    font-size: 10px
+
+.info_icomposite
+  padding: 20px
+  margin: 10px auto
+  width: 850px
+  border: 1px solid #cacadb
+  border-radius: 5px
+
+.main_wrapper > .projects
 
   width: 892px
   margin: 0 auto
+
+  a.show_hide_search
+    color: #616161
 
   .project
     display: inline-block
@@ -87,12 +145,13 @@
 
 
 .search_wrapper
-  width: 892px
-  margin: 0 auto
+  text-align: left
+  padding: 0 0 5px 5px
+  border-bottom: 1px solid #e1e1e1
 
   input[type='text']
     display: inline-block
-    width: 400px
+    width: 200px
 
   .btn
     margin-top: 0px

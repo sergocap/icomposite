@@ -1,0 +1,9 @@
+.last_places_on_project
+  %h4= 'Последние публикации пользователей'
+  - if project.places.present?
+    - project.places.published.order(:updated_at).first(10).each do |place|
+      .place
+        = render partial: 'users/place', locals: { :place => place}
+        = render partial: 'places/message', locals: { :place => place }
+  - else
+    = 'Нет публикаций'

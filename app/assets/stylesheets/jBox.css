@@ -25,13 +25,13 @@
 }
 
 .jBox-content {
-	padding: 8px 10px;
+  /*padding: 8px 10px;*/
 	overflow: auto;
 	-webkit-transition: opacity .15s;
 	transition: opacity .15s;
 }
 
-.jBox-content .glyphicon-ok {
+.jBox-content .glyphicon-ok, .jBox-content .glyphicon-ok-circle{
   color: green
 }
 
@@ -146,7 +146,7 @@
 /* jBox Modal */
 
 .jBox-Modal .jBox-content {
-	padding: 12px 15px;
+  padding: 10px
 }
 
 /* jBox Confirm */
@@ -211,7 +211,7 @@
 }
 
 .jBox-Notice .jBox-container {
-	border-radius: 3px;
+	/*border-radius: 3px;*/
 	box-shadow: 0 0 3px rgba(0, 0, 0, .2);
 	color: #fff;
 	text-shadow: 0 -1px 0 #000;

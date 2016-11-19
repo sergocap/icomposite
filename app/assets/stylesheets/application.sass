@@ -80,14 +80,16 @@ body.full_size
 
 .main_wrapper
   padding: 6px
-  min-height: 800px
+  min-height: 500px
+  width: 100%
+  display: inline-block
 
 .body.full_width
   display: inline-block
 
 .left_wrapper, .right_wrapper
   width: 200px
-  height: 400px
+  min-height: 200px
 
 .left_wrapper
   float: left
@@ -96,6 +98,7 @@ body.full_size
   float: right
 
 .header_wrapper
+  height: 115px
   .main_banner
     height: 85px
     overflow: hidden
@@ -104,12 +107,12 @@ body.full_size
     background-color: black
 
     .logo
-      height: 55px
-      width: 149px
-      background: url('logotype.png') no-repeat
+      height: 45px
+      width: 134px
+      background: url('logogogo.png') no-repeat
       background-size: contain
       display: inline-block
-      margin: 23px 0 0 20px
+      margin: 18px 0 0 17px
 
       span
         float: right
@@ -148,8 +151,28 @@ body.full_size
 
   .categories_menu
     text-align: center
+    position: fixed
+    top: 85px
+    z-index: 10000
+    width: 100%
 
 .breadcrumb
-  padding: 5px 0 0 210px
+  padding: 6px 0 0 220px
   margin-bottom: 0px
   background-color: #fafafa
+
+.footer
+  height: 36px
+  width: 100%
+  background: #202020
+  margin-top: 30px
+  text-align: right
+
+  .info
+    display: inline-block
+    margin-top: 7px
+    margin-right: 25px
+
+    *
+      margin: 5px
+      color: beige

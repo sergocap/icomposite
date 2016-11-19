@@ -1,22 +1,46 @@
 .left_wrapper
 .right_wrapper
 
-.search_wrapper
-  = form_for root_path, method: 'get' do
-    = text_field_tag 'search', params[:search], placeholder: 'Поиск', class: 'form-control'
-    %div{ class: 'state_toggle', 'data-toggle': 'buttons' }
-      %label.btn.btn-default.btn-circle{ class: "#{'active' if params[:state] == 'all'}" }
-        = radio_button_tag :state, 'all', params[:state] == 'all' ? true : false
-        %i.glyphicon.glyphicon-home
-      %label.btn.btn-default.btn-circle{ class: "#{'active' if params[:state] == 'complete'}" }
-        = radio_button_tag :state, 'complete', params[:state] == 'complete' ? true : false
-        %i.glyphicon.glyphicon-ok
-      %label.btn.btn-default.btn-circle{ class: "#{'active' if params[:state] == 'development'}" }
-        = radio_button_tag :state, 'development', params[:state] == 'development' ? true : false
-        %i.glyphicon.glyphicon-cog
-    = hidden_field_tag 'category', params[:category] if params[:category]
-    = submit_tag  'Найти', class: 'btn btn-default'
+.info_icomposite_mini
+  %h2= 'ЯКи'
+  - if current_user
+    = link_to show_message_path, remote: true, class: "i_wanna_write" do
+      %span.glyphicon.glyphicon-info-sign
+
+.info_icomposite{ style: "display:#{current_user.try(:i_write) ? 'none' : 'block'}"}
+  %span
+    ЯК (аббр. от "IComposite" - ЯКомпозитен) — веб-проект по созданию
+    фотомозаики вручную, кропотливо, поштучно, с душой;
+    и ещё животное из рода настоящие быки семейства полорогих.
+  %ul
+    %h3= 'Зачем это?'
+    %li= 'Незачем. Практической выгоды от этого сайта вы скорее всего не получите'
+    %li= "Оставить послание, мысль человечеству - это может быть набор букв, анекдот, <br>выше мнение по чему-либо или ссылка на интересный интернет-ресурс".html_safe
+    - Place.all.sample(10).each do |place|
+      = render partial: 'users/place', locals: { place: place }
+    %li= 'Ощутить себя частью чего-то большего работая над одним проектом <br>вместе со остальными знакомыми и незнакомыми людьми <br>ради достижения большого результата'.html_safe
+    - Project.completed.sample(10).each do |project|
+      = link_to image_tag(project.preview.url(:on_manage)), project_path(project.id)
+
+  %ul
+    %h3= 'Как принять участие:'
+    %li= 'Выбрать ЯКа, регион и место'
+    %li= 'Загрузить любое изображение и редактировать его'
+    %li= 'Оставить послание от себя'
+    %li= 'Опубликовать изображение на ЯКе'
+
+  - if current_user
+    = link_to close_message_path, remote: true, class: 'i_write' do
+      %span= 'Скрыть сообщение'
+  - else
+    = '(Скрыть сообщение можно будет после входа в систему)'
+
+
+
 .projects
+
+  = render partial: 'search'
+
   - @projects.each do |project|
     = render partial: 'project', locals: { :project => project }
 

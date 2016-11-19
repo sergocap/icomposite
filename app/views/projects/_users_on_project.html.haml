@@ -1,0 +1,10 @@
+.users_on_project
+  %h4= 'Участники проекта'
+  - if project.users.count > 0
+    - project.users.uniq.each  do |user|
+      .user
+        = link_to user.name, user_path(user.id)
+        = link_to image_tag(user.avatar.url(:small)), user_path(user.id)
+  - else
+    .user
+      = 'Пока нет участников'
